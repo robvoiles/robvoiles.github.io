@@ -20,7 +20,7 @@ function buttonAddAmount(amtAdd) {
   document.getElementById("p2").style.color = B80F0A;
  }
  
-  }
+  
 
 
 
