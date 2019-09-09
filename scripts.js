@@ -11,12 +11,12 @@ function buttonAddAmount(amtAdd) {
     currHealth = maxHealth;
   }
   document.getElementsByTagName("progress").item(0).value = currHealth;
-  document.getElementById("currentHealth").innerText = (currHealth) + "  /  " + (maxHealth);
+  document.getElementsByTagName("progress").item(0).innerText = (currHealth) + "  /  " + (maxHealth);
   if (currHealth <= (maxHealth / 2))  {
-    document.getElementById("progress").color = "blue";
+    document.getElementsByTagName("progress").item(0).color = "blue";
   }
   if (currHealth > (maxHealth / 2) ) {
-    document.getElementById("p2").style.color = B80F0A;
+    document.getElementsByTagName("progress").item(0).style.color = B80F0A;
   }
 
 }
