@@ -14,9 +14,9 @@ function buttonAddAmount(amtAdd) {
   document.getElementById("currentHealth").innerText = (currHealth) + "  /  " + (maxHealth);
   if (currHealth <= (maxHealth / 2))
  {
-    document.getElementById("progress").color = "blue"
+    document.getElementById("progress").color = "blue";
   }
-  if (currHealth > (maxHealth / 2) )
+  if (currHealth > (maxHealth / 2) );
  {
     document.getElementById("p2").style.color = B80F0A;
   }
