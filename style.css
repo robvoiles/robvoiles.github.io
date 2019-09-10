@@ -1,3 +1,8 @@
+/**
+ * Genius
+ * Copyright 2018 - HTML.Design
+ * Licensed under  (Creative Commons 3.0)
+ */
 
 @font-face {
     font-family: "Flaticon";
@@ -71,6 +76,7 @@ progress {
     width: 255px;
     position: relative;
     left: 25px;
+    color: rgb(74, 201, 0);
 }
 
 /* Style the buttons that are used to open and close the accordion panel */
@@ -235,7 +241,153 @@ body {
 }
 
 
-/* Tooltip text */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.charTopStatsVar {
+    background: transparent;
+    z-index: 2;
+    position: relative;
+    margin-left: 100px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 20px;
+}
+
+.charTopStatsStatic {
+    background: transparent;
+    position: absolute;
+    left: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 20px;
+    z-index: 2;
+}
+
+.charTopStatsVar .tooltiptext {
+    visibility: hidden;
+    font-size: 14px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 20;
+    bottom: 0%;
+    margin-left: 0%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.charTopStatsVar .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.charTopStatsVar:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+
+.charArmorVar .tooltiptext {
+    visibility: hidden;
+
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 20;
+    bottom: 5%;
+    margin-left: 0%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.charArmorVar .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.charArmorVar:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+.charWeaponVar .tooltiptext {
+    visibility: hidden;
+
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 20;
+    bottom: 25%;
+    margin-left: 5%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.charWeaponVar .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.charWeaponVar:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
+
+
+
+
 
 .charStatVar .tooltiptext {
     visibility: hidden;
@@ -246,9 +398,9 @@ body {
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    z-index: 1;
-    bottom: 50%;
-    margin-left: -30%;
+    z-index: 20;
+    bottom: 0%;
+    margin-left: 0%;
     opacity: 0;
     transition: opacity 0.3s;
 }
@@ -681,7 +833,7 @@ MOBILE MENU
 }
 
 .navbar-inverse .nav>li>a {
-    padding-left: 10px;
+    padding-left: 15%;
     padding-right: 10px;
 }
 

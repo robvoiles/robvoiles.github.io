@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/carousel.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
 
     <!--[if lt IE 9]>
 		<script src="js/vendor/html5shiv.min.js"></script>
@@ -46,8 +47,8 @@
             <nav class="navbar navbar-inverse">
                 <div class="container-fluid">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                            aria-controls="navbar">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -60,7 +61,8 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                    aria-haspopup="true" aria-expanded="false">Home
                                     <span class="fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -117,24 +119,23 @@
         <section id='forms'>
 
 
-
             <section id='health'>
 
                 <div class="CharHealthStatic">Current Health: </div>
                 <div id="currentHealth" class="CharHealthVar">6 / 7 </div>
 
 
-                <progress value="6" max="7" ID="myprogress"s>
+                <progress value="6" max="7">
                 </progress>
             </section>
             <div class="btn-group-subtract">
-           
-                    <button onclick="buttonAddAmount(-1)">-1</button>
-                    <button onclick="buttonAddAmount(-5)">-5</button>
-                    <button onclick="buttonAddAmount(-10)">-10</button>
-                </div>
+
+                <button onclick="buttonAddAmount(-1)">-1</button>
+                <button onclick="buttonAddAmount(-5)">-5</button>
+                <button onclick="buttonAddAmount(-10)">-10</button>
+            </div>
             <div class="btn-group-add">
-          
+
                 <button onclick="buttonAddAmount(1)">+1</button>
                 <button onclick="buttonAddAmount(5)">+5</button>
                 <button onclick="buttonAddAmount(10)">+10</button>
@@ -142,42 +143,64 @@
 
 
             <br>
+
+
+
+
+            <div class="charTopStatsStatic">AC: </div>
+            <p id="tooltip" class="charTopStatsVar">
+                <a title="AC: 16 (10 +5[plate armor] +1[Shield])">16</a>
+            </p>
             <br>
+
 
 
             <button class="accordion">Main Stats</button>
             <div class="panelStats">
                 <br>
-                <div class="CharStatStatic">Strength: </div>
 
-                <div class="charStatVar">16
-                    <span class="tooltiptext">Strength: 16 (16+0)</span>
-                    <span class="charStatModifier">Modifier: (+3)</span>
+                <div id="tooltip" class="CharStatStatic">
+                    <a title="Strength: 16 (16+0)">Strength:</a>
                 </div>
+                <p id="tooltip" class="charStatVar">
+                    <a title="Strength: 16 (16+0)">16</a>
+                    <a title="Strength: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                </p>
 
-                <div class="CharStatStatic">Dexterity: </div>
 
-                <div class="charStatVar">16
-                    <span class="tooltiptext">Dexterity: 16 (16+0)</span>
-                    <span class="charStatModifier">Modifier: (+3)</span>
+                <div id="tooltip" class="CharStatStatic">
+                    <a title="Dexterity: 16 (16+0)">Dexterity:</a>
                 </div>
+                <p id="tooltip" class="charStatVar">
+                    <a title="Dexterity: 16 (16+0)">16</a>
+                    <a title="Dexterity: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                </p>
 
-                <div class="CharStatStatic">Constitution: </div>
-                <div class="charStatVar">16
-                    <span class="tooltiptext">Constitution: 16 (16+0)</span>
-                    <span class="charStatModifier">Modifier: (+3)</span>
-                </div>
-                <div class="CharStatStatic">Wisom: </div>
 
-                <div class="charStatVar">16
-                    <span class="tooltiptext">Wisom: 16 (16+0)</span>
-                    <span class="charStatModifier">Modifier: (+3)</span>
+                <div id="tooltip" class="CharStatStatic">
+                    <a title="Constitution: 16 (16+0)">Constitution:</a>
                 </div>
-                <div class="CharStatStatic">Intelligence: </div>
-                <div class="charStatVar">16
-                    <span class="tooltiptext">Intelligence: 16 (16+0)</span>
-                    <span class="charStatModifier">Modifier: (+3)</span>
+                <p id="tooltip" class="charStatVar">
+                    <a title="Constitution: 16 (16+0)">16</a>
+                    <a title="Constitution: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                </p>
+
+                <div id="tooltip" class="CharStatStatic">
+                    <a title="Wisdom: 16 (16+0)">Wisdom:</a>
                 </div>
+                <p id="tooltip" class="charStatVar">
+                    <a title="Wisdom: 16 (16+0)">16</a>
+                    <a title="Wisdom: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                </p>
+
+                <div id="tooltip" class="CharStatStatic">
+                    <a title="Intelligence: 16 (16+0)">Intelligence:</a>
+                </div>
+                <p id="tooltip" class="charStatVar">
+                    <a title="Intelligence: 16 (16+0)">16</a>
+                    <a title="Intelligence: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                </p>
+
                 <br>
 
             </div>
@@ -213,8 +236,45 @@
                 </div>
 
             </div>
+
+
+
+            <br><button class="accordion">Equipment</button>
+            <div class="panel">
+
+
+                <button class="accordion">Weapons</button>
+                <div class="panel">
+                    <br>
+
+
+                    <div id="tooltip" class="charWeaponVar">
+                        <a title="Damage: 1d6 (one-handed)">Longsword</a>
+                    </div>
+
+                </div>
+                <br>
+                <button class="accordion">Armor</button>
+                <div class="panel">
+                    <br>
+
+                    <div id="tooltip" class="charArmorVar">
+                        <a title="Armor: +5 (heavy,-stealth)">Plate Mail</a>
+                    </div>
+
+                    <div id="tooltip" class="charArmorVar">
+                        <a title="Armor: +1 (one-handed)">Shield</a>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
         </section>
     </div>
+
 
 
 
@@ -235,15 +295,24 @@
             });
         }
     </script>
+
+
     <!-- jQuery Files -->
+    <script src="external/jquery/jquery.js"></script>
     <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+      <script src="js/bootstrap.min.js"></script> 
     <script src="js/carousel.js"></script>
     <script src="js/parallax.js"></script>
     <script src="js/rotate.js"></script>
-    <script src="js/custom.js"></script>
+      <script src="js/custom.js"></script> 
     <script src="js/masonry.js"></script>
     <script src="js/masonry-4-col.js"></script>
+    <script src="jquery-ui.js"></script>
+
+
+
+
+
 </body>
 
 </html>
