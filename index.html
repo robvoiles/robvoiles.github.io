@@ -306,13 +306,13 @@
  document.getElementById("currentHealth").innerText = (currHealth) + "  /  " + (maxHealth); 
 
  if (currHealth <= (maxHealth / 2)) {
-  document.getElementsByTagName("progress").item(0).style.color = "#B80F0A";
+  document.getElementsByTagName("progress").item(0).style.color = "rgb(184,15,10)";
 	 console.log(currHealth);
 	 console.log('in the red');
 }
 if (currHealth > (maxHealth / 2) ) 
 {
-  document.getElementsByTagName("progress").item(0).style.color = "#4ac900";
+  document.getElementsByTagName("progress").item(0).style.color = "rgb(57,201,0)";
 		 console.log(currHealth);
 	 console.log('good to go');
 }
