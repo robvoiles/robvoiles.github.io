@@ -296,7 +296,27 @@
         }
     </script>
 
+    <script>
+	function buttonAddAmount(amtAdd) {
+  var currHealth = document.getElementsByTagName("progress").item(0).value + amtAdd;
+  var maxHealth = document.getElementsByTagName("progress").item(0).max;
+  if (currHealth > maxHealth)
+  {
+    currHealth = maxHealth;
+  }
+  document.getElementsByTagName("progress").item(0).value = currHealth;
+ document.getElementById("currentHealth").innerText = (currHealth) + "  /  " + (maxHealth); 
 
+ if (currHealth <= (maxHealth / 2)) {
+  document.getElementsByTagName("progress").item(0).style.color = "#B80F0A";
+}
+if (currHealth > (maxHealth / 2) ) 
+{
+  document.getElementsByTagName("progress").item(0).style.color = "#4ac900";
+}
+}
+  </script>	
+	
     <!-- jQuery Files -->
     <script src="external/jquery/jquery.js"></script>
     <script src="js/jquery.min.js"></script>
