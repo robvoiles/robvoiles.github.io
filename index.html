@@ -307,6 +307,7 @@
 
  if (currHealth <= (maxHealth / 2)) {
   document.getElementsByTagName("progress").item(0).style.color = 'rgba(184,15,10,0.8)';
+	 $(this).css({'color':'rgba(184,15,10,0.8)'});
 	 console.log(currHealth);
 	 console.log('in the red');
 	 console.log('rgb 184 15 10 ');
@@ -315,8 +316,10 @@
 if (currHealth > (maxHealth / 2) ) 
 {
   document.getElementsByTagName("progress").item(0).style.color = 'rgba(57,201,0,0.8)';
+		 $(this).css({'color':'rgba(57,201,0,0.8)'});
+
 		 console.log(currHealth);
-	 console.log('good to go');
+	 console.log('good t g');
 		 console.log('rgb 57 201 0 ');
 
 }
