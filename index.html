@@ -5,7 +5,7 @@
 <!--<![endif]-->
 
 <head>
-    <script src="scripts.js"></script>
+
     <!-- Basic -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -84,11 +84,8 @@
                                     </li>
                                 </ul>
                             </li>
-
-
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-
                         </ul>
                     </div>
                     <!--/.nav-collapse -->
@@ -97,7 +94,6 @@
             </nav>
         </div>
         <!-- end mobile-menu -->
-
     </div>
     <!-- end menu-wrapper -->
 
@@ -123,8 +119,12 @@
                 <div id="currentHealth" class="CharHealthVar">6 / 7 </div>
 
 
-                <progress value="6" max="7">
-                </progress>
+                <progress max="7" value="6"></progress>
+
+
+
+
+
             </section>
             <div class="btn-group-subtract">
 
@@ -142,61 +142,68 @@
 
             <br>
 
+            <button onclick="GetStatistics()">Get Statistics</button>
+
+            <button onclick="GetInv()">values tst</button>
+
+
+
+
+
+
 
 
 
             <div class="charTopStatsStatic">AC: </div>
-            <p id="tooltip" class="charTopStatsVar">
-                <a title="AC: 16 (10 +5[plate armor] +1[Shield])">16</a>
+            <p id="acTooltip" class="charTopStatsVar">
+                <a title="AC: 16 (10 +5[plate armor] +1[Shield])" id="changeThisAC">16</a>
             </p>
             <br>
-
-
 
             <button class="accordion">Main Stats</button>
             <div class="panelStats">
                 <br>
 
                 <div id="tooltip" class="CharStatStatic">
-                    <a title="Strength: 16 (16+0)">Strength:</a>
+                    <a title="" id="mainTextStrength">Strength:</a>
                 </div>
                 <p id="tooltip" class="charStatVar">
-                    <a title="Strength: 16 (16+0)">16</a>
-                    <a title="Strength: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                    <a title="" id="changeThisStrength">16</a>
+                    <a title="" id="modifierStrength" class="charStatModifier">(3)</a>
                 </p>
 
 
                 <div id="tooltip" class="CharStatStatic">
-                    <a title="Dexterity: 16 (16+0)">Dexterity:</a>
+                    <a title="" id="mainTextDexterity">Dexterity:</a>
                 </div>
                 <p id="tooltip" class="charStatVar">
-                    <a title="Dexterity: 16 (16+0)">16</a>
-                    <a title="Dexterity: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                    <a title="" id="changeThisDexterity">16</a>
+                    <a title="" id="modifierDexterity" class="charStatModifier">(3)</a>
                 </p>
 
 
                 <div id="tooltip" class="CharStatStatic">
-                    <a title="Constitution: 16 (16+0)">Constitution:</a>
+                    <a title="" id="mainTextConstitution">Constitution:</a>
                 </div>
                 <p id="tooltip" class="charStatVar">
-                    <a title="Constitution: 16 (16+0)">16</a>
-                    <a title="Constitution: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                    <a title="" id="changeThisConstitution">16</a>
+                    <a title="" id="modifierConstitution" class="charStatModifier">(3)</a>
                 </p>
 
                 <div id="tooltip" class="CharStatStatic">
-                    <a title="Wisdom: 16 (16+0)">Wisdom:</a>
+                    <a title="" id="mainTextWisdom">Wisdom:</a>
                 </div>
                 <p id="tooltip" class="charStatVar">
-                    <a title="Wisdom: 16 (16+0)">16</a>
-                    <a title="Wisdom: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                    <a title="" id="changeThisWisdom">16</a>
+                    <a title="" id="modifierWisdom" class="charStatModifier">(3)</a>
                 </p>
 
                 <div id="tooltip" class="CharStatStatic">
-                    <a title="Intelligence: 16 (16+0)">Intelligence:</a>
+                    <a title="" id="mainTextIntelligence">Intelligence:</a>
                 </div>
                 <p id="tooltip" class="charStatVar">
-                    <a title="Intelligence: 16 (16+0)">16</a>
-                    <a title="Intelligence: 16 (16+0)" class="charStatModifier">Modifier: (+3)</a>
+                    <a title="" id="changeThisIntelligence">16</a>
+                    <a title="" id="modifierIntelligence" class="charStatModifier">(3)</a>
                 </p>
 
                 <br>
@@ -207,62 +214,65 @@
 
 
 
-            <button class="accordion">Combat Stats</button>
-            <div class="panel">
-                <br>
-
-            </div>
-            <br>
-
-
-
-            <button class="accordion">Skills</button>
-            <div class="panel">
-
-                <button class="accordion">Trained Skills</button>
-                <div class="panel">
-                    <br>
-                    <p>Lorem ipsum...</p>
-                    <p>Lorem ipsum...</p>
-                    <p>Lorem ipsum...</p>
-                </div>
-                <br>
-                <button class="accordion">Untrained Skills</button>
-                <div class="panel">
-                    <br>
-                    <p>Lorem ipsum...</p>
-                </div>
-
-            </div>
 
 
 
             <br><button class="accordion">Equipment</button>
-            <div class="panel">
+            <div class="panelStats">
 
 
-                <button class="accordion">Weapons</button>
-                <div class="panel">
+                <button class="accordion">Weapon</button>
+                <div class="panelStats" id="weaponPanel">
                     <br>
 
 
-                    <div id="tooltip" class="charWeaponVar">
-                        <a title="Damage: 1d6 (one-handed)">Longsword</a>
+                    <div id="tooltip" class="CharStatStatic">
+                        <a title="" id="mainHandStatic">Main Hand:</a>
                     </div>
+                    <p id="tooltip" class="charStatVar">
+                        <a title="" id="changeThisMainHandText"></a>
+                        <a title="" id="changeThisMainHandDamage" class="charStatModifier"></a>
+                    </p>
+                    <div id="tooltip" class="CharStatStatic">
+                        <a title="" id="offHandStatic">Offhand:</a>
+                    </div>
+                    <p id="tooltip" class="charStatVar">
+                        <a title="" id="changeThisoffHandText"></a>
+                        <a title="" id="changeThisoffHandDamage" class="charStatModifier"></a>
+                    </p>
+
 
                 </div>
                 <br>
                 <button class="accordion">Armor</button>
-                <div class="panel">
+                <div class="panelStats" id="armorPanel">
                     <br>
 
-                    <div id="tooltip" class="charArmorVar">
-                        <a title="Armor: +5 (heavy,-stealth)">Plate Mail</a>
+                    <div id="tooltip" class="CharStatStatic">
+                        <a title="" id="mainArmorStatic">Main Armor:</a>
                     </div>
+                    <p id="tooltip" class="charStatVar">
+                        <a title="" id="changeThisMainArmorText"></a>
+                        <a title="" id="changeThisMainArmorAC" class="charStatModifier"></a>
+                    </p>
 
-                    <div id="tooltip" class="charArmorVar">
-                        <a title="Armor: +1 (one-handed)">Shield</a>
+                    <div id="tooltip" class="CharStatStatic">
+                        <a title="" id="shieldStatic">Shield:</a>
                     </div>
+                    <p id="tooltip" class="charStatVar">
+                        <a title="" id="changeThisShieldText"></a>
+                        <a title="" id="changeThisShieldAC" class="charStatModifier"></a>
+                    </p>
+
+                    <div id="tooltip" class="CharStatStatic">
+                        <a title="" id="miscArmorStatic">Misc:</a>
+                    </div>
+                    <p id="tooltip" class="charStatVar">
+                        <a title="" id="changeThisMiscArmorText"></a>
+                        <a title="" id="changeThisMiscArmorAC" class="charStatModifier"></a>
+                    </p>
+
+
 
 
                 </div>
@@ -271,8 +281,40 @@
 
 
         </section>
-    </div>
+        <br>
+        <button class="accordion">Skills</button>
+        <div class="panel">
 
+            <button class="accordion">Trained Skills</button>
+            <div class="panel">
+                <br>
+                <p>Lorem ipsum...</p>
+                <p>Lorem ipsum...</p>
+                <p>Lorem ipsum...</p>
+            </div>
+            <br>
+            <button class="accordion">Untrained Skills</button>
+            <div class="panel">
+                <br>
+                <p>Lorem ipsum...</p>
+            </div>
+
+        </div>
+
+        <br>
+        <br><button class="accordion">Inventory</button>
+        <div class="panelStats" id="inventoryPanel">
+            <br>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
 
 
 
@@ -294,50 +336,25 @@
         }
     </script>
 
-    <script>
-	function buttonAddAmount(amtAdd) {
-  var currHealth = document.getElementsByTagName("progress").item(0).value + amtAdd;
-  var maxHealth = document.getElementsByTagName("progress").item(0).max;
-  if (currHealth > maxHealth)
-  {
-    currHealth = maxHealth;
-  }
-  document.getElementsByTagName("progress").item(0).value = currHealth;
- document.getElementById("currentHealth").innerText = (currHealth) + "  /  " + (maxHealth); 
 
- if (currHealth <= (maxHealth / 2)) {
-  document.getElementsByTagName("progress").item(0).style.color = 'rgba(184,15,10,0.8)';
-	 $(this).css({'color':'rgba(184,15,10,0.8)'});
-	 console.log(currHealth);
-	 console.log('in the red');
-	 console.log('rgb 184 15 10 ');
-	 
-}
-if (currHealth > (maxHealth / 2) ) 
-{
-  document.getElementsByTagName("progress").item(0).style.color = 'rgba(57,201,0,0.8)';
-		 $(this).css({'color':'rgba(57,201,0,0.8)'});
-
-		 console.log(currHealth);
-	 console.log('good t g');
-		 console.log('rgb 57 201 0 ');
-
-}
-}
-	     
-  </script>	
-	
+    <script src="scripts.js"></script>
     <!-- jQuery Files -->
     <script src="external/jquery/jquery.js"></script>
     <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script> 
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/parallax.js"></script>
     <script src="js/rotate.js"></script>
-      <script src="js/custom.js"></script> 
+    <script src="js/custom.js"></script>
     <script src="js/masonry.js"></script>
     <script src="js/masonry-4-col.js"></script>
     <script src="jquery-ui.js"></script>
+
+
+
+
+
+
 
 
 

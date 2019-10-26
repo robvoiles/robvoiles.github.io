@@ -72,12 +72,144 @@
     content: "\f10b";
 }
 
-progress {
+
+
+.dropbtn {
+  background-color: rgb(100, 100, 100);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1111111;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #333333;
+}
+
+
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+    padding: 16px;
+    text-align: center;
+    background-color: #535353;
+    position: relative;    
+    margin: 5px;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+      display: block;
+      margin-bottom: 20px;
+      
+    }
+  }
+/* Float four columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+    
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .row {
+      margin: 0 5px 10px;
+    
+    }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    border-spacing: 5px;
+    
+
+  }
+  
+
+
+  
+
+
+
+
+.progress-bar {
+    width: 33%;
+    height: 100%;
     width: 255px;
     position: relative;
     left: 25px;
-    color: rgb(74, 201, 0);
+
 }
+
+.progress {
+    background: #ad5389;
+    background-color: red;
+    background-image:
+    -webkit-linear-gradient(-45deg, 
+                            transparent 33%, rgba(0, 0, 0, .1) 33%, 
+                            rgba(0,0, 0, .1) 66%, transparent 66%),
+    -webkit-linear-gradient(top, 
+                            rgba(255, 255, 255, .25), 
+                            rgba(0, 0, 0, .25)),
+    -webkit-linear-gradient(left, #09c, #f44);
+
+    border-radius: 3px;
+    height: 30px;
+    width: 0;
+
+}
+
+progress {
+    width: 300px;
+    height: 30px;
+    width: 255px;
+    position: relative;
+    left: 25px;
+    border: 1px black solid;
+}
+
+
+
+
 
 /* Style the buttons that are used to open and close the accordion panel */
 
@@ -130,7 +262,18 @@ body {
     height: 100%;
     background: url(images/pattern.png) repeat center center rgba(0, 0, 0, 0.7);
 }
-
+.btnItems {
+    position: relative;
+    padding: 0 20px;
+    font-size: 10px;
+    
+    /* Green border*/
+    color: rgb(165, 165, 165);
+    /* White text */
+    z-index: 6;
+    cursor: pointer;
+    /*Pointer/hand icon */
+}
 .btn-group-subtract button {
     position: relative;
     left: 25px;
@@ -243,10 +386,20 @@ body {
 
 
 
-
-
-
-
+.buyButton {
+    position: relative;
+    background-color: #535353;
+    /* Greenbackground */
+    border: 2px solid  rgba(128, 128, 128, 0.774);
+    /* Green border*/
+    color: rgb(255, 242, 167);
+    /* White text */
+    z-index: 6;
+    cursor: pointer;
+    vertical-align: middle;
+ padding: 8px;
+    /*Pointer/hand icon */
+}
 
 
 
