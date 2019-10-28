@@ -74,6 +74,28 @@
 
 
 
+.goldCount {
+text-align: center;
+font-size: 30px;
+}
+
+
+.buySub {
+    border: none;
+    display: block;
+    text-align: left;
+    margin-top: -6%;
+   
+ 
+}
+
+.buyAdd {
+    border: none;
+    display: block;
+    text-align: right;
+    margin-bottom: -6%;
+
+}
 .dropbtn {
   background-color: rgb(100, 100, 100);
   color: white;
@@ -386,24 +408,21 @@ body {
 
 
 
+
+
 .buyButton {
-    position: relative;
+    /* position: relative; */
     background-color: #535353;
-    /* Greenbackground */
-    border: 2px solid  rgba(128, 128, 128, 0.774);
-    /* Green border*/
+    border: 2px solid rgba(128, 128, 128, 0.774);
     color: rgb(255, 242, 167);
-    /* White text */
     z-index: 6;
     cursor: pointer;
-    vertical-align: middle;
- padding: 8px;
-    /*Pointer/hand icon */
+    /* vertical-align: middle; */
+    padding: 13px;
+    display: block;
+    width: 25%;
+    margin-left: 37%;
 }
-
-
-
-
 
 
 

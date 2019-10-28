@@ -101,29 +101,30 @@
 <div id='container'>
     <header>
         <h1>Ichaeff</h1>
+        
     </header>
 
-
+    <div class="goldCount" onClick="getGold()" id="goldCount">gCount</div>
 
     <div class="dropdown">
-            <button class="dropbtn">Dropdown</button>
-            <div class="dropdown-content">
-                    <a onclick="testItems()">All</a>                
-                <a onclick="filterItems('adventuring')">Adventuring Gear</a>
-                <a onclick="filterItems('ammunition')">Ammunition</a>
-                <a onclick="filterItems('armor')">Armor</a>
-                <a onclick="filterItems('artisan')">Artisan Tools</a>
-                <a onclick="filterItems('combat')">Combat</a>
-                <a onclick="filterItems('container')">Container</a>
-                <a onclick="filterItems('melee')">Melee</a>
-                <a onclick="filterItems('musical')">Musical Instrument</a>
-                <a onclick="filterItems('potion')">Potion</a>
-                <a onclick="filterItems('ranged')">Ranged</a>
-                <a onclick="filterItems('shield')">Shield</a>
-                <a onclick="filterItems('special')">Special</a>
-            </div>
+        <button class="dropbtn" id="dropdownButton">Dropdown</button>
+        <div class="dropdown-content" id="dropdown-content">
+            <a id="dropdown-all" onclick="testItems()">All</a>
+            <a id="dropdown-adventuring" onclick="filterItems('adventuring')">Adventuring Gear</a>
+            <a id="dropdown-ammunition" onclick="filterItems('ammunition')">Ammunition</a>
+            <a id="dropdown-armor" onclick="filterItems('armor')">Armor</a>
+            <a id="dropdown-artisan" onclick="filterItems('artisan')">Artisan Tools</a>
+            <a id="dropdown-combat" onclick="filterItems('combat')">Combat</a>
+            <a id="dropdown-container" onclick="filterItems('container')">Container</a>
+            <a id="dropdown-melee" onclick="filterItems('melee')">Melee</a>
+            <a id="dropdown-musical" onclick="filterItems('musical')">Musical Instrument</a>
+            <a id="dropdown-potion" onclick="filterItems('potion')">Potion</a>
+            <a id="dropdown-ranged" onclick="filterItems('ranged')">Ranged</a>
+            <a id="dropdown-shield" onclick="filterItems('shield')">Shield</a>
+            <a id="dropdown-special" onclick="filterItems('special')">Special</a>
         </div>
-   <section id='forms'>
+    </div>
+    <section id='forms'>
 
     </section>
 
