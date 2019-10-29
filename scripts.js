@@ -18,7 +18,7 @@ function addItem() {
   if (typeof num1 == 'number') {
 
     var itemID = event.srcElement.id.replace("buybutton", "")
-    console.log(itemID)
+    //console.log(itemID)
 
 
 
@@ -43,8 +43,8 @@ function addItem() {
           if (xhr2.status >= 200 && xhr2.status < 400) {
 
             var cost = Number((data2.fields.Cost)) * Number(num1);
-            console.log(data.fields.InvCharges);
-            console.log(cost);
+            //console.log(data.fields.InvCharges);
+            //console.log(cost);
             currGold = Number(data.fields.InvCharges)
 
             if (typeof currGold == 'number') {
@@ -124,7 +124,7 @@ function addItem() {
 
               currStack = stateModule.getCurrStacks();
               if ((currStack != undefined) && (currStack > 0)) {
-                console.log("stackable item found")
+                //console.log("stackable item found")
                 var urlStack = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
                 var jsonStack = "{\"records\": [{\"id\": \"" + stateModule.getOffSet() + "\",\"fields\": {\"InvCharges\": \"" + (Number(num1) + Number(currStack)) + "\"}}]}";
                 var xhr3Stack = new XMLHttpRequest();
@@ -167,8 +167,8 @@ function addItem() {
 
               }
               xhr3.send(json);
-              console.log("chaning to")
-              console.log(stateModule.getNewGold())
+              //console.log("chaning to")
+              //console.log(stateModule.getNewGold())
 
               document.getElementById("goldCount").innerHTML = "Currently Held:<br>" + (stateModule.getNewGold()) + "g";
 
@@ -774,8 +774,8 @@ function GetInv() {
 
       data.records.forEach(varEntry => {
         intValue += 1
-        console.log(varEntry.fields.Item)
-        console.log(intValue)
+        //console.log(varEntry.fields.Item)
+        //console.log(intValue)
 
       })
 
@@ -809,8 +809,8 @@ function GetInv() {
 
             data2.records.forEach(varEntry => {
               intValue += 1
-              console.log(varEntry.fields.Item)
-              console.log(intValue)
+              //console.log(varEntry.fields.Item)
+              //console.log(intValue)
 
             })
 
@@ -870,7 +870,7 @@ function buttonAddAmount(amtAdd) {
 
   xhr.onload = function () {
     var Name = JSON.parse(xhr.responseText);
-    console.log(xhr.status);
+    //console.log(xhr.status);
   }
   xhr.send(json);
 
@@ -884,11 +884,11 @@ function buttonAddAmount(amtAdd) {
 function equip() {
 
   var itemID = event.srcElement.id.replace("equip", "")
-  console.log(itemID)
+  //console.log(itemID)
 
 
   var request = new XMLHttpRequest()
-  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff/' + itemID, true)
+  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff/' + itemID, false)
   request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
   request.onload = function () {
 
@@ -907,7 +907,8 @@ function equip() {
       document.getElementById("changeThisShieldAC").innerHTML = "";
       document.getElementById("changeThisMiscArmorText").innerHTML = "";
       document.getElementById("changeThisMiscArmorAC").innerHTML = "";
-      document.getElementById("inventoryPanel").innerHTML = "<br>";
+    //  document.getElementById("inventoryPanel").innerHTML = "<br>";
+      document.getElementById("invStats").innerHTML = "<br>";
 
       var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
       var json = "{\"records\": [{\"id\": \"" + itemID + "\",\"fields\": {\"InvEquipped\": \"" + data.fields.InvEquipable + "\"}}]}";
@@ -932,10 +933,11 @@ function equip() {
 }
 
 
-function UnEquip() {
+function unequip() {
 
   var itemID = event.srcElement.id.replace("unequip", "")
-  console.log(itemID)
+  //console.log(itemID)
+
   document.getElementById("changeThisMainHandText").innerHTML = "<br>";
   document.getElementById("changeThisMainHandDamage").innerHTML = "";
   document.getElementById("changeThisoffHandText").innerHTML = "";
@@ -946,11 +948,11 @@ function UnEquip() {
   document.getElementById("changeThisShieldAC").innerHTML = "";
   document.getElementById("changeThisMiscArmorText").innerHTML = "";
   document.getElementById("changeThisMiscArmorAC").innerHTML = "";
-  document.getElementById("inventoryPanel").innerHTML = "<br>";
-
+ // document.getElementById("inventoryPanel").innerHTML = "<br>";
+document.getElementById("invStats").innerHTML = "<br>";
   var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
   var json = "{\"records\": [{\"id\": \"" + itemID + "\",\"fields\": {\"InvEquipped\": \"\"}}]}";
-  console.log(json);
+  //console.log(json);
   var xhr = new XMLHttpRequest();
   xhr.open("PATCH", url, true);
   xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
@@ -958,7 +960,7 @@ function UnEquip() {
 
   xhr.onload = function () {
     var Name = JSON.parse(xhr.responseText);
-    console.log(xhr.status);
+    //console.log(xhr.status);
     GetStatistics()
   }
   xhr.send(json);
@@ -980,7 +982,7 @@ function deleteButton() {
     txt = "You pressed Cancel!";
 
   }
-  console.log(txt)
+  //console.log(txt)
 
 
 
@@ -1010,7 +1012,7 @@ function deleteButton() {
 
   xhr.onload = function () {
     var Name = JSON.parse(xhr.responseText);
-    console.log(xhr.status);
+    //console.log(xhr.status);
     GetStatistics()
   }
   xhr.send(json);
@@ -1026,28 +1028,28 @@ function deleteButton() {
 function GetStatistics() {
 
   var request = new XMLHttpRequest()
-  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff?maxRecords=999&view=Grid%20view', true)
+  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff?maxRecords=999&view=Grid%20view', false)
   request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
   request.onload = function () {
     stateModule.setArmorAC(0);
     var armorAC = 0;
     var data = JSON.parse(this.response)
+    var currentIteration = 0
     if (request.status >= 200 && request.status < 400) {
       data.records.forEach(varEntry => {
 
-        if (varEntry.fields.InvEquipped == "MainHand") {
+        if ((varEntry.fields.InvDamage != undefined) && (varEntry.fields.InvEquipped != undefined)) {
           document.getElementById("changeThisMainHandText").text = varEntry.fields.InvItem;
           document.getElementById("changeThisMainHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
 
-          if (varEntry.fields.InvEquipped != undefined) {
+        
             var li = document.createElement("a");
             li.appendChild(document.createTextNode("Un-Equip"));
             li.setAttribute("id", "unequip" + varEntry.id);
             li.setAttribute("class", "btnItems");
-            li.onclick = UnEquip;
+            li.onclick = unequip;
             document.getElementById("changeThisMainHandText").appendChild(li);
-          }
-        };
+                  };
 
         if (varEntry.fields.InvEquipped == "OffHand") {
           document.getElementById("changeThisOffHandText").text = varEntry.fields.InvItem;
@@ -1058,7 +1060,7 @@ function GetStatistics() {
             li.appendChild(document.createTextNode("Un-Equip"));
             li.setAttribute("id", "unequip" + varEntry.id);
             li.setAttribute("class", "btnItems");
-            li.onclick = UnEquip;
+            li.onclick = unequip;
             document.getElementById("changeThisOffHandText").appendChild(li);
           }
 
@@ -1076,7 +1078,7 @@ function GetStatistics() {
             li.appendChild(document.createTextNode("Un-Equip"));
             li.setAttribute("id", "unequip" + varEntry.id);
             li.setAttribute("class", "btnItems");
-            li.onclick = UnEquip;
+            li.onclick = unequip;
             document.getElementById("changeThisMainArmorText").appendChild(li);
           }
 
@@ -1086,14 +1088,14 @@ function GetStatistics() {
           document.getElementById("changeThisShieldText").text = varEntry.fields.InvItem;
           document.getElementById("changeThisShieldAC").text = "+" + varEntry.fields.InvPlusAC;
           document.getElementById("changeThisShieldAC").title = varEntry.fields.InvPlusAC;
-          armorAC += Number(varEntry.fields.InvPlusAC);
+          armorAC = Number(stateModule.getArmorAC()) + Number(varEntry.fields.InvPlusAC);
 
           if (varEntry.fields.InvEquipped != undefined) {
             var li = document.createElement("a");
             li.appendChild(document.createTextNode("Un-Equip"));
             li.setAttribute("id", "unequip" + varEntry.id);
             li.setAttribute("class", "btnItems");
-            li.onclick = UnEquip;
+            li.onclick = unequip;
             document.getElementById("changeThisoffHandText").appendChild(li);
           }
 
@@ -1102,59 +1104,135 @@ function GetStatistics() {
             li.appendChild(document.createTextNode("Un-Equip"));
             li.setAttribute("id", "unequip" + varEntry.id);
             li.setAttribute("class", "btnItems");
-            li.onclick = UnEquip;
+            li.onclick = unequip;
             document.getElementById("changeThisShieldText").appendChild(li);
           }
 
 
         };
+        
         stateModule.setArmorAC(armorAC);
 
 
-        var node = document.createElement("LI");
-        if (Number(varEntry.fields.InvCharges) > 0) {
-          node.appendChild(document.createTextNode(varEntry.fields.InvItem + " x" + varEntry.fields.InvCharges));
-          document.getElementById("inventoryPanel").appendChild(node);
+
+  //      console.log(document.getElementById("invStats").innerHTML);
+
+  if (typeof currIteration !== 'undefined') {
+          document.getElementById("invStats").innerHTML = document.getElementById("invStats").innerHTML + "<div class=\"row\">"
+        }
+    
+        var cat = ""
+        if (varEntry.fields.InvCategory != undefined) {
+          cat = varEntry.fields.InvCategory
+        }
+        else { cat = "Special" }
+
+        var wt = ""
+        if (varEntry.fields.InvWeight != undefined) {
+          wt = varEntry.fields.InvWeight
+        }
+        else { wt = "0" }
+
+        var cst = ""
+        if (varEntry.fields.InvCost != undefined) {
+          cst = varEntry.fields.InvCost
+        }
+        else { cst = "0" }
+
+
+        var desc = ""
+        if (varEntry.fields.InvDescription != undefined) {
+          desc = varEntry.fields.InvDescription
         }
         else
-          if (varEntry.fields.InvEquipped != undefined) {
-            node.appendChild(document.createTextNode(varEntry.fields.InvItem + " (Equipped)"));
-            document.getElementById("inventoryPanel").appendChild(node);     // Append <li> to <ul> with id="myList"
-          }
-          else {
+          desc = ""
 
-            node.appendChild(document.createTextNode(varEntry.fields.InvItem));
-            document.getElementById("inventoryPanel").appendChild(node);     // Append <li> to <ul> with id="myList"
-          }
-
-
-        var li = document.createElement("a");
-        li.appendChild(document.createTextNode("Delete"));
-        li.setAttribute("id", "delete" + varEntry.id);
-        li.setAttribute("class", "btnItems");
-        li.onclick = deleteButton;
-        document.getElementById("inventoryPanel").appendChild(li);
-
-
-
-        if (varEntry.fields.InvEquipped != undefined) {
-          var li = document.createElement("a");
-          li.appendChild(document.createTextNode("Un-Equip"));
-          li.setAttribute("id", "unequip" + varEntry.id);
-
-          li.setAttribute("class", "btnItems");
-          li.onclick = UnEquip;
-          document.getElementById("inventoryPanel").appendChild(li);
+        if (varEntry.fields.InvDamage != undefined) {
+          desc = desc + "<br><br>Damage: " + varEntry.fields.InvDamage
         }
-        else
-          if (varEntry.fields.InvEquipable != undefined) {
-            var li = document.createElement("a");
-            li.appendChild(document.createTextNode("Equip"));
-            li.setAttribute("id", "equip" + varEntry.id);
-            li.setAttribute("class", "btnItems");
-            li.onclick = equip;
-            document.getElementById("inventoryPanel").appendChild(li);
+        if (varEntry.fields.InvDamageType != undefined) {
+          desc = desc + ", " + varEntry.fields.InvDamageType
+        }
+        if (varEntry.fields.InvProperties != undefined) {
+          desc = desc + "<br>Damage: " + varEntry.fields.InvDamage
+        }
+        if (varEntry.fields.InvPlusAC != undefined) {
+          desc = desc + "<br><br>AC: +" + varEntry.fields.InvPlusAC
+        }
+        if (varEntry.fields.InvDexMax != undefined) {
+          desc = desc + "<br>Max additional AC from Dex Mod: +" + varEntry.fields.InvDexMax
+        }
+        desc = desc + "<br></a><a id=\"destroyButton" + varEntry.id + "\" class=\"destroyButton\" onClick=\"destroyItem()\">DESTROY</a>"
+
+
+
+
+        var a1 = "<div class=\"column\"><div class=\"card\"><h5 class=\"card-header\"><h3>";
+        var a2 = varEntry.fields.InvItem
+        var a3 = "</h3><a class=\"collapsed d-block\" data-toggle=\"collapse\" href=\"#collapse-collapsed33";
+        var a4 = varEntry.id
+        var a5 = "\" aria-expanded=\"true\" aria-controls=\"collapse-collapsed33"
+        var a6 = varEntry.id
+        var a7 = "\" id=\"heading-collapsed\"><p>"
+        var a8 = cat
+        var a9 = "</p><p>Weight: "
+        var a10 = wt
+        var a11 = "lb</p><p>Cost: "
+        var a12 = cst
+        var a13 = ""
+        if (varEntry.fields.InvEquipable != undefined) {
+          if (varEntry.fields.InvEquipped != undefined)
+          {
+          var a13 = "g</p></a><a id=\"unequip" + varEntry.id + "\" class=\"equipButton\" onClick=\"unequip()\">Un-Equip</a></h5><div id=\"collapse-collapsed33"
           }
+          else
+          {
+            var a13 = "g</p></a><a id=\"equip" + varEntry.id + "\" class=\"equipButton\" onClick=\"equip()\">Equip</a></h5><div id=\"collapse-collapsed33"
+          }
+        }
+        else {
+
+          var currCharges = 1
+          if (varEntry.fields.InvCharges != undefined) {
+            currCharges = varEntry.fields.InvCharges
+          }
+          var a13 = "g</p></a><a id=\"equipButton" + varEntry.id + "\" class=\"equipButton  \">Quantity : " + currCharges + "</a></h5><div id=\"collapse-collapsed33"
+
+        }
+        var a14 = varEntry.id
+        var a15 = "\" class=\"collapse\" aria-labelledby=\"heading-collapsed\"><div class=\"card-body\"><br>"
+        var a16 = desc
+        var a17 = "</div></div></div>"
+
+        var g;
+        g = document.createElement('div');
+        g.id = i;
+        document.getElementById("invStats").appendChild(g);
+        var abc = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17;
+        document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + abc;
+
+        if (currIteration = 3) {
+          currIteration = 0
+          document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + "</p></div>"
+        }
+      
+
+      }
+
+      )
+
+    
+       
+    
+
+    }
+
+
+    for (let i = 0; i < 3; i++) {
+      equalizeCards();
+      }
+  }
+  request.send();
 
 
         var request2 = new XMLHttpRequest()
@@ -1179,12 +1257,13 @@ function GetStatistics() {
 
               var dexAdd = 0
               if (Number(stateModule.getDexMax()) < Number(GetModifierValue(varEntry.fields.CharDexterity))) {
-                document.getElementById("changeThisAC").text = Number(varEntry.fields.CharAC) + Number(stateModule.getDexMax()) + Number(stateModule.getArmorAC());
+
+                document.getElementsByClassName("charTopStatsStatic")[0].innerHTML = "AC: " + (Number(varEntry.fields.CharAC) + Number(stateModule.getDexMax()) + Number(stateModule.getArmorAC()));
               }
               else {
-                document.getElementById("changeThisAC").text = Number(varEntry.fields.CharAC) + Number(GetModifierValue(varEntry.fields.CharDexterity)) + Number(stateModule.getArmorAC());
+                document.getElementsByClassName("charTopStatsStatic")[0].innerHTML ="AC: " +  (Number(varEntry.fields.CharAC) + Number(GetModifierValue(varEntry.fields.CharDexterity)) + Number(stateModule.getArmorAC()));
               }
-
+////console.log(Number(varEntry.fields.CharAC) + "|" +  Number(GetModifierValue(varEntry.fields.CharDexterity)) + "|" +  Number(stateModule.getArmorAC()) + "|" + Number(stateModule.getDexMax()) )
               document.getElementsByTagName("progress").item(0).value = varEntry.fields.CharHealthCurrent;
               document.getElementsByTagName("progress").item(0).max = varEntry.fields.CharHealthMax;
               document.getElementById("currentHealth").innerText = (varEntry.fields.CharHealthCurrent) + "  /  " + (varEntry.fields.CharHealthMax);
@@ -1196,15 +1275,7 @@ function GetStatistics() {
         }
         request2.send()
 
-      })
-
-    } else {
-
-    }
-  }
-  request.send()
-}
-
+      }
 
 
 
@@ -1301,12 +1372,90 @@ function newTest() {
     stateModule.setArmorAC(0);
     var currIteration = 1;
 
+    document.getElementById("inventoryButton").click();
+
+
     var data = JSON.parse(this.response)
     if (request.status >= 200 && request.status < 400) {
       data.records.forEach(varEntry => {
 
+        if (varEntry.fields.InvEquipped == "MainHand") {
+          document.getElementById("changeThisMainHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisMainHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
 
-        console.log(varEntry)
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = unequip;
+            document.getElementById("changeThisMainHandText").appendChild(li);
+          }
+        };
+
+        if (varEntry.fields.InvEquipped == "OffHand") {
+          document.getElementById("changeThisOffHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisOffHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = unequip;
+            document.getElementById("changeThisOffHandText").appendChild(li);
+          }
+
+        };
+
+        if (varEntry.fields.InvEquipped == "MainArmor") {
+          document.getElementById("changeThisMainArmorText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisMainArmorAC").text = "+" + varEntry.fields.InvPlusAC + " (+" + varEntry.fields.InvDexMax + " max) -- " + varEntry.fields.InvDisadvantage;
+          document.getElementById("changeThisMainArmorAC").title = varEntry.fields.InvPlusAC
+          stateModule.setDexMax(varEntry.fields.InvDexMax);
+          armorAC += Number(varEntry.fields.InvPlusAC);
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = unequip;
+            document.getElementById("changeThisMainArmorText").appendChild(li);
+          }
+
+        };
+        if (varEntry.fields.InvEquipped == "Shield") {
+          document.getElementById("changeThisoffHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisShieldText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisShieldAC").text = "+" + varEntry.fields.InvPlusAC;
+          document.getElementById("changeThisShieldAC").title = varEntry.fields.InvPlusAC;
+          armorAC += Number(varEntry.fields.InvPlusAC);
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = unequip;
+            document.getElementById("changeThisoffHandText").appendChild(li);
+          }
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = unequip;
+            document.getElementById("changeThisShieldText").appendChild(li);
+          }
+
+
+        };
+        stateModule.setArmorAC(armorAC);
+
+
+        //console.log(varEntry)
         if (currIteration = 1) {
           document.getElementById("invStats").innerHTML = document.getElementById("invStats").innerHTML + "<div class=\"row\">"
         }
@@ -1374,16 +1523,16 @@ function newTest() {
         if (varEntry.fields.InvEquipable != undefined) {
           if (varEntry.fields.InvEquipped != undefined)
           {
-          var a13 = "g</p></a><a id=\"equipButton" + varEntry.id + "\" class=\"equipButton\" onClick=\"itemUnequip()\">Un-Equip</a></h5><div id=\"collapse-collapsed33"
+          var a13 = "g</p></a><a id=\"unequip" + varEntry.id + "\" class=\"equipButton\" onClick=\"unequip()\">Un-Equip</a></h5><div id=\"collapse-collapsed33"
           }
           else
           {
-            var a13 = "g</p></a><a id=\"equipButton" + varEntry.id + "\" class=\"equipButton\" onClick=\"itemEquip()\">Equip</a></h5><div id=\"collapse-collapsed33"
+            var a13 = "g</p></a><a id=\"equip" + varEntry.id + "\" class=\"equipButton\" onClick=\"equip()\">Equip</a></h5><div id=\"collapse-collapsed33"
           }
         }
         else {
 
-          var currCharges = 0
+          var currCharges = 1
           if (varEntry.fields.InvCharges != undefined) {
             currCharges = varEntry.fields.InvCharges
           }
@@ -1417,10 +1566,13 @@ function newTest() {
     }
 
 
-
+    for (let i = 0; i < 3; i++) {
+      equalizeCards();
+      }
   }
   request.send();
 
+  document.getElementById("inventoryButton").click();
 
 }
 
@@ -1442,11 +1594,14 @@ function itemEquip(){
 
 
 function equalizeCards(){
-  console.log("transforming carddata")
+
   var maxHeight = 0;
+          
     for(i=0;i<$(".card").length;i++){
+      //console.log($(".card").length)
       if($(".card").eq(i)){
         var currentHeight = $(".card").eq(i).height();
+        //console.log($(".card").currentHeight)
         if(currentHeight>=maxHeight){
           maxHeight = currentHeight;
         }
@@ -1455,5 +1610,5 @@ function equalizeCards(){
         break;
       }
     }
-    $(".card").height(maxHeight);
+    if (maxHeight > 0){$(".card").height(maxHeight);}
 }

@@ -1,1075 +1,1547 @@
-/**
- * Genius
- * Copyright 2018 - HTML.Design
- * Licensed under  (Creative Commons 3.0)
- */
 
-@font-face {
-    font-family: "Flaticon";
-    src: url("fonts/Flaticon.eot");
-    src: url("fontsFlaticon.eot?#iefix") format("embedded-opentype"), url("fonts/Flaticon.woff") format("woff"), url("fonts/Flaticon.ttf") format("truetype"), url("fonts/Flaticon.svg#Flaticon") format("svg");
-    font-weight: normal;
-    font-style: normal;
-}
+var tooltips = document.querySelectorAll('.tooltiptext span');
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    @font-face {
-        font-family: "Flaticon";
-        src: url("fonts/Flaticon.svg#Flaticon") format("svg");
+
+
+
+
+
+
+
+
+
+function addItem() {
+
+
+  var x = prompt("How many?", "0");
+  var num1 = parseInt(x);
+  if (typeof num1 == 'number') {
+
+    var itemID = event.srcElement.id.replace("buybutton", "")
+    console.log(itemID)
+
+
+
+    var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff/recFwylkZWcdDJdaZ";
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, false)
+    xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+    xhr.onload = function () {
+      var data = JSON.parse(this.response)
+      if (xhr.status >= 200 && xhr.status < 400) {
+
+        document.getElementById("goldCount").innerHTML = "Currently Held:<br>" + data.fields.InvCharges + "g";
+
+
+
+        var url2 = "https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/Items/" + itemID;
+        var xhr2 = new XMLHttpRequest();
+        xhr2.open('GET', url2, false)
+        xhr2.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+        xhr2.onload = function () {
+          var data2 = JSON.parse(this.response)
+          if (xhr2.status >= 200 && xhr2.status < 400) {
+
+            var cost = Number((data2.fields.Cost)) * Number(num1);
+            console.log(data.fields.InvCharges);
+            console.log(cost);
+            currGold = Number(data.fields.InvCharges)
+
+            if (typeof currGold == 'number') {
+              currGold = Number(0)
+            }
+            if (typeof cost == 'number') {
+              cost = Number(0)
+            }
+            if (Number(currGold) >= Number(cost)) {
+
+
+              alert(Number(currGold) - Number(cost));
+              alert(currGold + "|" + cost)
+              stateModule.setNewGold(Number(currGold) - Number(cost));
+
+              var dtaJS = ""
+
+              if (data2.fields.Item != undefined) { dtaJS = dtaJS + "\"InvItem\": \"" + data2.fields.Item + "\"," }
+              if (data2.fields.Cost != undefined) { dtaJS = dtaJS + "\"InvCost\": \"" + data2.fields.Cost + "\"," }
+              if (data2.fields.Weight != undefined) { dtaJS = dtaJS + "\"InvWeight\": \"" + data2.fields.Weight + "\"," }
+              if (data2.fields.Description != undefined) { dtaJS = dtaJS + "\"InvDescription\": \"" + data2.fields.Description + "\"," }
+              if (data2.fields.Category != undefined) { dtaJS = dtaJS + "\"InvCategory\": \"" + data2.fields.Category + "\"," }
+              if (data2.fields.ContainerCapacity != undefined) { dtaJS = dtaJS + "\"InvContainerCapacity\": \"" + data2.fields.ContainerCapacity + "\"," }
+              if (data2.fields.Damage != undefined) { dtaJS = dtaJS + "\"InvDamage\": \"" + data2.fields.Damage + "\"," }
+              if (data2.fields.Properties != undefined) { dtaJS = dtaJS + "\"InvProperties\": \"" + data2.fields.Properties + "\"," }
+              if (data2.fields.ArmorClass != undefined) { dtaJS = dtaJS + "\"InvArmorClass\": \"" + data2.fields.ArmorClass + "\"," }
+              if (data2.fields.StatRequirements != undefined) { dtaJS = dtaJS + "\"InvStatRequirements\": \"" + data2.fields.StatRequirements + "\"," }
+              if (data2.fields.Disadvantage != undefined) { dtaJS = dtaJS + "\"InvDisadvantage\": \"" + data2.fields.Disadvantage + "\"," }
+              if (data2.fields.AdditionalTags != undefined) { dtaJS = dtaJS + "\"InvAdditionalTags\": \"" + data2.fields.AdditionalTags + "\"," }
+              if (data2.fields.PlusStr != undefined) { dtaJS = dtaJS + "\"InvPlusStr\": \"" + data2.fields.PlusStr + "\"," }
+              if (data2.fields.PlusCon != undefined) { dtaJS = dtaJS + "\"InvPlusCon\": \"" + data2.fields.PlusCon + "\"," }
+              if (data2.fields.PlusDex != undefined) { dtaJS = dtaJS + "\"InvPlusDex\": \"" + data2.fields.PlusDex + "\"," }
+              if (data2.fields.PlusWis != undefined) { dtaJS = dtaJS + "\"InvPlusWis\": \"" + data2.fields.PlusWis + "\"," }
+              if (data2.fields.PlusInt != undefined) { dtaJS = dtaJS + "\"InvPlusInt\": \"" + data2.fields.PlusInt + "\"," }
+              if (data2.fields.PlusAC != undefined) { dtaJS = dtaJS + "\"InvPlusAC\": \"" + data2.fields.PlusAC + "\"," }
+              if (data2.fields.Resistance != undefined) { dtaJS = dtaJS + "\"InvResistance\": \"" + data2.fields.Resistance + "\"," }
+              if (data2.fields.Advantage != undefined) { dtaJS = dtaJS + "\"InvAdvantage\": \"" + data2.fields.Advantage + "\"," }
+              if (data2.fields.DexMax != undefined) { dtaJS = dtaJS + "\"InvDexMax\": \"" + data2.fields.DexMax + "\"," }
+              if (data2.fields.DamageType != undefined) { dtaJS = dtaJS + "\"InvDamageType\": \"" + data2.fields.DamageType + "\"," }
+              if (data2.fields.Equipable != undefined) { dtaJS = dtaJS + "\"InvEquipable\": \"" + data2.fields.Equipable + "\"," }
+              if (data2.fields.RemoveStatus != undefined) { dtaJS = dtaJS + "\"InvRemoveStatus\": \"" + data2.fields.RemoveStatus + "\"," }
+              if (data2.fields.Heal != undefined) { dtaJS = dtaJS + "\"InvHeal\": \"" + data2.fields.Heal + "\"," }
+
+              if (data2.fields.Stackable != undefined) {
+
+
+                stateModule.setCurrStacks(0);
+                stateModule.setOffSet("");
+
+                var currStack = 0
+                var stackID = ""
+                var requestCurr = new XMLHttpRequest()
+                requestCurr.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff?maxRecords=999&view=Grid%20view', false)
+                requestCurr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+                requestCurr.onload = function () {
+                  var dataCurr = JSON.parse(this.response)
+                  if (requestCurr.status >= 200 && requestCurr.status < 400) {
+                    dataCurr.records.forEach(varEntry => {
+
+                      if (varEntry.fields.MainItemID == data2.id) {
+                        stateModule.setCurrStacks(varEntry.fields.InvCharges);
+                        stateModule.setOffSet(varEntry.id)
+
+
+
+                      }
+                    }
+                    )
+                  }
+                }
+                requestCurr.send(null)
+
+                dtaJS = dtaJS + "\"InvStackable\": \"" + data2.fields.Stackable + "\","
+                dtaJS = dtaJS + "\"InvCharges\": \"" + num1 + "\","
+              }
+              dtaJS = dtaJS + "\"MainItemID\": \"" + data2.id + "\""
+
+              currStack = stateModule.getCurrStacks();
+              if ((currStack != undefined) && (currStack > 0)) {
+                console.log("stackable item found")
+                var urlStack = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
+                var jsonStack = "{\"records\": [{\"id\": \"" + stateModule.getOffSet() + "\",\"fields\": {\"InvCharges\": \"" + (Number(num1) + Number(currStack)) + "\"}}]}";
+                var xhr3Stack = new XMLHttpRequest();
+                xhr3Stack.open("PATCH", urlStack, false);
+                xhr3Stack.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+                xhr3Stack.setRequestHeader('Content-Type', 'application/json')
+
+                xhr3Stack.onload = function () {
+
+                }
+                xhr3Stack.send(jsonStack);
+              }
+              else {
+                dtaJS = "{\"fields\": {" + dtaJS + "}}"
+                var urls = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
+                var jsons = dtaJS;
+                var xhrs = new XMLHttpRequest();
+                xhrs.open("POST", urls, false);
+                xhrs.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+                xhrs.setRequestHeader('Content-Type', 'application/json')
+                xhrs.onload = function () {
+                  //    var Name = JSON.parse(xhrs.responseText);
+
+                }
+                xhrs.send(jsons);
+
+
+
+              }
+
+              var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
+              var json = "{\"records\": [{\"id\": \"" + data.id + "\",\"fields\": {\"InvCharges\": \"" + stateModule.getNewGold() + "\"}}]}";
+              var xhr3 = new XMLHttpRequest();
+              xhr3.open("PATCH", url, false);
+              xhr3.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+              xhr3.setRequestHeader('Content-Type', 'application/json')
+
+              xhr3.onload = function () {
+                //       var Name = JSON.parse(xhr3.responseText);
+
+              }
+              xhr3.send(json);
+              console.log("chaning to")
+              console.log(stateModule.getNewGold())
+
+              document.getElementById("goldCount").innerHTML = "Currently Held:<br>" + (stateModule.getNewGold()) + "g";
+
+
+              alert("Purchased " + data2.fields.Item)
+
+
+
+
+            }
+            else {
+              alert("You do not have enough gold to purchase  " + data2.fields.Item)
+
+            }
+
+
+          }
+
+        }
+        xhr2.send(null);
+
+
+
+
+
+      }
+
     }
-}
-
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
-    font-family: Flaticon;
-    font-style: normal;
-}
-
-.flaticon-point-mark-on-a-circle:before {
-    content: "\f100";
-}
-
-.flaticon-message:before {
-    content: "\f101";
-}
-
-.flaticon-briefcase:before {
-    content: "\f102";
-}
-
-.flaticon-coffee-cup:before {
-    content: "\f103";
-}
-
-.flaticon-emoticon-square-smiling-face-with-closed-eyes:before {
-    content: "\f104";
-}
-
-.flaticon-smiley:before {
-    content: "\f105";
-}
-
-.flaticon-computer:before {
-    content: "\f106";
-}
-
-.flaticon-people:before {
-    content: "\f107";
-}
-
-.flaticon-lightbulb-idea:before {
-    content: "\f108";
-}
-
-.flaticon-gears:before {
-    content: "\f109";
-}
-
-.flaticon-technology:before {
-    content: "\f10a";
-}
-
-.flaticon-monitor:before {
-    content: "\f10b";
-}
-
-
-
-.goldCount {
-text-align: center;
-font-size: 30px;
-}
-
-
-.buySub {
-    border: none;
-    display: block;
-    text-align: left;
-    margin-top: -6%;
-   
- 
-}
-
-.buyAdd {
-    border: none;
-    display: block;
-    text-align: right;
-    margin-bottom: -6%;
-
-}
-.dropbtn {
-  background-color: rgb(100, 100, 100);
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1111111;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #f1f1f1}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: #333333;
-}
-
-
-/* Style the counter cards */
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
-    padding: 16px;
-    text-align: center;
-    background-color: #535353;
-    position: relative;    
-    margin: 5px;
+    xhr.send(null);
   }
-  
-  /* Responsive columns - one column layout (vertical) on small screens */
-  @media screen and (max-width: 600px) {
-    .column {
-      width: 100%;
-      display: block;
-      margin-bottom: 20px;
-      
+  else { alert("Not a valid number.") }
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getGold() {
+
+
+
+  var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff/recFwylkZWcdDJdaZ";
+  var xhr = new XMLHttpRequest();
+
+
+  xhr.open('GET', url, false)
+
+
+  xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+
+
+  xhr.onload = function () {
+    var data2 = JSON.parse(this.response)
+
+    if (xhr.status >= 200 && xhr.status < 400) {
+
+      document.getElementById("goldCount").innerHTML = "Currently Held:<br>" + data2.fields.InvCharges + "g";
+    }
+
+  }
+  xhr.send(null);
+
+}
+
+
+
+
+
+function filterItems(searchParam) {
+
+
+  document.getElementById("dropdownButton").style.opacity = 0;
+  document.getElementById("dropdown-content").style.opacity = 0;
+  document.getElementById("dropdown-all").style.opacity = 0;
+
+  document.getElementById("forms").innerHTML = "";
+  stateModule.setOffSet("");
+  var intValue = 0
+  var request = new XMLHttpRequest()
+  request.open('GET', 'https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/items?pagesize=999&maxRecords=999&view=Grid%20view', true)
+  request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  request.onload = function () {
+    var currIteration = 0
+    var data = JSON.parse(this.response)
+
+    if (request.status >= 200 && request.status < 400) {
+
+      data.records.forEach(varEntry => {
+
+        varSP = varEntry.fields.Category.toLowerCase()
+        if (varSP.includes(searchParam) == true) {
+
+          if (currIteration = 1) {
+            document.getElementById("forms").innerHTML = document.getElementById("forms").innerHTML + "<div class=\"row\">"
+          }
+          currIteration = currIteration + 1
+
+          var cat = ""
+          if (varEntry.fields.Category != undefined) {
+            cat = varEntry.fields.Category
+          }
+          else { cat = "Special" }
+
+          var wt = ""
+          if (varEntry.fields.Weight != undefined) {
+            wt = varEntry.fields.Weight
+          }
+          else { wt = "0" }
+
+          var cst = ""
+          if (varEntry.fields.Cost != undefined) {
+            cst = varEntry.fields.Cost
+          }
+          else { cst = "0" }
+
+
+          var desc = ""
+          if (varEntry.fields.Description != undefined) {
+            desc = varEntry.fields.Description
+          }
+          else
+            desc = ""
+
+          if (varEntry.fields.Damage != undefined) {
+            desc = desc + "<br><br>Damage: " + varEntry.fields.Damage
+          }
+          if (varEntry.fields.DamageType != undefined) {
+            desc = desc + ", " + varEntry.fields.DamageType
+          }
+          if (varEntry.fields.Properties != undefined) {
+            desc = desc + "<br>Damage: " + varEntry.fields.Damage
+          }
+          if (varEntry.fields.PlusAC != undefined) {
+            desc = desc + "<br><br>AC: +" + varEntry.fields.PlusAC
+          }
+          if (varEntry.fields.DexMax != undefined) {
+            desc = desc + "<br>Max additional AC from Dex Mod: +" + varEntry.fields.DexMax
+          }
+
+
+          var a1 = "<div class=\"column\"><div class=\"card\"><h5 class=\"card-header\"><h3>";
+          var a2 = varEntry.fields.Item
+          var a3 = "</h3><a class=\"collapsed d-block\" data-toggle=\"collapse\" href=\"#collapse-collapsed33";
+          var a4 = varEntry.id
+          var a5 = "\" aria-expanded=\"true\" aria-controls=\"collapse-collapsed33"
+          var a6 = varEntry.id
+          var a7 = "\" id=\"heading-collapsed\"><p>"
+          var a8 = cat
+          var a9 = "</p><p>Weight: "
+          var a10 = wt
+          var a11 = "lb</p><p>Cost: "
+          var a12 = cst
+          var a13 = "g</p><br></a><a id=\"buybutton" + varEntry.id + "\" class=\"buyButton\" onClick=\"addItem()\">BUY</a></h5><div id=\"collapse-collapsed33"
+          var a14 = varEntry.id
+          var a15 = "\" class=\"collapse\" aria-labelledby=\"heading-collapsed\"><div class=\"card-body\"><br>"
+          var a16 = desc
+          var a17 = "</div></div></div>"
+
+          var g;
+          g = document.createElement('div');
+          g.id = i;
+          document.getElementById("forms").appendChild(g);
+          var abc = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17;
+          document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + abc;
+
+          if (currIteration = 3) {
+            currIteration = 0
+            document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + "</p></div>"
+          }
+        }
+
+      })
+
+      if (data.offset) {
+        stateModule.setOffSet(data.offset);
+      }
+
+      while (stateModule.getOffSet()) {
+
+        var osRef = stateModule.getOffSet()
+        stateModule.setOffSet("");
+
+        var request2 = new XMLHttpRequest()
+        request2.open('GET', 'https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/items?pagesize=9999&maxRecords=30&view=Grid%20view&offset=' + osRef, false)
+        request2.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+        request2.onload = function () {
+          var data2 = JSON.parse(this.response)
+
+          if (request2.status >= 200 && request2.status < 400) {
+
+            if (data2.offset) {
+              stateModule.setOffSet(data2.offset);
+            }
+
+            data2.records.forEach(varEntry => {
+              varSP = varEntry.fields.Category.toLowerCase()
+              if (varSP.includes(searchParam) == true) {
+                if (currIteration = 1) {
+                  document.getElementById("forms").innerHTML = document.getElementById("forms").innerHTML + "<div class=\"row\">"
+                }
+
+                currIteration = currIteration + 1
+
+                var cat = ""
+                if (varEntry.fields.Category != undefined) {
+                  cat = varEntry.fields.Category
+                }
+                else { cat = "Special" }
+
+                var wt = ""
+                if (varEntry.fields.Weight != undefined) {
+                  wt = varEntry.fields.Weight
+                }
+                else { wt = "0" }
+
+                var cst = ""
+                if (varEntry.fields.Cost != undefined) {
+                  cst = varEntry.fields.Cost
+                }
+                else { cst = "0" }
+
+
+                var desc = ""
+                if (varEntry.fields.Description != undefined) {
+                  desc = varEntry.fields.Description
+                }
+                else
+                  desc = ""
+
+                if (varEntry.fields.Damage != undefined) {
+                  desc = desc + "<br><br>Damage: " + varEntry.fields.Damage
+                }
+                if (varEntry.fields.DamageType != undefined) {
+                  desc = desc + ", " + varEntry.fields.DamageType
+                }
+                if (varEntry.fields.Properties != undefined) {
+                  desc = desc + "<br>Damage: " + varEntry.fields.Damage
+                }
+                if (varEntry.fields.PlusAC != undefined) {
+                  desc = desc + "<br><br>AC: +" + varEntry.fields.PlusAC
+                }
+                if (varEntry.fields.DexMax != undefined) {
+                  desc = desc + "<br>Max additional AC from Dex Mod: +" + varEntry.fields.DexMax
+                }
+
+
+                var a1 = "<div class=\"column\"><div class=\"card\"><h5 class=\"card-header\"><h3>";
+                var a2 = varEntry.fields.Item
+                var a3 = "</h3><a class=\"collapsed d-block\" data-toggle=\"collapse\" href=\"#collapse-collapsed33";
+                var a4 = varEntry.id
+                var a5 = "\" aria-expanded=\"true\" aria-controls=\"collapse-collapsed33"
+                var a6 = varEntry.id
+                var a7 = "\" id=\"heading-collapsed\"><p>"
+                var a8 = cat
+                var a9 = "</p><p>Weight: "
+                var a10 = wt
+                var a11 = "lb</p><p>Cost: "
+                var a12 = cst
+                var a13 = "g</p><br></a><a id=\"buybutton" + varEntry.id + "\" class=\"buyButton\" onClick=\"addItem()\">BUY</a></h5><div id=\"collapse-collapsed33"
+                var a14 = varEntry.id
+                var a15 = "\" class=\"collapse\" aria-labelledby=\"heading-collapsed\"><div class=\"card-body\"><br>"
+                var a16 = desc
+                var a17 = "</div></div></div>"
+
+                var g;
+                g = document.createElement('div');
+                g.id = i;
+                document.getElementById("forms").appendChild(g);
+                var abc = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17;
+                document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + abc;
+
+                if (currIteration = 5) {
+                  currIteration = 0
+                  document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + "</p></div>"
+                }
+              }
+            })
+
+            document.getElementById("dropdownButton").style.opacity = 1;
+            document.getElementById("dropdown-content").style.opacity = 1;
+            document.getElementById("dropdown-all").style.opacity = 1;
+
+
+
+          }
+        }
+        request2.send(null)
+      }
+
+    }
+
+  }
+  request.send()
+
+}
+
+
+function testItems() {
+
+  stateModule.setOffSet("");
+  var intValue = 0
+  var request = new XMLHttpRequest()
+  request.open('GET', 'https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/items?pagesize=999&maxRecords=999&view=Grid%20view', true)
+  request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  request.onload = function () {
+    var currIteration = 0
+    var data = JSON.parse(this.response)
+
+    if (request.status >= 200 && request.status < 400) {
+
+      data.records.forEach(varEntry => {
+
+        if (currIteration = 1) {
+          document.getElementById("forms").innerHTML = document.getElementById("forms").innerHTML + "<div class=\"row\">"
+        }
+
+
+        var cat = ""
+        if (varEntry.fields.Category != undefined) {
+          cat = varEntry.fields.Category
+        }
+        else { cat = "Special" }
+
+        var wt = ""
+        if (varEntry.fields.Weight != undefined) {
+          wt = varEntry.fields.Weight
+        }
+        else { wt = "0" }
+
+        var cst = ""
+        if (varEntry.fields.Cost != undefined) {
+          cst = varEntry.fields.Cost
+        }
+        else { cst = "0" }
+
+
+        var desc = ""
+        if (varEntry.fields.Description != undefined) {
+          desc = varEntry.fields.Description
+        }
+        else
+          desc = ""
+
+        if (varEntry.fields.Damage != undefined) {
+          desc = desc + "<br><br>Damage: " + varEntry.fields.Damage
+        }
+        if (varEntry.fields.DamageType != undefined) {
+          desc = desc + ", " + varEntry.fields.DamageType
+        }
+        if (varEntry.fields.Properties != undefined) {
+          desc = desc + "<br>Damage: " + varEntry.fields.Damage
+        }
+        if (varEntry.fields.PlusAC != undefined) {
+          desc = desc + "<br><br>AC: +" + varEntry.fields.PlusAC
+        }
+        if (varEntry.fields.DexMax != undefined) {
+          desc = desc + "<br>Max additional AC from Dex Mod: +" + varEntry.fields.DexMax
+        }
+
+
+
+
+
+
+        currIteration = currIteration + 1
+        var a1 = "<div class=\"column\"><div class=\"card\"><h5 class=\"card-header\"><h3>";
+        var a2 = varEntry.fields.Item
+        var a3 = "</h3><a class=\"collapsed d-block\" data-toggle=\"collapse\" href=\"#collapse-collapsed33";
+        var a4 = varEntry.id
+        var a5 = "\" aria-expanded=\"true\" aria-controls=\"collapse-collapsed33"
+        var a6 = varEntry.id
+        var a7 = "\" id=\"heading-collapsed\"><p>"
+        var a8 = cat
+        var a9 = "</p><p>Weight: "
+        var a10 = wt
+        var a11 = "lb</p><p>Cost: "
+        var a12 = cst
+        var a13 = "g</p><br></a><a id=\"buybutton" + varEntry.id + "\" class=\"buyButton\" onClick=\"addItem()\">BUY</a></h5><div id=\"collapse-collapsed33"
+        var a14 = varEntry.id
+        var a15 = "\" class=\"collapse\" aria-labelledby=\"heading-collapsed\"><div class=\"card-body\"><br>"
+        var a16 = desc
+        var a17 = "</div></div></div>"
+
+        var g;
+        g = document.createElement('div');
+        g.id = i;
+        document.getElementById("forms").appendChild(g);
+        var abc = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17;
+        document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + abc;
+
+        if (currIteration = 5) {
+          currIteration = 0
+          document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + "</p></div>"
+        }
+
+      })
+
+      if (data.offset) {
+        stateModule.setOffSet(data.offset);
+      }
+
+      while (stateModule.getOffSet()) {
+
+        var osRef = stateModule.getOffSet()
+        stateModule.setOffSet("");
+
+        var request2 = new XMLHttpRequest()
+        request2.open('GET', 'https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/items?pagesize=9999&maxRecords=30&view=Grid%20view&offset=' + osRef, false)
+        request2.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+        request2.onload = function () {
+          var data2 = JSON.parse(this.response)
+
+          if (request2.status >= 200 && request2.status < 400) {
+
+            if (data2.offset) {
+              stateModule.setOffSet(data2.offset);
+            }
+
+            data2.records.forEach(varEntry => {
+
+              if (currIteration = 1) {
+                document.getElementById("forms").innerHTML = document.getElementById("forms").innerHTML + "<div class=\"row\">"
+              }
+
+              currIteration = currIteration + 1
+
+              var cat = ""
+              if (varEntry.fields.Category != undefined) {
+                cat = varEntry.fields.Category
+              }
+              else { cat = "Special" }
+
+              var wt = ""
+              if (varEntry.fields.Weight != undefined) {
+                wt = varEntry.fields.Weight
+              }
+              else { wt = "0" }
+
+              var cst = ""
+              if (varEntry.fields.Cost != undefined) {
+                cst = varEntry.fields.Cost
+              }
+              else { cst = "0" }
+
+              var desc = ""
+              if (varEntry.fields.Description != undefined) {
+                desc = varEntry.fields.Description
+
+              }
+              else
+                desc = ""
+
+
+              if (varEntry.fields.Damage != undefined) {
+                desc = desc + "<br><br>Damage: " + varEntry.fields.Damage
+              }
+              if (varEntry.fields.DamageType != undefined) {
+                desc = desc + ", " + varEntry.fields.DamageType
+              }
+              if (varEntry.fields.Properties != undefined) {
+                desc = desc + "<br>Damage: " + varEntry.fields.Damage
+              }
+              if (varEntry.fields.PlusAC != undefined) {
+                desc = desc + "<br><br>AC: +" + varEntry.fields.PlusAC
+              }
+              if (varEntry.fields.DexMax != undefined) {
+                desc = desc + "<br>Max additional AC from Dex Mod: +" + varEntry.fields.DexMax
+              }
+              var a1 = "<div class=\"column\"><div class=\"card\"><h5 class=\"card-header\"><h3>";
+              var a2 = varEntry.fields.Item
+              var a3 = "</h3><a class=\"collapsed d-block\" data-toggle=\"collapse\" href=\"#collapse-collapsed33";
+              var a4 = varEntry.id
+              var a5 = "\" aria-expanded=\"true\" aria-controls=\"collapse-collapsed33"
+              var a6 = varEntry.id
+              var a7 = "\" id=\"heading-collapsed\"><p>"
+              var a8 = cat
+              var a9 = "</p><p>Weight: "
+              var a10 = wt
+              var a11 = "lb</p><p>Cost: "
+              var a12 = cst
+              var a13 = "g</p><br></a><a id=\"buybutton" + varEntry.id + "\" class=\"buyButton\" onClick=\"addItem()\">BUY</a></h5><div id=\"collapse-collapsed33"
+              var a14 = varEntry.id
+              var a15 = "\" class=\"collapse\" aria-labelledby=\"heading-collapsed\"><div class=\"card-body\"><br>"
+              var a16 = desc
+              var a17 = "</div></div></div>"
+
+              var g;
+              g = document.createElement('div');
+              g.id = i;
+              document.getElementById("forms").appendChild(g);
+              var abc = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17;
+              document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + abc;
+
+              if (currIteration = 5) {
+                currIteration = 0
+                document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + "</p></div>"
+              }
+
+            })
+
+          }
+        }
+        request2.send(null)
+      }
+
+    }
+
+  }
+  request.send()
+
+}
+
+
+
+
+
+
+
+
+
+/* 
+<div class="row">
+<div class="column">
+    <div class="card">
+        <h3>Card 1</h3>
+        <p>Some text</p>
+        <p>Some text</p>
+    </div>
+</div>
+
+<div class="column">
+    <div class="card">
+        <h3>Card 2</h3>
+        <p>Some text</p>
+        <p>Some text</p>
+    </div>
+</div>
+
+<div class="column">
+    <div class="card">
+        <h3>Card 3</h3>
+        <p>Some text</p>
+        <p>Some text</p>
+    </div>
+</div>
+
+<div class="column">
+    <div class="card">
+        <h3>Card 4</h3>
+        <p>Some text</p>
+        <p>Some text</p>
+    </div>
+</div>
+
+</div> */
+
+
+
+
+
+
+function GetInv() {
+  stateModule.setOffSet("");
+  var intValue = 0
+  var request = new XMLHttpRequest()
+  request.open('GET', 'https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/items?pagesize=999&maxRecords=999&view=Grid%20view', true)
+  request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  request.onload = function () {
+
+    var data = JSON.parse(this.response)
+
+    if (request.status >= 200 && request.status < 400) {
+
+      data.records.forEach(varEntry => {
+        intValue += 1
+        console.log(varEntry.fields.Item)
+        console.log(intValue)
+
+      })
+
+      if (data.offset) {
+        stateModule.setOffSet(data.offset);
+      }
+
+
+
+      while (stateModule.getOffSet()) {
+
+        var osRef = stateModule.getOffSet()
+        stateModule.setOffSet("");
+
+
+        var request2 = new XMLHttpRequest()
+        request2.open('GET', 'https://api.airtable.com/v0/appzNIPEkH4ZWAMiT/items?pagesize=9999&maxRecords=30&view=Grid%20view&offset=' + osRef, false)
+        request2.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+        request2.onload = function () {
+          var data2 = JSON.parse(this.response)
+
+          if (request2.status >= 200 && request2.status < 400) {
+
+
+
+            if (data2.offset) {
+              stateModule.setOffSet(data2.offset);
+            }
+
+
+
+            data2.records.forEach(varEntry => {
+              intValue += 1
+              console.log(varEntry.fields.Item)
+              console.log(intValue)
+
+            })
+
+
+
+
+          }
+        }
+        request2.send(null)
+
+
+      }
+
+
+    }
+
+
+  }
+  request.send()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+function buttonAddAmount(amtAdd) {
+  var currHealth = document.getElementsByTagName("progress").item(0).value + amtAdd;
+  var maxHealth = document.getElementsByTagName("progress").item(0).max;
+
+  if (currHealth > maxHealth) {
+    currHealth = maxHealth;
+  }
+  document.getElementsByTagName("progress").item(0).value = currHealth;
+  document.getElementById("currentHealth").innerText = (currHealth) + "  /  " + (maxHealth);
+
+  if (currHealth <= (maxHealth / 2)) {
+    document.getElementById("currentHealth").style.color = "#f44";
+
+  }
+  if (currHealth > (maxHealth / 2)) {
+    document.getElementById("currentHealth").style.color = "white";
+
+  }
+  var url = "https://api.airtable.com/v0/appo1vlAOg4VZKUqs/Ichaeff";
+  var json = "{\"records\": [{\"id\": \"recnAJN2K58wWMeSU\",\"fields\": {\"CharHealthCurrent\": \"" + currHealth + "\"}}]}";
+  var xhr = new XMLHttpRequest();
+  xhr.open("PATCH", url, true);
+  xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  xhr.onload = function () {
+    var Name = JSON.parse(xhr.responseText);
+    console.log(xhr.status);
+  }
+  xhr.send(json);
+
+
+
+}
+
+
+
+
+function equip() {
+
+  var itemID = event.srcElement.id.replace("equip", "")
+  console.log(itemID)
+
+
+  var request = new XMLHttpRequest()
+  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff/' + itemID, true)
+  request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  request.onload = function () {
+
+    stateModule.setArmorAC(0);
+    var armorAC = 0;
+    var data = JSON.parse(this.response)
+    if (request.status >= 200 && request.status < 400) {
+
+      document.getElementById("changeThisMainHandText").innerHTML = "<br>";
+      document.getElementById("changeThisMainHandDamage").innerHTML = "";
+      document.getElementById("changeThisoffHandText").innerHTML = "";
+      document.getElementById("changeThisoffHandDamage").innerHTML = "";
+      document.getElementById("changeThisMainArmorText").innerHTML = "<br>";
+      document.getElementById("changeThisMainArmorAC").innerHTML = "";
+      document.getElementById("changeThisShieldText").innerHTML = "";
+      document.getElementById("changeThisShieldAC").innerHTML = "";
+      document.getElementById("changeThisMiscArmorText").innerHTML = "";
+      document.getElementById("changeThisMiscArmorAC").innerHTML = "";
+      document.getElementById("inventoryPanel").innerHTML = "<br>";
+
+      var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
+      var json = "{\"records\": [{\"id\": \"" + itemID + "\",\"fields\": {\"InvEquipped\": \"" + data.fields.InvEquipable + "\"}}]}";
+      var xhr = new XMLHttpRequest();
+      xhr.open("PATCH", url, true);
+      xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+      xhr.setRequestHeader('Content-Type', 'application/json')
+
+      xhr.onload = function () {
+        var Name = JSON.parse(xhr.responseText);
+        GetStatistics()
+      }
+      xhr.send(json);
+
+    }
+
+
+  }
+
+  request.send()
+
+}
+
+
+function UnEquip() {
+
+  var itemID = event.srcElement.id.replace("unequip", "")
+  console.log(itemID)
+  document.getElementById("changeThisMainHandText").innerHTML = "<br>";
+  document.getElementById("changeThisMainHandDamage").innerHTML = "";
+  document.getElementById("changeThisoffHandText").innerHTML = "";
+  document.getElementById("changeThisoffHandDamage").innerHTML = "";
+  document.getElementById("changeThisMainArmorText").innerHTML = "<br>";
+  document.getElementById("changeThisMainArmorAC").innerHTML = "";
+  document.getElementById("changeThisShieldText").innerHTML = "";
+  document.getElementById("changeThisShieldAC").innerHTML = "";
+  document.getElementById("changeThisMiscArmorText").innerHTML = "";
+  document.getElementById("changeThisMiscArmorAC").innerHTML = "";
+  document.getElementById("inventoryPanel").innerHTML = "<br>";
+
+  var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff";
+  var json = "{\"records\": [{\"id\": \"" + itemID + "\",\"fields\": {\"InvEquipped\": \"\"}}]}";
+  console.log(json);
+  var xhr = new XMLHttpRequest();
+  xhr.open("PATCH", url, true);
+  xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  xhr.setRequestHeader('Content-Type', 'application/json')
+
+  xhr.onload = function () {
+    var Name = JSON.parse(xhr.responseText);
+    console.log(xhr.status);
+    GetStatistics()
+  }
+  xhr.send(json);
+
+
+}
+
+
+
+
+function deleteButton() {
+  var itemID = event.srcElement.id.replace("delete", "")
+  var r = confirm("Are you sure you want to delete " + document.getElementById(event.srcElement.id).previousElementSibling.innerHTML + "?");
+
+  if (r == true) {
+    txt = "You pressed OK!";
+
+  } else {
+    txt = "You pressed Cancel!";
+
+  }
+  console.log(txt)
+
+
+
+
+
+
+
+  document.getElementById("changeThisMainHandText").innerHTML = "<br>";
+  document.getElementById("changeThisMainHandDamage").innerHTML = "";
+  document.getElementById("changeThisoffHandText").innerHTML = "";
+  document.getElementById("changeThisoffHandDamage").innerHTML = "";
+  document.getElementById("changeThisMainArmorText").innerHTML = "<br>";
+  document.getElementById("changeThisMainArmorAC").innerHTML = "";
+  document.getElementById("changeThisShieldText").innerHTML = "";
+  document.getElementById("changeThisShieldAC").innerHTML = "";
+  document.getElementById("changeThisMiscArmorText").innerHTML = "";
+  document.getElementById("changeThisMiscArmorAC").innerHTML = "";
+  document.getElementById("inventoryPanel").innerHTML = "<br>";
+
+  var url = "https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff/" + itemID;
+  var json = "{\"records\": [{\"id\": \"" + itemID + "\",\"fields\": {\"InvEquipped\": \"\"}}]}";
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("DELETE", url, true);
+  xhr.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  //xhr.setRequestHeader('Content-Type', 'application/json')
+
+  xhr.onload = function () {
+    var Name = JSON.parse(xhr.responseText);
+    console.log(xhr.status);
+    GetStatistics()
+  }
+  xhr.send(json);
+
+
+
+}
+
+
+
+
+
+function GetStatistics() {
+
+  var request = new XMLHttpRequest()
+  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff?maxRecords=999&view=Grid%20view', true)
+  request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  request.onload = function () {
+    stateModule.setArmorAC(0);
+    var armorAC = 0;
+    var data = JSON.parse(this.response)
+    if (request.status >= 200 && request.status < 400) {
+      data.records.forEach(varEntry => {
+
+        if (varEntry.fields.InvEquipped == "MainHand") {
+          document.getElementById("changeThisMainHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisMainHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisMainHandText").appendChild(li);
+          }
+        };
+
+        if (varEntry.fields.InvEquipped == "OffHand") {
+          document.getElementById("changeThisOffHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisOffHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisOffHandText").appendChild(li);
+          }
+
+        };
+
+        if (varEntry.fields.InvEquipped == "MainArmor") {
+          document.getElementById("changeThisMainArmorText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisMainArmorAC").text = "+" + varEntry.fields.InvPlusAC + " (+" + varEntry.fields.InvDexMax + " max) -- " + varEntry.fields.InvDisadvantage;
+          document.getElementById("changeThisMainArmorAC").title = varEntry.fields.InvPlusAC
+          stateModule.setDexMax(varEntry.fields.InvDexMax);
+          armorAC += Number(varEntry.fields.InvPlusAC);
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisMainArmorText").appendChild(li);
+          }
+
+        };
+        if (varEntry.fields.InvEquipped == "Shield") {
+          document.getElementById("changeThisoffHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisShieldText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisShieldAC").text = "+" + varEntry.fields.InvPlusAC;
+          document.getElementById("changeThisShieldAC").title = varEntry.fields.InvPlusAC;
+          armorAC += Number(varEntry.fields.InvPlusAC);
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisoffHandText").appendChild(li);
+          }
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisShieldText").appendChild(li);
+          }
+
+
+        };
+        stateModule.setArmorAC(armorAC);
+
+
+        var node = document.createElement("LI");
+        if (Number(varEntry.fields.InvCharges) > 0) {
+          node.appendChild(document.createTextNode(varEntry.fields.InvItem + " x" + varEntry.fields.InvCharges));
+          document.getElementById("inventoryPanel").appendChild(node);
+        }
+        else
+          if (varEntry.fields.InvEquipped != undefined) {
+            node.appendChild(document.createTextNode(varEntry.fields.InvItem + " (Equipped)"));
+            document.getElementById("inventoryPanel").appendChild(node);     // Append <li> to <ul> with id="myList"
+          }
+          else {
+
+            node.appendChild(document.createTextNode(varEntry.fields.InvItem));
+            document.getElementById("inventoryPanel").appendChild(node);     // Append <li> to <ul> with id="myList"
+          }
+
+
+        var li = document.createElement("a");
+        li.appendChild(document.createTextNode("Delete"));
+        li.setAttribute("id", "delete" + varEntry.id);
+        li.setAttribute("class", "btnItems");
+        li.onclick = deleteButton;
+        document.getElementById("inventoryPanel").appendChild(li);
+
+
+
+        if (varEntry.fields.InvEquipped != undefined) {
+          var li = document.createElement("a");
+          li.appendChild(document.createTextNode("Un-Equip"));
+          li.setAttribute("id", "unequip" + varEntry.id);
+
+          li.setAttribute("class", "btnItems");
+          li.onclick = UnEquip;
+          document.getElementById("inventoryPanel").appendChild(li);
+        }
+        else
+          if (varEntry.fields.InvEquipable != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Equip"));
+            li.setAttribute("id", "equip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = equip;
+            document.getElementById("inventoryPanel").appendChild(li);
+          }
+
+
+
+
+
+          
+        var request2 = new XMLHttpRequest()
+        request2.open('GET', 'https://api.airtable.com/v0/appo1vlAOg4VZKUqs/Ichaeff?maxRecords=3&view=Grid%20view', true)
+        request2.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+        request2.onload = function () {
+          var data = JSON.parse(this.response)
+          if (request2.status >= 200 && request2.status < 400) {
+
+            data.records.forEach(varEntry => {
+              document.getElementById("changeThisDexterity").text = varEntry.fields.CharDexterity;
+              document.getElementById("changeThisWisdom").text = varEntry.fields.CharWisdom;
+              document.getElementById("changeThisConstitution").text = varEntry.fields.CharConstitution;
+              document.getElementById("changeThisIntelligence").text = varEntry.fields.CharIntelligence;
+              document.getElementById("changeThisStrength").text = varEntry.fields.CharStrength;
+
+              document.getElementById("modifierStrength").text = "(" + GetModifierValue(varEntry.fields.CharStrength) + ")";
+              document.getElementById("modifierWisdom").text = "(" + GetModifierValue(varEntry.fields.CharWisdom) + ")";
+              document.getElementById("modifierDexterity").text = "(" + GetModifierValue(varEntry.fields.CharDexterity) + ")";
+              document.getElementById("modifierConstitution").text = "(" + GetModifierValue(varEntry.fields.CharConstitution) + ")";
+              document.getElementById("modifierIntelligence").text = "(" + GetModifierValue(varEntry.fields.CharIntelligence) + ")";
+
+              var dexAdd = 0
+              if (Number(stateModule.getDexMax()) < Number(GetModifierValue(varEntry.fields.CharDexterity))) {
+                document.getElementById("changeThisAC").text = Number(varEntry.fields.CharAC) + Number(stateModule.getDexMax()) + Number(stateModule.getArmorAC());
+              }
+              else {
+                document.getElementById("changeThisAC").text = Number(varEntry.fields.CharAC) + Number(GetModifierValue(varEntry.fields.CharDexterity)) + Number(stateModule.getArmorAC());
+              }
+
+              document.getElementsByTagName("progress").item(0).value = varEntry.fields.CharHealthCurrent;
+              document.getElementsByTagName("progress").item(0).max = varEntry.fields.CharHealthMax;
+              document.getElementById("currentHealth").innerText = (varEntry.fields.CharHealthCurrent) + "  /  " + (varEntry.fields.CharHealthMax);
+
+            })
+
+          } else {
+          }
+        }
+        request2.send()
+
+      })
+
+    } else {
+
     }
   }
-/* Float four columns side by side */
-.column {
-    float: left;
-    width: 50%;
-    padding: 0 10px;
-    
+  request.send()
+}
+
+
+
+
+
+
+
+var stateModule = (function () {
+  var armorAC;
+  var pub = {}
+  var dexMax;
+  var offSet;
+  var currStacks;
+  var oldGold;
+  var newGold;
+  pub.setArmorAC = function (newstate) {
+    armorAC = newstate;
+  };
+  pub.getArmorAC = function () {
+    return armorAC;
   }
-  
-  /* Remove extra left and right margins, due to padding in columns */
-  .row {
-      margin: 0 5px 10px;
+  pub.setDexMax = function (newstate) {
+    dexMax = newstate;
+  };
+  pub.getDexMax = function () {
+    return dexMax;
+  }
+  pub.setOffSet = function (newstate) {
+    offSet = newstate;
+  };
+  pub.getOffSet = function () {
+    return offSet;
+  }
+  pub.setCurrStacks = function (newstate) {
+    currStacks = newstate;
+  };
+  pub.getCurrStacks = function () {
+    return currStacks;
+  }
+  pub.setOldGold = function (newstate) {
+    oldGold = newstate;
+  };
+  pub.getOldGold = function () {
+    return oldGold;
+  }
+  pub.setNewGold = function (newstate) {
+    newGold = newstate;
+  };
+  pub.getNewGold = function () {
+    return newGold;
+  }
+  return pub; // expose externally
+}());
+
+
+
+
+
+
+
+
+function GetModifierValue(ability) {
+  var modVal = 0
+
+  if (ability == 1) { modVal = -5 };
+  if (ability == 2 || ability == 3) { modVal = -4 };
+  if (ability == 4 || ability == 5) { modVal = -3 };
+  if (ability == 6 || ability == 7) { modVal = -2 };
+  if (ability == 8 || ability == 9) { modVal = -1 };
+  if (ability == 10 || ability == 11) { modVal = 0 };
+  if (ability == 12 || ability == 13) { modVal = 1 };
+  if (ability == 14 || ability == 15) { modVal = 2 };
+  if (ability == 16 || ability == 17) { modVal = 3 };
+  if (ability == 18 || ability == 19) { modVal = 4 };
+  if (ability == 20 || ability == 21) { modVal = 5 };
+  if (ability == 22 || ability == 23) { modVal = 6 };
+  if (ability == 24 || ability == 25) { modVal = 7 };
+  if (ability == 26 || ability == 27) { modVal = 8 };
+  if (ability == 28 || ability == 29) { modVal = 9 };
+  if (ability >= 30) { modVal = 10 };
+
+  return modVal
+
+}
+
+
+
+function newTest() {
+
+
+  var request = new XMLHttpRequest()
+  request.open('GET', 'https://api.airtable.com/v0/appHbTb5yS5006rqf/Ichaeff?maxRecords=999&view=Grid%20view', false)
+  request.setRequestHeader('Authorization', 'Bearer keyPNiqLig0a2oKbv')
+  request.onload = function () {
+    stateModule.setArmorAC(0);
+    var currIteration = 1;
+
+    document.getElementById("inventoryButton").click();
+
+
+    var data = JSON.parse(this.response)
+    if (request.status >= 200 && request.status < 400) {
+      data.records.forEach(varEntry => {
+
+        if (varEntry.fields.InvEquipped == "MainHand") {
+          document.getElementById("changeThisMainHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisMainHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisMainHandText").appendChild(li);
+          }
+        };
+
+        if (varEntry.fields.InvEquipped == "OffHand") {
+          document.getElementById("changeThisOffHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisOffHandDamage").text = varEntry.fields.InvDamage + " " + varEntry.fields.InvDamageType;
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisOffHandText").appendChild(li);
+          }
+
+        };
+
+        if (varEntry.fields.InvEquipped == "MainArmor") {
+          document.getElementById("changeThisMainArmorText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisMainArmorAC").text = "+" + varEntry.fields.InvPlusAC + " (+" + varEntry.fields.InvDexMax + " max) -- " + varEntry.fields.InvDisadvantage;
+          document.getElementById("changeThisMainArmorAC").title = varEntry.fields.InvPlusAC
+          stateModule.setDexMax(varEntry.fields.InvDexMax);
+          armorAC += Number(varEntry.fields.InvPlusAC);
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisMainArmorText").appendChild(li);
+          }
+
+        };
+        if (varEntry.fields.InvEquipped == "Shield") {
+          document.getElementById("changeThisoffHandText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisShieldText").text = varEntry.fields.InvItem;
+          document.getElementById("changeThisShieldAC").text = "+" + varEntry.fields.InvPlusAC;
+          document.getElementById("changeThisShieldAC").title = varEntry.fields.InvPlusAC;
+          armorAC += Number(varEntry.fields.InvPlusAC);
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisoffHandText").appendChild(li);
+          }
+
+          if (varEntry.fields.InvEquipped != undefined) {
+            var li = document.createElement("a");
+            li.appendChild(document.createTextNode("Un-Equip"));
+            li.setAttribute("id", "unequip" + varEntry.id);
+            li.setAttribute("class", "btnItems");
+            li.onclick = UnEquip;
+            document.getElementById("changeThisShieldText").appendChild(li);
+          }
+
+
+        };
+        stateModule.setArmorAC(armorAC);
+
+
+        console.log(varEntry)
+        if (currIteration = 1) {
+          document.getElementById("invStats").innerHTML = document.getElementById("invStats").innerHTML + "<div class=\"row\">"
+        }
+        currIteration = currIteration + 1
+
+        var cat = ""
+        if (varEntry.fields.InvCategory != undefined) {
+          cat = varEntry.fields.InvCategory
+        }
+        else { cat = "Special" }
+
+        var wt = ""
+        if (varEntry.fields.InvWeight != undefined) {
+          wt = varEntry.fields.InvWeight
+        }
+        else { wt = "0" }
+
+        var cst = ""
+        if (varEntry.fields.InvCost != undefined) {
+          cst = varEntry.fields.InvCost
+        }
+        else { cst = "0" }
+
+
+        var desc = ""
+        if (varEntry.fields.InvDescription != undefined) {
+          desc = varEntry.fields.InvDescription
+        }
+        else
+          desc = ""
+
+        if (varEntry.fields.InvDamage != undefined) {
+          desc = desc + "<br><br>Damage: " + varEntry.fields.InvDamage
+        }
+        if (varEntry.fields.InvDamageType != undefined) {
+          desc = desc + ", " + varEntry.fields.InvDamageType
+        }
+        if (varEntry.fields.InvProperties != undefined) {
+          desc = desc + "<br>Damage: " + varEntry.fields.InvDamage
+        }
+        if (varEntry.fields.InvPlusAC != undefined) {
+          desc = desc + "<br><br>AC: +" + varEntry.fields.InvPlusAC
+        }
+        if (varEntry.fields.InvDexMax != undefined) {
+          desc = desc + "<br>Max additional AC from Dex Mod: +" + varEntry.fields.InvDexMax
+        }
+        desc = desc + "<br></a><a id=\"destroyButton" + varEntry.id + "\" class=\"destroyButton\" onClick=\"destroyItem()\">DESTROY</a>"
+
+
+
+
+        var a1 = "<div class=\"column\"><div class=\"card\"><h5 class=\"card-header\"><h3>";
+        var a2 = varEntry.fields.InvItem
+        var a3 = "</h3><a class=\"collapsed d-block\" data-toggle=\"collapse\" href=\"#collapse-collapsed33";
+        var a4 = varEntry.id
+        var a5 = "\" aria-expanded=\"true\" aria-controls=\"collapse-collapsed33"
+        var a6 = varEntry.id
+        var a7 = "\" id=\"heading-collapsed\"><p>"
+        var a8 = cat
+        var a9 = "</p><p>Weight: "
+        var a10 = wt
+        var a11 = "lb</p><p>Cost: "
+        var a12 = cst
+        var a13 = ""
+        if (varEntry.fields.InvEquipable != undefined) {
+          if (varEntry.fields.InvEquipped != undefined)
+          {
+          var a13 = "g</p></a><a id=\"unequip" + varEntry.id + "\" class=\"equipButton\" onClick=\"unequip()\">Un-Equip</a></h5><div id=\"collapse-collapsed33"
+          }
+          else
+          {
+            var a13 = "g</p></a><a id=\"equip" + varEntry.id + "\" class=\"equipButton\" onClick=\"equip()\">Equip</a></h5><div id=\"collapse-collapsed33"
+          }
+        }
+        else {
+
+          var currCharges = 1
+          if (varEntry.fields.InvCharges != undefined) {
+            currCharges = varEntry.fields.InvCharges
+          }
+          var a13 = "g</p></a><a id=\"equipButton" + varEntry.id + "\" class=\"equipButton  \">Quantity : " + currCharges + "</a></h5><div id=\"collapse-collapsed33"
+
+        }
+        var a14 = varEntry.id
+        var a15 = "\" class=\"collapse\" aria-labelledby=\"heading-collapsed\"><div class=\"card-body\"><br>"
+        var a16 = desc
+        var a17 = "</div></div></div>"
+
+        var g;
+        g = document.createElement('div');
+        g.id = i;
+        document.getElementById("invStats").appendChild(g);
+        var abc = a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10 + a11 + a12 + a13 + a14 + a15 + a16 + a17;
+        document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + abc;
+
+        if (currIteration = 3) {
+          currIteration = 0
+          document.getElementById(g.id).innerHTML = document.getElementById(g.id).innerHTML + "</p></div>"
+        }
+      }
+
+      )
+
     
+       
+    
+
     }
-  
-  /* Clear floats after the columns */
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-    border-spacing: 5px;
-    
 
+
+    for (let i = 0; i < 3; i++) {
+      equalizeCards();
+      }
   }
-  
+  request.send();
 
+  document.getElementById("inventoryButton").click();
 
-  
-
-
-
-
-.progress-bar {
-    width: 33%;
-    height: 100%;
-    width: 255px;
-    position: relative;
-    left: 25px;
-
-}
-
-.progress {
-    background: #ad5389;
-    background-color: red;
-    background-image:
-    -webkit-linear-gradient(-45deg, 
-                            transparent 33%, rgba(0, 0, 0, .1) 33%, 
-                            rgba(0,0, 0, .1) 66%, transparent 66%),
-    -webkit-linear-gradient(top, 
-                            rgba(255, 255, 255, .25), 
-                            rgba(0, 0, 0, .25)),
-    -webkit-linear-gradient(left, #09c, #f44);
-
-    border-radius: 3px;
-    height: 30px;
-    width: 0;
-
-}
-
-progress {
-    width: 300px;
-    height: 30px;
-    width: 255px;
-    position: relative;
-    left: 25px;
-    border: 1px black solid;
-}
-
-
-
-
-
-/* Style the buttons that are used to open and close the accordion panel */
-
-.accordion {
-    background-color: rgba(121, 103, 103, 0.788);
-    padding: 18px;
-    width: 280px;
-    text-align: left;
-    border: none;
-    outline: none;
-    transition: 0.4s;
-}
-
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-
-.active, .accordion:hover {
-    background-color: rgba(59, 52, 52, 0.788);
-}
-
-/* Style the accordion panel. Note: hidden by default */
-
-.panel {
-    padding: 0 18px;
-    width: 250px;
-    background-color: rgba(41, 36, 36, 0.952);
-    display: none;
-    overflow: hidden;
-}
-
-.panelStats {
-    padding: 0 18px;
-    width: 100%;
-    background-color: rgba(41, 36, 36, 0.952);
-    display: none;
-    overflow: hidden;
-}
-
-body {
-    background-color: #613939;
-    color: #aeaeae;
-    font-size: 15px;
-    line-height: 1.6;
-    font-family: "Poppins", serif;
-    position: relative;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-    height: 100%;
-    background: url(images/pattern.png) repeat center center rgba(0, 0, 0, 0.7);
-}
-.btnItems {
-    position: relative;
-    padding: 0 20px;
-    font-size: 10px;
-    
-    /* Green border*/
-    color: rgb(165, 165, 165);
-    /* White text */
-    z-index: 6;
-    cursor: pointer;
-    /*Pointer/hand icon */
-}
-.btn-group-subtract button {
-    position: relative;
-    left: 25px;
-    width: 38px;
-    background-color: rgba(180, 70, 72, 1);
-    /* Greenbackground */
-    border: 1px solid rgba(180, 70, 72, 1);
-    /* Green border*/
-    color: white;
-    /* White text */
-    z-index: 6;
-    cursor: pointer;
-    /*Pointer/hand icon */
-}
-
-.btn-group-subtract button:not(:last-child) {
-    border-right: none;
-    /* Prevent double borders */
-}
-
-.btn-group-subtract:after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.btn-group-subtract button:hover {
-    background-color: #3e8e41;
-}
-
-.btn-group-add button {
-    position: relative;
-    left: 160px;
-    background-color: #4CAF50;
-    border: 1px solid green;
-    color: white;
-    top: -28px;
-    width: 38px;
-    cursor: pointer;
-}
-
-.btn-group-add button:not(:last-child) {
-    border-right: none;
-}
-
-.btn-group-add:after {
-    content: "";
-    clear: both;
-    display: table;
-}
-
-.btn-group-add button:hover {
-    background-color: #3e8e41;
-}
-
-.charStatVar .charStatModifier {
-    background: transparent;
-    z-index: 2;
-    position: relative;
-    left: 50px;
-    height: 40px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-}
-
-.charStatVar {
-    background: transparent;
-    z-index: 2;
-    position: relative;
-    left: 155px;
-    height: 40px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-}
-
-.CharStatStatic {
-    background: transparent;
-    z-index: 2;
-    position: absolute;
-    margin-left: 15px;
-    height: 100px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    z-index: 2;
-}
-
-
-.CharHealthStatic {
-    background: transparent;
-    z-index: 2;
-    position: relative;
-    margin-left: 25px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    top: 22px;
-}
-
-.CharHealthVar {
-    background: transparent;
-    z-index: 2;
-    position: relative;
-    margin-left: 155px;
-
-
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    z-index: 2;
-}
-
-
-
-
-
-
-.buyButton {
-    /* position: relative; */
-    background-color: #535353;
-    border: 2px solid rgba(128, 128, 128, 0.774);
-    color: rgb(255, 242, 167);
-    z-index: 6;
-    cursor: pointer;
-    /* vertical-align: middle; */
-    padding: 13px;
-    display: block;
-    width: 25%;
-    margin-left: 37%;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.charTopStatsVar {
-    background: transparent;
-    z-index: 2;
-    position: relative;
-    margin-left: 100px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 20px;
-}
-
-.charTopStatsStatic {
-    background: transparent;
-    position: absolute;
-    left: 25px;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 20px;
-    z-index: 2;
-}
-
-.charTopStatsVar .tooltiptext {
-    visibility: hidden;
-    font-size: 14px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 20;
-    bottom: 0%;
-    margin-left: 0%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.charTopStatsVar .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.charTopStatsVar:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-
-
-
-
-
-.charArmorVar .tooltiptext {
-    visibility: hidden;
-
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 20;
-    bottom: 5%;
-    margin-left: 0%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.charArmorVar .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.charArmorVar:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-.charWeaponVar .tooltiptext {
-    visibility: hidden;
-
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 20;
-    bottom: 25%;
-    margin-left: 5%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.charWeaponVar .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.charWeaponVar:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-
-
-
-
-
-
-
-.charStatVar .tooltiptext {
-    visibility: hidden;
-
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 20;
-    bottom: 0%;
-    margin-left: 0%;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.charStatVar .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
-
-.charStatVar:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
-Input {
-    border-radius: 0;
-    background-color: transparent;
-    height: 40px;
-    border: 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    box-shadow: none !important;
-    border-top: 1px dotted rgba(255, 255, 255, 0.15);
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
-}
-
-.menu-search .form-control::-moz-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    opacity: 1;
-}
-
-.menu-search .form-control:-ms-input-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.menu-search .form-control::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-a {
-    color: #aeaeae;
-    text-decoration: none;
 }
 
-.vertical-header {
-    position: fixed;
-    left: 0;
-    z-index: 1111;
-    top: 0;
-    bottom: 0;
-    -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
-    -o-transform: translate3d(0, 0, 0);
-    -ms-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0)
-}
-
-.vertical-header-wrapper {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 1) url("images/menubg.jpg") no-repeat scroll center center;
-    z-index: 10;
-    overflow-x: hidden;
-    min-width: 260px;
-    overflow-y: auto
-}
-
-.subsub-menu-wrapper, .sub-menu-wrapper {
-    opacity: 0;
-    visibility: hidden;
-    background-color: #151515;
-    position: absolute;
-    padding: 0px 10px 0;
-    width: 100%;
-    top: 0;
-    max-width: 240px;
-    bottom: 0;
-    left: 60%;
-    height: 100%;
-    display: table;
-    -webkit-transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
-    -moz-transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
-    -o-transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
-    transition: visibility 0.35s ease-in-out, opacity 0.35s ease-in-out, top 0.35s ease-in-out, bottom 0.35s ease-in-out, left 0.35s ease-in-out, right 0.35s ease-in-out;
-}
-
-.subsub-menu-wrapper {
-    background-color: #191919;
-}
-
-.primary-menu li:hover .subsub-menu li:hover a, .primary-menu li:hover .sub-menu-wrapper li:hover a, .primary-menu li:hover a {
-    color: rgba(255, 255, 255, 1);
-}
-
-.primary-menu li:hover .subsub-menu li a, .primary-menu li:hover .sub-menu-wrapper li a, .menu-search .btn, .vertical-header li a {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.primary-menu li:hover .subsub-menu li a {
-    color: rgba(255, 255, 255, 0.7) !important;
-}
-
-.primary-menu li:hover .subsub-menu li:hover a {
-    color: rgba(255, 255, 255, 1) !important;
-}
-
-.vertical-header li {
-    list-style: none;
-}
-
-.vertical-header ul {
-    padding: 0 5px;
-}
-
-.sub-menu li:hover .subsub-menu-wrapper, .child-menu:hover .sub-menu-wrapper {
-    opacity: 1;
-    z-index: 1000;
-    left: 100%;
-    position: absolute;
-    visibility: visible;
-}
-
-.primary-menu li a {
-    display: block;
-    width: 100%;
-    position: relative;
-    text-decoration: none !important;
-}
-
-.primary-menu li .fa-angle-right {
-    position: absolute;
-    right: 0;
-    font-size: 14px;
-    top: 0px;
-}
-
-.primary-menu {
-    margin-top: 78px;
-}
-
-.primary-menu li {
-    text-transform: capitalize;
-    padding: 15px 20px;
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
-    font-size: 14px;
-    line-height: 1 !important;
-    margin: 0 !important;
-    text-transform: capitalize;
-    white-space: nowrap;
-    font-family: 'Montserrat', sans-serif;
-}
-
-.primary-menu li:first-child {
-    border-top: 1px dotted rgba(255, 255, 255, 0.15);
-}
-
-.center-content {
-    display: table-cell;
-    vertical-align: middle;
-}
-
-.margin-block {
-    min-height: 40px;
-}
-
-.logo {
-    padding: 80px 0 0;
-    text-align: center;
-}
-
-.menu-search {
-    padding: 0 15px;
-}
-
-.menu-search .form-group {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
-.menu-search .btn {
-    background-color: transparent !important;
-    position: absolute;
-    border: 0;
-    top: -1px;
-    padding-right: 10px;
-    padding-left: 10px;
-    font-size: 12px;
-    right: 0;
-}
-
-.menu-search .form-control:focus .btn {
-    color: #f4af0b !important;
-}
-
-.menu-search .form-control {
-    border-radius: 0;
-    background-color: transparent;
-    height: 40px;
-    width: 100px;
-    border: 0;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 14px;
-    box-shadow: none !important;
-    border-top: 1px dotted rgba(255, 255, 255, 0.15);
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
-}
-
-.menu-search .form-control::-moz-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    opacity: 1;
-}
-
-.menu-search .form-control:-ms-input-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.menu-search .form-control::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.menu-social ul {
-    margin: 0;
-    padding: 0;
-}
-
-.menu-social ul li {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-.menu-social ul li i {
-    font-size: 12px;
-    padding: 10px;
-    border: 1px dotted rgba(255, 255, 255, 0.2);
-}
-
-/*!
-     * Yamm!3 - Yet another megamenu for Bootstrap 3
-     * http://geedmo.github.com/yamm3
-     * 
-     * @geedmo - Licensed under the MIT license
-     */
-
-.yamm .nav, .yamm .collapse, .yamm .dropup, .yamm .dropdown {
-    position: static;
-}
-
-.yamm .container {
-    position: relative;
-}
 
-.yamm .dropdown-menu {
-    left: auto;
-    right: auto;
-}
-
-.yamm .yamm-content {
-    padding: 30px 30px;
-}
-
-.yamm .dropdown.yamm-fw .dropdown-menu {
-    left: 0;
-    right: 0;
-}
-
-.yamm-content ul {
-    list-style: none;
-    padding: 0;
-}
-
-.yamm-content ul li {
-    padding: 5px 0
-}
-
-.yamm-content ul li:hover a {
-    padding-left: 10px;
-}
-
-.yamm-content ul li em {
-    font-size: 18px;
-}
-
-.yamm .dropdown-menu {
-    box-shadow: none;
-    border-color: #030303;
-    background-color: #030303;
-    border-radius: 0;
-}
-
-.yamm .dropdown-menu li a {
-    color: #ffffff;
-}
-
-.yamm-half ul {
-    min-width: 220px;
-}
-
-#header {
-    -webkit-transition: all 0.7s ease 0s;
-    -moz-transition: all 0.7s ease 0s;
-    -ms-transition: all 0.7s ease 0s;
-    -o-transition: all 0.7s ease 0s;
-    transition: all 0.7s ease 0s;
-}
-
-#header.affix {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    border-color: #030303;
-    background-color: #030303;
-}
-
-#header .navbar-brand {
-    padding: 7px 20px;
-}
-
-.transparent-header {
-    position: absolute;
-    top: 30px;
-    right: 0;
-    padding: 15px 0;
-    z-index: 100;
-    left: 0;
-}
-
-.nav, .navbar, .navbar-nav {
-    margin-bottom: 0 !important;
-}
-
-.navbar-default {
-    border-radius: 0;
-    border: 0;
-    background-color: transparent;
-}
-
-.navbar-default .nav>li>a {
-    display: block;
-    font-size: 14px;
-    padding: 15px 15px;
-    position: relative;
-    text-transform: capitalize;
-    font-weight: 500;
-    font-family: montserrat;
-}
-
-.navbar-nav>li>.dropdown-menu {
-    margin-top: 15px;
-}
-
-.dark-header {
-    padding: 20px 0;
-    z-index: 1111;
-    background-color: #030303
-}
-
-.light-header {
-    padding: 20px 0;
-    z-index: 1111;
-    background-color: #ffffff;
-}
-
-.light-header.affix {
-    background-color: #ffffff !important;
-}
-
-.light-header .nav>li>a {
-    color: #000000;
-}
-
-.dark-header .nav>li>a, .transparent-header .nav>li>a {
-    color: #ffffff;
-}
-
-.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-    background-color: transparent;
-}
-
-.normal-header.dark-color .nav>li>a {
-    color: #909090;
-}
-
-.normal-header.dark-color .nav>li>a:hover, .transparent-header.dark-color .social i, .transparent-header.dark-color .nav>li>a {
-    color: #030303;
-}
-
-#header.affix {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    border-color: #030303;
-    background-color: #030303;
-}
-
-#header.affix.dark-color {
-    border-color: #ffffff !important;
-    background-color: #ffffff !important;
-}
-
-/*********************
-MOBILE MENU
-*********************/
 
-.navbar-inverse {
-    background-color: #121212;
-    border: 0;
-    margin: 0;
-    padding: 25px 0;
-    border-radius: 0;
-}
 
-.navbar-collapse {
-    box-shadow: none;
-}
 
-.navbar-inverse .navbar-nav>li>a {
-    font-size: 13px;
-    font-weight: 400;
-    margin: 0;
-    text-transform: capitalize;
-    white-space: nowrap;
-}
 
-.navbar-inverse .nav>li>a {
-    padding-left: 15%;
-    padding-right: 10px;
-}
+function destroyItem()
+{
 
-.navbar-inverse .navbar-nav>li {
-    padding-left: 10px;
-}
 
-.navbar-brand {
-    padding: 0px 0px;
 }
 
-/************************************
-SLIDER
-************************************/
+function itemEquip(){
 
-.tp-caption.WebProduct-Title, .WebProduct-Title {
-    font-family: 'Montserrat', serif;
-    font-weight: bold;
-    text-transform: capitalize;
-    color: #ffffff;
-    letter-spacing: 0;
 }
 
-.dark-color, .tp-caption.dark-color {
-    color: #000000 !important;
-}
 
-.WebProduct-Content, .tp-caption.WebProduct-Content {
-    font-family: 'Poppins', serif;
-    color: #ffffff;
-    opacity: 0.8 !important;
-    font-weight: 400;
-}
 
-.tp-caption.Small-Title-Link, .tp-caption.Small-Title, .Small-Title {
-    background-color: transparent;
-    border-color: transparent;
-    border-radius: 0 0 0 0;
-    border-style: none;
-    border-width: 0;
-    color: rgba(255, 255, 255, 1.00);
-    font-family: 'Montserrat', serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: bold;
-    line-height: 24px;
-    padding: 0;
-    text-decoration: none;
-}
+function equalizeCards(){
 
-.Small-Title-Link a, .tp-caption.Small-Title-Link a {
-    background-color: transparent;
-    border-color: transparent;
-    border-radius: 0 0 0 0;
-    border-style: none;
-    border-width: 0;
-    color: rgba(255, 255, 255, 1.00);
-    font-family: 'Poppins', serif;
-    font-size: 16px;
-    font-style: normal;
-    text-transform: uppercase;
-    font-weight: 400;
-    line-height: 24px;
-    font-size: 10px;
-    padding: 0;
-    text-decoration: none;
+  var maxHeight = 0;
+          
+    for(i=0;i<$(".card").length;i++){
+      console.log($(".card").length)
+      if($(".card").eq(i)){
+        var currentHeight = $(".card").eq(i).height();
+        console.log($(".card").currentHeight)
+        if(currentHeight>=maxHeight){
+          maxHeight = currentHeight;
+        }
+      }
+      else{
+        break;
+      }
+    }
+    if (maxHeight > 0){$(".card").height(maxHeight);}
 }
