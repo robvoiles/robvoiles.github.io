@@ -4,7 +4,7 @@
  * Licensed under  (Creative Commons 3.0)
  */
 
- @font-face {
+@font-face {
     font-family: "Flaticon";
     src: url("fonts/Flaticon.eot");
     src: url("fontsFlaticon.eot?#iefix") format("embedded-opentype"), url("fonts/Flaticon.woff") format("woff"), url("fonts/Flaticon.ttf") format("truetype"), url("fonts/Flaticon.svg#Flaticon") format("svg");
@@ -143,10 +143,6 @@ font-size: 30px;
 }
 
 
-
-
-
-
 /* Style the counter cards */
 .card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
@@ -155,8 +151,6 @@ font-size: 30px;
     background-color: #535353;
     position: relative;    
     margin: 5px;
-    flex: 0 0 33.333%;
-    padding: 10px; /* gutter width */
   }
   
   /* Responsive columns - one column layout (vertical) on small screens */
@@ -229,7 +223,7 @@ font-size: 30px;
 progress {
     width: 300px;
     height: 30px;
-    width: 280px;
+    width: 255px;
     position: relative;
     left: 25px;
     border: 1px black solid;
@@ -249,8 +243,6 @@ progress {
     border: none;
     outline: none;
     transition: 0.4s;
-    margin-left: 2%;
-    margin-top: 2%;
 }
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
@@ -376,8 +368,7 @@ body {
     left: 155px;
     height: 40px;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 15px;
-    margin-top: 2.3%;
+    font-size: 14px;
 }
 
 .CharStatStatic {
@@ -387,9 +378,8 @@ body {
     margin-left: 15px;
     height: 100px;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 16px;
+    font-size: 14px;
     z-index: 2;
-    margin-top: 2%;
 }
 
 
@@ -450,7 +440,7 @@ body {
     background: transparent;
     z-index: 2;
     position: relative;
-    margin-left: 15%;
+    margin-left: 100px;
     color: rgba(255, 255, 255, 0.7);
     font-size: 20px;
 }
@@ -458,7 +448,7 @@ body {
 .charTopStatsStatic {
     background: transparent;
     position: absolute;
-    margin-left: 10%;
+    left: 25px;
     color: rgba(255, 255, 255, 0.7);
     font-size: 20px;
     z-index: 2;
@@ -1000,7 +990,6 @@ MOBILE MENU
     margin: 0;
     padding: 25px 0;
     border-radius: 0;
-
 }
 
 .navbar-collapse {
