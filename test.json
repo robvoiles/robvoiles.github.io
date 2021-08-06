@@ -67,25 +67,25 @@
             "id": "brfqkcvnk"
         },
         {
-            "app": "abstage",
+            "app": "abs",
             "instance": "prod",
             "table": "Events",
             "id": "brcegthaz"
         },
         {
-            "app": "abstage",
+            "app": "abs",
             "instance": "prod",
             "table": "Indirect Customer",
             "id": "brcegthb8"
         },
         {
-            "app": "abstage",
+            "app": "abs",
             "instance": "dev",
             "table": "Events",
             "id": "bq82ityc4"
         },
         {
-            "app": "abstage",
+            "app": "abs",
             "instance": "dev",
             "table": "Indirect Customer",
             "id": "bq82itydn"
