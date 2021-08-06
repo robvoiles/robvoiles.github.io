@@ -1,28 +1,118 @@
 {
-    "name": "Gaurav Ghati",
-    "phone": "+91 9067365762",
-    "mail": "gauravghati225@gmail.com",
-
-    "bio": "MY BIO",
-    "fun": "FUN STATEMENT",
-
-    "github": "https://github.com/gauravghati/",
-    "twitter": "https://twitter.com/GauravGhati/",
-    "linkedin": "http://linkedin.com/in/gauravghati/",
-
-    "aboutme": {
-        "para1": "This is Paragraph 1",
-        "para2": "This is Paragraph 2"
-    },
-
-    "volunteer": {
-        "tfi": {
-            "heading": "Teach For India",
-            "description": "description of TFI"
+    "IDs": [
+        {
+            "app": "west",
+            "instance": "prod",
+            "table": "Indirect Customer",
+            "id": "brkv8ftv"
         },
-        "pisb": {
-            "heading": "PICT IEEE Student Branch",
-            "description": "description of PISB"
+        {
+            "app": "west",
+            "instance": "prod",
+            "table": "Indirect Customer",
+            "id": "brkv8ftvf"
+        },
+        {
+            "app": "west",
+            "instance": "prod",
+            "table": "Events",
+            "id": "brkv8ftue"
+        },
+        {
+            "app": "west",
+            "instance": "stage",
+            "table": "Events",
+            "id": "brkqw3t55"
+        },
+        {
+            "app": "west",
+            "instance": "stage",
+            "table": "Indirect Customer",
+            "id": "brkqw3t7v"
+        },
+        {
+            "app": "west",
+            "instance": "dev",
+            "table": "Events",
+            "id": "brig4rsni"
+        },
+        {
+            "app": "west",
+            "instance": "dev",
+            "table": "Indirect Customer",
+            "id": "brig4rspc"
+        },
+        {
+            "app": "gmhbc",
+            "instance": "prod",
+            "table": "Events",
+            "id": "brfndt7d5"
+        },
+        {
+            "app": "gmhbc",
+            "instance": "prod",
+            "table": "Indirect Customer",
+            "id": "brfndt7h2"
+        },
+        {
+            "app": "gmhbc",
+            "instance": "dev",
+            "table": "Events",
+            "id": "brfqkcvi2"
+        },
+        {
+            "app": "gmhbc",
+            "instance": "dev",
+            "table": "Indirect Customer",
+            "id": "brfqkcvnk"
+        },
+        {
+            "app": "abstage",
+            "instance": "prod",
+            "table": "Events",
+            "id": "brcegthaz"
+        },
+        {
+            "app": "abstage",
+            "instance": "prod",
+            "table": "Indirect Customer",
+            "id": "brcegthb8"
+        },
+        {
+            "app": "abstage",
+            "instance": "dev",
+            "table": "Events",
+            "id": "bq82ityc4"
+        },
+        {
+            "app": "abstage",
+            "instance": "dev",
+            "table": "Indirect Customer",
+            "id": "bq82itydn"
+        },
+        {
+            "app": "unfi",
+            "instance": "prod",
+            "table": "Events",
+            "id": "bqqiaf8q7"
+        },
+        {
+            "app": "unfi",
+            "instance": "prod",
+            "table": "Indirect Customer",
+            "id": "bqqibg2qu"
+        },
+        {
+            "app": "unfi",
+            "instance": "dev",
+            "table": "Events",
+            "id": "bq5m8mw6v"
+        },
+        {
+            "app": "unfi",
+            "instance": "dev",
+            "table": "Indirect Customer",
+            "id": "bq5m8mxag"
         }
-    }
+    ]
 }
