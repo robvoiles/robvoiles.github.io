@@ -704,6 +704,26 @@ a {
 .cid-tuFQHtTrhj .mbr-section-title {
   color: #ffffff;
 }
+.cid-tuJUIfzAau {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #ffffff;
+}
+.cid-tuJUIfzAau .mbr-fallback-image.disabled {
+  display: none;
+}
+.cid-tuJUIfzAau .mbr-fallback-image {
+  display: block;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+.cid-tuJUIfzAau .mbr-section-title {
+  text-align: center;
+}
 .cid-s48udlf8KU {
   padding-top: 5rem;
   padding-bottom: 2rem;
