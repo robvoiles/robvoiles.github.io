@@ -1,0 +1,36 @@
+1675916374240	geckodriver	INFO	Listening on 127.0.0.1:53967
+1675916377384	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "53968" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\rathb\\AppData\\Local\\Temp\\rust_mozprofilevajybx"
+1675916379881	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1675916379891	Marionette	INFO	Listening on port 53980
+Read port: 53980
+WebDriver BiDi listening on ws://127.0.0.1:53968
+Read port: 53980
+1675916381546	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\rathb\\AppData\\Local\\Temp\\rust_mozprofilevajybx\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:53968/devtools/browser/c46ae80a-30c5-4148-9707-95170f83d0d1
+console.warn: "Async method failed in safeAsyncMethod" (new Error("Connection closed, pending request to server0.conn0.windowGlobal6442450945/layout44, type getGrids failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol/Front.js:300:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol/Front/FrontClassWithSpec.js:47:19\ngetAllGrids@resource://devtools/client/fronts/layout.js:173:17\nexports.safeAsyncMethod/<@resource://devtools/shared/async-utils.js:61:25\ngetGrids@resource://devtools/client/inspector/grids/grid-inspector.js:452:35\n", "resource://devtools/shared/protocol/Front.js", 106))
+console.warn: "Async method failed in safeAsyncMethod" (new Error("Connection closed, pending request to server0.conn0.windowGlobal6442450948/layout23, type getGrids failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol/Front.js:300:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol/Front/FrontClassWithSpec.js:47:19\ngetAllGrids@resource://devtools/client/fronts/layout.js:173:17\nexports.safeAsyncMethod/<@resource://devtools/shared/async-utils.js:61:25\ngetGrids@resource://devtools/client/inspector/grids/grid-inspector.js:452:35\n", "resource://devtools/shared/protocol/Front.js", 106))
+console.error: "Could not get the list of font families" (new Error("Connection closed, pending request to server0.conn0.windowGlobal6442450945/pagestyle22, type getUsedFontFaces failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol/Front.js:300:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol/Front/FrontClassWithSpec.js:47:19\ngetUsedFontFamilies/</<@resource://devtools/client/inspector/rules/models/element-style.js:203:46\n", "resource://devtools/shared/protocol/Front.js", 106))
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: , line 0: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+1675916643576	geckodriver	INFO	Listening on 127.0.0.1:54712
+1675916646604	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--remote-debugging-port" "54713" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\rathb\\AppData\\Local\\Temp\\rust_mozprofileGZBcGQ"
+1675916647158	Marionette	INFO	Marionette enabled
+Dynamically enable window occlusion 0
+1675916647164	Marionette	INFO	Listening on port 54726
+Read port: 54726
+WebDriver BiDi listening on ws://127.0.0.1:54713
+1675916647389	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at C:\\Users\\rathb\\AppData\\Local\\Temp\\rust_mozprofileGZBcGQ\\search.json.mozlz4", (void 0)))
+DevTools listening on ws://127.0.0.1:54713/devtools/browser/99914168-1f77-41d0-adc9-fdf0231b4111
+console.error: (new TypeError("lazy.AsyncShutdown.profileBeforeChange is undefined", "resource://services-settings/Database.jsm", 510))
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+JavaScript error: resource://gre/modules/AsyncShutdown.jsm, line 572: NotFoundError: No such JSWindowActor 'DevToolsFrame'
+1675916848010	Marionette	INFO	Stopped listening on port 54726
+Dynamically enable window occlusion 1
