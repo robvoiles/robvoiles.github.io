@@ -7,6 +7,7 @@ body {
   font-style: normal;
   line-height: 1.5;
   font-weight: 400;
+
   color: #232323;
   position: relative;
 }
@@ -528,6 +529,9 @@ nav .mbr-section-btn {
 }
 .menu .navbar-brand .navbar-caption-wrap {
   display: -webkit-flex;
+  position: relative;
+  top: 20%;
+  text-align: center;
 }
 .menu .navbar-brand .navbar-logo img {
   display: -webkit-flex;
@@ -781,7 +785,7 @@ body {
 }
 
 .form-control {
-  background-color: #ffffff;
+  background-color: #696969;
   background-clip: border-box;
   color: #232323;
   line-height: 1rem !important;
