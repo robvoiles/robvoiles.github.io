@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Device Redirect</title>
+    <script>
+        // Function to detect if the user is on an iPhone
+        function detectIphone() {
+            if(/iPhone/.test(navigator.userAgent) && !window.MSStream) {
+                // If an iPhone is detected, redirect to the specified URL
+                window.location.href = 'https://example.com/your-iphone-page';
+            }
+        }
+    </script>
+</head>
+<body onload="detectIphone();">
+    <!-- Your webpage content goes here -->
+    <h1>Welcome to My Website</h1>
+    <p>If you're seeing this, you're not on an iPhone or redirection is disabled.</p>
+</body>
+</html>
