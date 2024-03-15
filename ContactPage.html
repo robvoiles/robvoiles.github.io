@@ -52,11 +52,12 @@ div {
 </style>
 </head>
 <body>
-<div id="loading">
-  Rob Voiles
-  <br> <br>
-  865-635-6689
-</div>
+    <div id="loading" style="visibility: hidden;">
+        Rob Voiles
+        <br> <br>
+        865-635-6689
+      </div>
+      
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -80,9 +81,9 @@ $(document).ready(function() {
   var letter_count = 0;
   var finished = false;
   
-  setTimeout(startAnimation, 500);
-  
+  // Define startAnimation
   function startAnimation() {
+    $("#loading").css("visibility", "visible");
     setTimeout(write, 25);
     setTimeout(inc, 100);
   }
@@ -122,8 +123,10 @@ $(document).ready(function() {
                         '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
                       '</div>';
     $("#loading").append(buttonsHtml);
-}
+  }
 
+  // Call startAnimation at the end of $(document).ready
+  startAnimation();
 });
 </script>
 </body>
