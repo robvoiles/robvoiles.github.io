@@ -10,12 +10,12 @@ body {
   color: #411;
   font-family: Consolas, Courier, monospace;
   text-shadow: 0 0 15px #411;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4vw; /* Responsive font size */
+  height: 100vh; /* Use viewport height to ensure full coverage */
+  margin: 0; /* Reset default margin */
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  font-size: calc(16px + 1vw); /* Combine px and vw for a responsive but bounded font size */
 }
 
 div {
@@ -29,26 +29,7 @@ div {
 
 span {
   display: inline-block;
-  padding: 0 5px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  body {
-    font-size: 12px; /* Minimum font size for readability */
-  }
-}
-
-@media (min-width: 601px) and (max-width: 1000px) {
-  body {
-    font-size: 3vw; /* Adjust for different screen sizes */
-  }
-}
-
-@media (min-width: 1200px) {
-  body {
-    font-size: max(60px, 4vw); /* Cap the font size for very wide screens */
-  }
+  padding: 0 5px; /* Adjust padding if necessary */
 }
 
 </style>
