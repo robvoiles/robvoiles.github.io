@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Animation</title>
+<style>
+  body {
+    background: #111;
+    color: #411;
+    font-family: Consolas, Courier, monospace;
+    font-size: 60px;
+    text-shadow: 0 0 15px #411;
+    height: 100vh; /* Use viewport height to ensure full coverage */
+    margin: 0; /* Reset default margin */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+
+  div {
+    text-align: center;
+  }
+
+  .glow {
+    color: #f00;
+    text-shadow: 0px 0px 10px #f00;
+  }
+
+  span {
+    display: inline-block;
+    padding: 0 5px; /* Adjust padding if necessary */
+  }
+</style>
+</head>
+<body>
+<div id="loading">
+  Rob Voiles
+  <br> <br>
+  865-635-6689
+ <br> <br>
+  RobVoiles@gmail.com
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  var textLines = $("#loading").html().trim().split("<br>");
+  var el = $("#loading").empty();
+  var originalChars = []; // This will be a flat array of all characters, including spaces
+  
+  textLines.forEach(function(line, index) {
+    var chars = line.split("");
+    chars.forEach(function(char) {
+      var charHtml = char === ' ' ? '&nbsp;' : char; // Handle spaces
+      el.append($("<span class='letter'>" + charHtml + "</span>"));
+      originalChars.push(char); // Add char to the flat array
+    });
+    if (index < textLines.length - 1) {
+      el.append($("<br>")); // Add a line break after each line, except for the last one
+    }
+  });
+  
+  var letter_count = 0;
+  var finished = false;
+  
+  setTimeout(startAnimation, 500);
+  
+  function startAnimation() {
+    setTimeout(write, 25);
+    setTimeout(inc, 100);
+  }
+  
+  function write() {
+    $(".letter").each(function() {
+      if (!$(this).hasClass("glow")) { // Only randomize letters that haven't been revealed yet
+        var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        $(this).html(randomChar);
+      }
+    });
+    if (!finished) {
+      setTimeout(write, 25);
+    }
+  }
+  
+  function inc() {
+    if (letter_count < originalChars.length) {
+      var currentLetter = originalChars[letter_count];
+      $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
+      letter_count++;
+      if (letter_count < originalChars.length) {
+        setTimeout(inc, 100);
+      } else {
+        finished = true;
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
