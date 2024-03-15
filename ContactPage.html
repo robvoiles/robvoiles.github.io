@@ -7,9 +7,9 @@
 <style>
 body {
   background: #111;
-  color: #411;
+  color: #0F0; /* Changed to hacker green */
   font-family: Consolas, Courier, monospace;
-  text-shadow: 0 0 15px #411;
+  text-shadow: 0 0 15px #0F0; /* Changed to hacker green */
   height: 100vh;
   margin: 0;
   display: flex;
@@ -25,7 +25,7 @@ div {
 .glow-button {
   background: #222;
   border: none;
-  color: #f00;
+  color: #0F0; /* Changed to hacker green */
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -33,19 +33,19 @@ div {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  text-shadow: 0px 0px 10px #f00;
+  text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
 }
 
 .glow {
-  color: #f00;
-  text-shadow: 0px 0px 10px #f00;
+  color: #0F0; /* Changed to hacker green */
+  text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
 }
 
 .letter {
   display: inline-block;
   padding: 0 5px;
-  color: #f00;
-  text-shadow: 0px 0px 10px #f00;
+  color: #0F0; /* Changed to hacker green */
+  text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
   white-space: nowrap;
 }
 
@@ -121,7 +121,7 @@ $(document).ready(function() {
                         '&nbsp;' +
                         '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
                       '</div>';
-    $("#loading").append(buttonsHtml); // Change this line to append inside #loading
+    $("#loading").append(buttonsHtml);
 }
 
 });
