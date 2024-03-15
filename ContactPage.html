@@ -10,16 +10,30 @@ body {
   color: #411;
   font-family: Consolas, Courier, monospace;
   text-shadow: 0 0 15px #411;
-  height: 100vh; /* Use viewport height to ensure full coverage */
-  margin: 0; /* Reset default margin */
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  font-size: calc(16px + 1vw); /* Combine px and vw for a responsive but bounded font size */
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: calc(16px + 1vw);
 }
 
 div {
   text-align: center;
+}
+
+.glow-button {
+  background: #222;
+  border: none;
+  color: #f00;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  text-shadow: 0px 0px 10px #f00;
 }
 
 .glow {
@@ -27,16 +41,12 @@ div {
   text-shadow: 0px 0px 10px #f00;
 }
 
-span {
-  display: inline-block;
-  padding: 0 1px; /* Adjust padding if necessary */
-}
 .letter {
   display: inline-block;
   padding: 0 5px;
-  color: #f00; /* Optional: if you want the randomized text to also have the red color */
-  text-shadow: 0px 0px 10px #f00; /* Apply glow effect */
-  white-space: nowrap; /* Prevent splitting, apply carefully */
+  color: #f00;
+  text-shadow: 0px 0px 10px #f00;
+  white-space: nowrap;
 }
 
 </style>
@@ -46,8 +56,6 @@ span {
   Rob Voiles
   <br> <br>
   865-635-6689
- <br> <br>
-  RobVoiles@gmail.com
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -55,17 +63,17 @@ span {
 $(document).ready(function() {
   var textLines = $("#loading").html().trim().split("<br>");
   var el = $("#loading").empty();
-  var originalChars = []; // This will be a flat array of all characters, including spaces
+  var originalChars = [];
   
   textLines.forEach(function(line, index) {
     var chars = line.split("");
     chars.forEach(function(char) {
-      var charHtml = char === ' ' ? '&nbsp;' : char; // Handle spaces
+      var charHtml = char === ' ' ? '&nbsp;' : char;
       el.append($("<span class='letter'>" + charHtml + "</span>"));
-      originalChars.push(char); // Add char to the flat array
+      originalChars.push(char);
     });
     if (index < textLines.length - 1) {
-      el.append($("<br>")); // Add a line break after each line, except for the last one
+      el.append($("<br>"));
     }
   });
   
@@ -81,7 +89,7 @@ $(document).ready(function() {
   
   function write() {
     $(".letter").each(function() {
-      if (!$(this).hasClass("glow")) { // Only randomize letters that haven't been revealed yet
+      if (!$(this).hasClass("glow")) {
         var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
         $(this).html(randomChar);
       }
@@ -91,20 +99,32 @@ $(document).ready(function() {
     }
   }
   
-function inc() {
+  function inc() {
     if (letter_count < originalChars.length) {
         var currentLetter = originalChars[letter_count];
-        $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).removeClass("random-glow").addClass("glow");
+        $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
         letter_count++;
         if (letter_count < originalChars.length) {
             setTimeout(inc, 100);
         } else {
             finished = true;
+            appendButtons();
         }
     }
-}
-});
+  }
 
+  function appendButtons() {
+    var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                        '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
+                        '&nbsp;' +
+                        '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
+                        '&nbsp;' +
+                        '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
+                      '</div>';
+    $("#loading").append(buttonsHtml); // Change this line to append inside #loading
+}
+
+});
 </script>
 </body>
 </html>
