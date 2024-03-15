@@ -5,23 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Text Animation</title>
 <style>
+/* Ensures body is a flex container that centers its children vertically and horizontally */
 body {
-  background: #111;
-  color: #0F0; /* Changed to hacker green */
-  font-family: Consolas, Courier, monospace;
-  text-shadow: 0 0 15px #0F0; /* Changed to hacker green */
+  display: flex;
+  flex-direction: column; /* Stacks children vertically */
+  justify-content: center; /* Centers children vertically */
+  align-items: center; /* Centers children horizontally */
   height: 100vh;
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: #111;
+  color: #0F0;
+  font-family: Consolas, Courier, monospace;
+  text-shadow: 0 0 15px #0F0;
   font-size: calc(16px + 1vw);
 }
 
-div {
+/* Ensures text and buttons within #loading are centered */
+#loading {
   text-align: center;
+  display: inline-block;
+  visibility: hidden;
+  font-size: calc(18px + 2vw); /* Increase the base size and the viewport-width-dependent size */
 }
-
 .glow-button {
   background: #222;
   border: none;
@@ -35,18 +40,15 @@ div {
   cursor: pointer;
   text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
 }
-
-.glow {
-  color: #0F0; /* Changed to hacker green */
-  text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
+.letter, .glow-button {
+  white-space: nowrap; /* Prevents content from wrapping */
 }
 
-.letter {
-  display: inline-block;
-  padding: 0 5px;
-  color: #0F0; /* Changed to hacker green */
-  text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
-  white-space: nowrap;
+/* Additional responsive adjustments if needed */
+@media (max-width: 480px) {
+  body {
+    font-size: calc(14px + 2vw); /* Adjusts base font size on smaller screens */
+  }
 }
 
 </style>
@@ -67,14 +69,15 @@ $(document).ready(function() {
   var originalChars = [];
   
   textLines.forEach(function(line, index) {
-    var chars = line.split("");
+    var trimmedLine = line.trim(); // Trim each line to remove unintended spaces
+    var chars = trimmedLine.split("");
     chars.forEach(function(char) {
-      var charHtml = char === ' ' ? '&nbsp;' : char;
+      var charHtml = char === ' ' ? '&nbsp;' : char; // Handle spaces explicitly
       el.append($("<span class='letter'>" + charHtml + "</span>"));
       originalChars.push(char);
     });
     if (index < textLines.length - 1) {
-      el.append($("<br>"));
+      el.append($("<br>")); // Append line breaks carefully
     }
   });
   
