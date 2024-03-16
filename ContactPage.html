@@ -304,11 +304,12 @@ body {
             "Connection established.",
             "Retrieving data...",
             "Data retrieved successfully.",
+            // Add more lines as needed
           ];
         
           function isAppleDevice() {
             return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
-                   (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+                   (navigator.userAgent.includes("Mac") && "ontouchend" in document); // Additional check for iPadOS
           }
         
           function appendButtons() {
@@ -319,7 +320,7 @@ body {
                               '&nbsp;' +
                               '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
                               '</div>';
-            $("#loading").css("visibility", "visible").append(buttonsHtml);
+            $("#loading").append(buttonsHtml).css("visibility", "visible");
           }
         
           function displayContentForIOS() {
@@ -342,14 +343,14 @@ body {
                 lineIndex++;
                 setTimeout(displayNextLine, 150); // Adjust timing as needed
               } else {
-                terminalEl.fadeOut('fast', function() {
+                terminalEl.fadeOut('fast', function() { 
+                  // After terminal simulation, differentiate action based on device
                   if (isAppleDevice()) {
                     // For Apple devices, display content and buttons immediately, then redirect
                     displayContentForIOS();
                   } else {
                     // For non-Apple devices, proceed with any animations or additional content
-                    $("#loading").css("visibility", "visible");
-                    appendButtons(); // Just show buttons immediately for simplicity
+                    startAnimation();
                   }
                 });
               }
