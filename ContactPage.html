@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Text Animation</title>
+<title>Contact Details</title>
 <style>
 /* Ensures body is a flex container that centers its children vertically and horizontally */
 body {
@@ -18,6 +18,11 @@ body {
   font-family: Consolas, Courier, monospace;
   text-shadow: 0 0 15px #0F0;
   font-size: calc(16px + 1vw);
+
+  background: #111;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;  
 }
 
 /* Ensures text and buttons within #loading are centered */
@@ -25,12 +30,12 @@ body {
   text-align: center;
   display: inline-block;
   visibility: hidden;
-  font-size: calc(18px + 2vw); /* Increase the base size and the viewport-width-dependent size */
+  font-size: calc(18px + 2vw); 
 }
 .glow-button {
   background: #222;
   border: none;
-  color: #0F0; /* Changed to hacker green */
+  color: #0F0; 
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -38,8 +43,13 @@ body {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  text-shadow: 0px 0px 10px #0F0; /* Changed to hacker green */
+  text-shadow: 0px 0px 10px #0F0; 
 }
+.glow-button:hover {
+  background: #333;
+  box-shadow: 0 0 10px #0F0, 0 0 20px #0F0;
+}
+
 .letter, .glow-button {
   white-space: nowrap; /* Prevents content from wrapping */
 }
@@ -49,88 +59,146 @@ body {
   body {
     font-size: calc(14px + 2vw); /* Adjusts base font size on smaller screens */
   }
+
+  @keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+.letter:last-child::after {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  border-left: 2px solid #0F0;
+  animation: blink 1s step-end infinite;
+}
+
+#terminal-output {
+  display: none; /* Initially hidden, will be shown via script */
+  color: #0F0;
+  background: #000;
+  padding: 10px;
+  font-family: Consolas, Courier, monospace;
+  text-align: left;
+  overflow-y: auto;
+  max-height: 300px; /* Adjust based on your layout */
+  margin: 20px;
+  width: 80%; /* Adjust based on your layout */
+}
 }
 
 </style>
 </head>
 <body>
+
+    <div id="terminal-output" style="display: none;"></div>
+
     <div id="loading" style="visibility: hidden;">
         Rob Voiles
         <br> <br>
         865-635-6689
-      </div>
-      
+    </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-  var textLines = $("#loading").html().trim().split("<br>");
-  var el = $("#loading").empty();
-  var originalChars = [];
-  
-  textLines.forEach(function(line, index) {
-    var trimmedLine = line.trim(); // Trim each line to remove unintended spaces
-    var chars = trimmedLine.split("");
-    chars.forEach(function(char) {
-      var charHtml = char === ' ' ? '&nbsp;' : char; // Handle spaces explicitly
-      el.append($("<span class='letter'>" + charHtml + "</span>"));
-      originalChars.push(char);
-    });
-    if (index < textLines.length - 1) {
-      el.append($("<br>")); // Append line breaks carefully
-    }
-  });
-  
-  var letter_count = 0;
-  var finished = false;
-  
-  // Define startAnimation
-  function startAnimation() {
-    $("#loading").css("visibility", "visible");
-    setTimeout(write, 25);
-    setTimeout(inc, 100);
-  }
-  
-  function write() {
-    $(".letter").each(function() {
-      if (!$(this).hasClass("glow")) {
-        var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-        $(this).html(randomChar);
-      }
-    });
-    if (!finished) {
-      setTimeout(write, 25);
-    }
-  }
-  
-  function inc() {
-    if (letter_count < originalChars.length) {
-        var currentLetter = originalChars[letter_count];
-        $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
-        letter_count++;
-        if (letter_count < originalChars.length) {
-            setTimeout(inc, 100);
-        } else {
-            finished = true;
-            appendButtons();
+    $(document).ready(function() {
+      var terminalLines = [
+        "Initializing connection...",
+        "Fetching remote server details...",
+        "Server: 192.168.1.1",
+        "Establishing secure connection...",
+        "Connection established.",
+        "Retrieving data...",
+        "Data retrieved successfully.",
+        // Add more lines as needed
+      ];
+    
+      function simulateTerminalOutput() {
+        var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
+        var lineIndex = 0;
+    
+        function displayNextLine() {
+          if (lineIndex < terminalLines.length) {
+            terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
+            terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
+            lineIndex++;
+            setTimeout(displayNextLine, 200); // Adjust timing as needed
+          } else {
+            terminalEl.fadeOut('fast', function() { 
+                startAnimation(); // Ensure startAnimation is called here after terminal simulation
+            });
+          }
         }
-    }
-  }
-
-  function appendButtons() {
-    var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
-                        '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
-                        '&nbsp;' +
-                        '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
-                        '&nbsp;' +
-                        '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
-                      '</div>';
-    $("#loading").append(buttonsHtml);
-  }
-
-  // Call startAnimation at the end of $(document).ready
-  startAnimation();
-});
-</script>
+    
+        displayNextLine();
+      }
+    
+      // Define startAnimation
+      function startAnimation() {
+        var textLines = $("#loading").html().trim().split("<br>");
+        var el = $("#loading").empty().css("visibility", "visible");
+        var originalChars = [];
+      
+        textLines.forEach(function(line, index) {
+          var trimmedLine = line.trim(); // Trim each line to remove unintended spaces
+          var chars = trimmedLine.split("");
+          chars.forEach(function(char) {
+            var charHtml = char === ' ' ? '&nbsp;' : char; // Handle spaces explicitly
+            el.append($("<span class='letter'>" + charHtml + "</span>"));
+            originalChars.push(char);
+          });
+          if (index < textLines.length - 1) {
+            el.append($("<br>")); // Append line breaks
+          }
+        });
+    
+        var letter_count = 0;
+        var finished = false;
+      
+        function write() {
+          $(".letter").each(function() {
+            if (!$(this).hasClass("glow")) {
+              var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+              $(this).html(randomChar);
+            }
+          });
+          if (!finished) {
+            setTimeout(write, 25);
+          }
+        }
+      
+        function inc() {
+          if (letter_count < originalChars.length) {
+              var currentLetter = originalChars[letter_count];
+              $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
+              letter_count++;
+              if (letter_count < originalChars.length) {
+                  setTimeout(inc, 100);
+              } else {
+                  finished = true;
+                  appendButtons();
+              }
+          }
+        }
+    
+        function appendButtons() {
+          var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                              '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
+                              '&nbsp;' +
+                              '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
+                              '&nbsp;' +
+                              '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
+                            '</div>';
+          $("#loading").append(buttonsHtml);
+        }
+    
+        setTimeout(write, 25);
+        setTimeout(inc, 100);
+      }
+    
+      simulateTerminalOutput(); // Kick off the terminal simulation
+    });
+    </script>
+    
 </body>
 </html>
