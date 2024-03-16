@@ -293,8 +293,8 @@ body {
         865-635-6689
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
     $(document).ready(function() {
       var terminalLines = [
         "Initializing connection...",
@@ -319,7 +319,7 @@ body {
             setTimeout(displayNextLine, 150); // Adjust timing as needed
           } else {
             terminalEl.fadeOut('fast', function() { 
-                startAnimation(); // Ensure startAnimation is called here after terminal simulation
+              startAnimation(); // Ensure startAnimation is called here after terminal simulation
             });
           }
         }
@@ -327,28 +327,28 @@ body {
         displayNextLine();
       }
     
-      // Define startAnimation
+      // Adjusted Define startAnimation
       function startAnimation() {
         var textLines = $("#loading").html().trim().split("<br>");
-        var el = $("#loading").empty().css("visibility", "visible");
+        $("#loading").empty().css("visibility", "visible");
         var originalChars = [];
-      
+    
         textLines.forEach(function(line, index) {
-          var trimmedLine = line.trim(); // Trim each line to remove unintended spaces
+          var trimmedLine = line.trim();
           var chars = trimmedLine.split("");
           chars.forEach(function(char) {
-            var charHtml = char === ' ' ? '&nbsp;' : char; // Handle spaces explicitly
-            el.append($("<span class='letter'>" + charHtml + "</span>"));
+            var charHtml = char === ' ' ? '&nbsp;' : char;
+            $("#loading").append($("<span class='letter'>" + charHtml + "</span>"));
             originalChars.push(char);
           });
           if (index < textLines.length - 1) {
-            el.append($("<br>")); // Append line breaks
+            $("#loading").append($("<br>")); // Correctly append line breaks
           }
         });
     
         var letter_count = 0;
         var finished = false;
-      
+    
         function write() {
           $(".letter").each(function() {
             if (!$(this).hasClass("glow")) {
@@ -360,50 +360,50 @@ body {
             setTimeout(write, 25);
           }
         }
-      
+    
         function inc() {
           if (letter_count < originalChars.length) {
-              var currentLetter = originalChars[letter_count];
-              $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
-              letter_count++;
-              if (letter_count < originalChars.length) {
-                  setTimeout(inc, 60);
-              } else {
-                  finished = true;
-                  appendButtons();
-              }
+            var currentLetter = originalChars[letter_count];
+            $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
+            letter_count++;
+            if (letter_count < originalChars.length) {
+              setTimeout(inc, 60);
+            } else {
+              finished = true;
+              appendButtons();
+            }
           }
         }
-    
-        function appendButtons() {
-  var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
-                    '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Email Me</span><span class="cybr-btn__tag"></span>Email Me</button>' +
-                    '&nbsp;' +
-                    '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me</button>' +
-                    '&nbsp;' +
-                    '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts</button>' +
-                    '</div>';
-  $("#loading").append(buttonsHtml);
-  triggerGlitchEffect();
-}
-
-function triggerGlitchEffect() {
-  $('.cybr-btn').addClass('glitch-active');
-  setTimeout(() => {
-    $('.cybr-btn').removeClass('glitch-active');
-    // Trigger the second round of the glitch effect after a short delay
-    setTimeout(() => $('.cybr-btn').addClass('glitch-active'), 50);
-    setTimeout(() => $('.cybr-btn').removeClass('glitch-active'), 400); // Adjust based on the new animation speed
-  }, 1050); // This timeout should match the duration of your glitch effect
-}
     
         setTimeout(write, 25);
         setTimeout(inc, 100);
       }
     
+      function appendButtons() {
+        var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                          '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Email Me</span><span class="cybr-btn__tag"></span>Email Me</button>' +
+                          '&nbsp;' +
+                          '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me</button>' +
+                          '&nbsp;' +
+                          '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts</button>' +
+                          '</div>';
+        $("#loading").append(buttonsHtml);
+        triggerGlitchEffect();
+      }
+    
+      function triggerGlitchEffect() {
+        $('.cybr-btn').addClass('glitch-active');
+        setTimeout(() => {
+          $('.cybr-btn').removeClass('glitch-active');
+          setTimeout(() => $('.cybr-btn').addClass('glitch-active'), 50);
+          setTimeout(() => $('.cybr-btn').removeClass('glitch-active'), 400);
+        }, 1050);
+      }
+    
       simulateTerminalOutput(); // Kick off the terminal simulation
     });
     </script>
+    
     
 </body>
 </html>
