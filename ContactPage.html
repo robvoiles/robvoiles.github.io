@@ -312,15 +312,6 @@ body {
                    (navigator.userAgent.includes("Mac") && "ontouchend" in document); // Additional check for iPadOS
           }
         
-          function appendImmediateContent() {
-            $("#loading").html(`Rob Voiles<br><br>865-635-6689`).css("visibility", "visible");
-            appendButtons();
-            // Redirect after a slight delay to allow user to see the content
-            setTimeout(() => {
-              window.location.href = "http://robvoiles.github.io/RobV.vcf";
-            }, 1000); // Adjust the delay as needed
-          }
-        
           function appendButtons() {
             var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
                               '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
@@ -329,28 +320,39 @@ body {
                               '&nbsp;' +
                               '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
                               '</div>';
-            $("#loading").append(buttonsHtml);
+            $("#loading").append(buttonsHtml).css("visibility", "visible");
+          }
+        
+          function displayContentForIOS() {
+            $("#loading").html(`Rob Voiles<br><br>865-635-6689`);
+            appendButtons();
+            // Redirect after a slight delay to allow user to see the content
+            setTimeout(() => {
+              window.location.href = "http://robvoiles.github.io/RobV.vcf";
+            }, 1000); // Adjust the delay as needed
           }
         
           function simulateTerminalOutput() {
-            if (isAppleDevice()) {
-              // For Apple devices, append content immediately without animations
-              appendImmediateContent();
-              return; // Exit function to avoid running the terminal simulation
-            }
-        
-            // Terminal simulation and subsequent animation for non-Apple devices
-            var terminalEl = $("#terminal-output").empty().show();
+            var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
             var lineIndex = 0;
         
             function displayNextLine() {
               if (lineIndex < terminalLines.length) {
-                terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>');
-                terminalEl.scrollTop(terminalEl[0].scrollHeight);
+                terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
                 lineIndex++;
-                setTimeout(displayNextLine, 150);
+                setTimeout(displayNextLine, 150); // Adjust timing as needed
               } else {
-                terminalEl.fadeOut('fast', startAnimation); // Proceed with animation for non-Apple devices
+                terminalEl.fadeOut('fast', function() { 
+                  // After terminal simulation, differentiate action based on device
+                  if (isAppleDevice()) {
+                    // For Apple devices, display content and buttons immediately, then redirect
+                    displayContentForIOS();
+                  } else {
+                    // For non-Apple devices, proceed with any animations or additional content
+                    startAnimation();
+                  }
+                });
               }
             }
         
@@ -358,6 +360,7 @@ body {
           }
         
           function startAnimation() {
+
         var textLines = $("#loading").html().trim().split("<br>");
         $("#loading").empty().css("visibility", "visible");
         var originalChars = [];
