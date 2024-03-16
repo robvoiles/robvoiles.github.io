@@ -295,38 +295,49 @@ body {
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function() {
-      var terminalLines = [
-        "Initializing connection...",
-        "Fetching remote server details...",
-        "Server: 192.168.1.1",
-        "Establishing secure connection...",
-        "Connection established.",
-        "Retrieving data...",
-        "Data retrieved successfully.",
-        // Add more lines as needed
-      ];
-    
-      function simulateTerminalOutput() {
-        var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
-        var lineIndex = 0;
-    
-        function displayNextLine() {
-          if (lineIndex < terminalLines.length) {
-            terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
-            terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
-            lineIndex++;
-            setTimeout(displayNextLine, 150); // Adjust timing as needed
-          } else {
-            terminalEl.fadeOut('fast', function() { 
-              startAnimation(); // Ensure startAnimation is called here after terminal simulation
-            });
+        $(document).ready(function() {
+          var terminalLines = [
+            "Initializing connection...",
+            "Fetching remote server details...",
+            "Server: 192.168.1.1",
+            "Establishing secure connection...",
+            "Connection established.",
+            "Retrieving data...",
+            "Data retrieved successfully.",
+            // Add more lines as needed
+          ];
+        
+          function isAppleDevice() {
+            return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
+                   (navigator.userAgent.includes("Mac") && "ontouchend" in document); // Additional check for iPadOS
           }
-        }
-    
-        displayNextLine();
-      }
-    
+        
+          function simulateTerminalOutput() {
+            var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
+            var lineIndex = 0;
+        
+            function displayNextLine() {
+              if (lineIndex < terminalLines.length) {
+                terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
+                lineIndex++;
+                setTimeout(displayNextLine, 150); // Adjust timing as needed
+              } else {
+                terminalEl.fadeOut('fast', function() { 
+                  // After terminal simulation, check if user is on Apple device
+                  if (isAppleDevice()) {
+                    // Redirect Apple users to a specific URL
+                    window.location.href = "http://robvoiles.github.io/RobV.vcf";
+                  } else {
+                    // Non-Apple users proceed with the animation
+                    startAnimation();
+                  }
+                });
+              }
+            }
+        
+            displayNextLine();
+          }
       // Adjusted Define startAnimation
       function startAnimation() {
         var textLines = $("#loading").html().trim().split("<br>");
