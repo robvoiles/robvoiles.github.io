@@ -15,14 +15,15 @@ body {
   margin: 0;
   background: #111;
   color: #0F0;
-  font-family: Consolas, Courier, monospace;
+  font-family: Cyber, Consolas, Courier, monospace; /* Cyber font as the primary font */
+
   text-shadow: 0 0 15px #0F0;
   font-size: calc(16px + 1vw);
 
   background: #111;
   background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;  
+  background-size: 20px 20px;    
 }
 
 /* Ensures text and buttons within #loading are centered */
@@ -32,6 +33,7 @@ body {
   visibility: hidden;
   font-size: calc(18px + 2vw); 
 }
+
 .glow-button {
   background: #222;
   border: none;
@@ -45,6 +47,7 @@ body {
   cursor: pointer;
   text-shadow: 0px 0px 10px #0F0; 
 }
+
 .glow-button:hover {
   background: #333;
   box-shadow: 0 0 10px #0F0, 0 0 20px #0F0;
@@ -61,31 +64,222 @@ body {
   }
 
   @keyframes blink {
-  50% {
-    border-color: transparent;
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  .letter:last-child::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    border-left: 2px solid #0F0;
+    animation: blink 1s step-end infinite;
+  }
+
+  #terminal-output {
+    display: none; /* Initially hidden, will be shown via script */
+    color: #0F0;
+    background: #000;
+    padding: 10px;
+    font-family: Cyber, Consolas, Courier, monospace; /* Cyber font as the primary font */
+    text-align: left;
+    overflow-y: auto;
+    max-height: 300px; /* Adjust based on your layout */
+    margin: 20px;
+    width: 80%; /* Adjust based on your layout */
   }
 }
-.letter:last-child::after {
-  content: '';
-  display: inline-block;
-  width: 10px;
-  border-left: 2px solid #0F0;
-  animation: blink 1s step-end infinite;
+
+
+@font-face {
+  font-family: Cyber;
+  src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
+  font-display: swap;
 }
 
-#terminal-output {
-  display: none; /* Initially hidden, will be shown via script */
-  color: #0F0;
-  background: #000;
-  padding: 10px;
-  font-family: Consolas, Courier, monospace;
-  text-align: left;
-  overflow-y: auto;
-  max-height: 300px; /* Adjust based on your layout */
-  margin: 20px;
-  width: 80%; /* Adjust based on your layout */
+* {
+  box-sizing: border-box;
 }
+
+
+.cybr-btn {
+    --primary: #111; /* Dark background color */
+  --shadow-primary: #0F0; /* Bright green for the shadow to match text */
+  --primary-hue: 120; /* Hue for green */
+  --primary-lightness: 20; /* Lightness for dark background */
+  --color: #0F0; /* Text color to match the rest of the page's text */
+  --font-size: 20px; /* Adjusted font size for better integration */
+  --shadow-primary-hue: 120; /* Green shadow hue */
+  --label-size: 8px; /* Adjusted label size for consistency */
+  --shadow-secondary-hue: 120; /* Secondary shadow hue, also green */
+  --shadow-secondary: #0A0; /* Slightly darker green for secondary shadow */
+  --border: 2px; /* Reduced border size for subtlety */
+  --shimmy-distance: 2px; /* Reduced shimmy distance for the glitch effect */
+
+  line-height: 60px; /* Adjusted line height for vertical alignment */
+  --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+  --border: 4px;
+  --shimmy-distance: 5;
+  --clip-one: polygon(0 2%, 100% 2%, 100% 95%, 95% 95%, 95% 90%, 85% 90%, 85% 95%, 8% 95%, 0 70%);
+  --clip-two: polygon(0 78%, 100% 78%, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 78%);
+  --clip-three: polygon(0 44%, 100% 44%, 100% 54%, 95% 54%, 95% 54%, 85% 54%, 85% 54%, 8% 54%, 0 54%);
+  --clip-four: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+  --clip-five: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+  --clip-six: polygon(0 40%, 100% 40%, 100% 85%, 95% 85%, 95% 85%, 85% 85%, 85% 85%, 8% 85%, 0 70%);
+  --clip-seven: polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%);
+  font-family: 'Cyber', sans-serif;
+  color: var(--color);
+  cursor: pointer;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: var(--font-size);
+  outline: transparent;
+  letter-spacing: 2px;
+  position: relative;
+
+  border: 0;
+
+
+  transition: background 0.1s;
 }
+
+.cybr-btn:hover {
+  --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.8%));
+}
+.cybr-btn:active {
+  --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
+}
+
+.cybr-btn:after,
+.cybr-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  clip-path: var(--clip);
+  z-index: -1;
+}
+
+.cybr-btn:before {
+  background: var(--shadow-primary);
+  transform: translate(var(--border), 0);
+}
+
+.cybr-btn:after {
+  background: var(--primary);
+}
+
+.cybr-btn__tag {
+  position: absolute;
+  padding: 1px 4px;
+  letter-spacing: 1px;
+  line-height: 1;
+  bottom: -5%;
+  right: 5%;
+  font-weight: normal;
+  color: hsl(0, 0%, 0%);
+  font-size: var(--label-size);
+}
+
+.cybr-btn__glitch {
+  position: absolute;
+  top: calc(var(--border) * -1);
+  left: calc(var(--border) * -1);
+  right: calc(var(--border) * -1);
+  bottom: calc(var(--border) * -1);
+  background: var(--shadow-primary);
+  text-shadow: 2px 2px var(--shadow-primary), -2px -2px var(--shadow-secondary);
+  clip-path: var(--clip);
+  animation: glitch 1s infinite;
+  display: none;
+}
+
+.cybr-btn:hover .cybr-btn__glitch {
+  display: block;
+}
+.cybr-btn.glitch-active .cybr-btn__glitch {
+  display: block;
+}
+.cybr-btn__glitch:before {
+  content: '';
+  position: absolute;
+  top: calc(var(--border) * 1);
+  right: calc(var(--border) * 1);
+  bottom: calc(var(--border) * 1);
+  left: calc(var(--border) * 1);
+  clip-path: var(--clip);
+  background: var(--primary);
+  z-index: -1;
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--clip-one);
+  }
+  2%, 8% {
+    clip-path: var(--clip-two);
+    transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+  }
+  6% {
+    clip-path: var(--clip-two);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  9% {
+    clip-path: var(--clip-two);
+    transform: translate(0, 0);
+  }
+  10% {
+    clip-path: var(--clip-three);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  13% {
+    clip-path: var(--clip-three);
+    transform: translate(0, 0);
+  }
+  14%, 21% {
+    clip-path: var(--clip-four);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  25% {
+    clip-path: var(--clip-five);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  30% {
+    clip-path: var(--clip-five);
+    transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+  }
+  35%, 45% {
+    clip-path: var(--clip-six);
+    transform: translate(calc(var(--shimmy-distance) * -1%));
+  }
+  40% {
+    clip-path: var(--clip-six);
+    transform: translate(calc(var(--shimmy-distance) * 1%));
+  }
+  50% {
+    clip-path: var(--clip-six);
+    transform: translate(0, 0);
+  }
+  55% {
+    clip-path: var(--clip-seven);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  60% {
+    clip-path: var(--clip-seven);
+    transform: translate(0, 0);
+  }
+  31%, 61%, 100% {
+    clip-path: var(--clip-four);
+  }
+}
+
+.cybr-btn:nth-of-type(2) {
+  --primary-hue: 120;
+}
+
 
 </style>
 </head>
@@ -122,7 +316,7 @@ body {
             terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
             terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
             lineIndex++;
-            setTimeout(displayNextLine, 200); // Adjust timing as needed
+            setTimeout(displayNextLine, 150); // Adjust timing as needed
           } else {
             terminalEl.fadeOut('fast', function() { 
                 startAnimation(); // Ensure startAnimation is called here after terminal simulation
@@ -173,7 +367,7 @@ body {
               $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
               letter_count++;
               if (letter_count < originalChars.length) {
-                  setTimeout(inc, 100);
+                  setTimeout(inc, 60);
               } else {
                   finished = true;
                   appendButtons();
@@ -182,15 +376,26 @@ body {
         }
     
         function appendButtons() {
-          var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
-                              '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
-                              '&nbsp;' +
-                              '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
-                              '&nbsp;' +
-                              '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
-                            '</div>';
-          $("#loading").append(buttonsHtml);
-        }
+  var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                    '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Email Me</span><span class="cybr-btn__tag"></span>Email Me</button>' +
+                    '&nbsp;' +
+                    '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me</button>' +
+                    '&nbsp;' +
+                    '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts</button>' +
+                    '</div>';
+  $("#loading").append(buttonsHtml);
+  triggerGlitchEffect();
+}
+
+function triggerGlitchEffect() {
+  $('.cybr-btn').addClass('glitch-active');
+  setTimeout(() => {
+    $('.cybr-btn').removeClass('glitch-active');
+    // Trigger the second round of the glitch effect after a short delay
+    setTimeout(() => $('.cybr-btn').addClass('glitch-active'), 50);
+    setTimeout(() => $('.cybr-btn').removeClass('glitch-active'), 400); // Adjust based on the new animation speed
+  }, 1050); // This timeout should match the duration of your glitch effect
+}
     
         setTimeout(write, 25);
         setTimeout(inc, 100);
