@@ -312,34 +312,52 @@ body {
                    (navigator.userAgent.includes("Mac") && "ontouchend" in document); // Additional check for iPadOS
           }
         
+          function appendImmediateContent() {
+            $("#loading").html(`Rob Voiles<br><br>865-635-6689`).css("visibility", "visible");
+            appendButtons();
+            // Redirect after a slight delay to allow user to see the content
+            setTimeout(() => {
+              window.location.href = "http://robvoiles.github.io/RobV.vcf";
+            }, 1000); // Adjust the delay as needed
+          }
+        
+          function appendButtons() {
+            var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                              '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
+                              '&nbsp;' +
+                              '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
+                              '&nbsp;' +
+                              '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
+                              '</div>';
+            $("#loading").append(buttonsHtml);
+          }
+        
           function simulateTerminalOutput() {
-            var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
+            if (isAppleDevice()) {
+              // For Apple devices, append content immediately without animations
+              appendImmediateContent();
+              return; // Exit function to avoid running the terminal simulation
+            }
+        
+            // Terminal simulation and subsequent animation for non-Apple devices
+            var terminalEl = $("#terminal-output").empty().show();
             var lineIndex = 0;
         
             function displayNextLine() {
               if (lineIndex < terminalLines.length) {
-                terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
-                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
+                terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>');
+                terminalEl.scrollTop(terminalEl[0].scrollHeight);
                 lineIndex++;
-                setTimeout(displayNextLine, 150); // Adjust timing as needed
+                setTimeout(displayNextLine, 150);
               } else {
-                terminalEl.fadeOut('fast', function() { 
-                  // After terminal simulation, check if user is on Apple device
-                  if (isAppleDevice()) {
-                    // Redirect Apple users to a specific URL
-                    window.location.href = "http://robvoiles.github.io/RobV.vcf";
-                  } else {
-                    // Non-Apple users proceed with the animation
-                    startAnimation();
-                  }
-                });
+                terminalEl.fadeOut('fast', startAnimation); // Proceed with animation for non-Apple devices
               }
             }
         
             displayNextLine();
           }
-      // Adjusted Define startAnimation
-      function startAnimation() {
+        
+          function startAnimation() {
         var textLines = $("#loading").html().trim().split("<br>");
         $("#loading").empty().css("visibility", "visible");
         var originalChars = [];
