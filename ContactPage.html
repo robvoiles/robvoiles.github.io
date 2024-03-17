@@ -288,134 +288,153 @@ body {
     <div id="terminal-output" style="display: none;"></div>
 
     <div id="loading" style="visibility: hidden;">
-        ROB VOILES
+        Rob Voiles
         <br> <br>
         865-635-6689
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            var terminalLines = [
-                "Initializing connection...",
-                "Fetching remote server details...",
-                "Server: 192.168.1.1",
-                "Establishing secure connection...",
-                "Connection established.",
-                "Retrieving data...",
-                "Data retrieved successfully.",
-                // Add more lines as needed
-            ];
-    
-            function isAppleDevice() {
-                return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
-                    (navigator.userAgent.includes("Mac") && "ontouchend" in document); // Additional check for iPadOS
-            }
-    
-            function appendButtons() {
-                var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
-                    '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
-                    '&nbsp;' +
-                    '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
-                    '&nbsp;' +
-                    '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
-                    '</div>';
-                $("#loading").append(buttonsHtml).css("visibility", "visible");
-            }
-    
-            function displayContentForIOS() {
-                $("#loading").html(`Rob Voiles<br><br>865-635-6689`);
-                appendButtons();
-                // Redirect after a slight delay to allow user to see the content
-                setTimeout(() => {
-                    window.location.href = "http://robvoiles.github.io/RobV.vcf";
-                }, 1000); // Adjust the delay as needed
-            }
-    
-            function simulateTerminalOutput() {
-                var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
-                var lineIndex = 0;
-    
-                function displayNextLine() {
-                    if (lineIndex < terminalLines.length) {
-                        terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
-                        terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
-                        lineIndex++;
-                        setTimeout(displayNextLine, 150); // Adjust timing as needed
-                    } else {
-                        terminalEl.fadeOut('fast', function() {
-                            // After terminal simulation, differentiate action based on device
-                            if (isAppleDevice()) {
-                                // For Apple devices, display content and buttons immediately, then redirect
-                                displayContentForIOS();
-                            } else {
-                                // For non-Apple devices, proceed with animations and button appending
-                                startAnimation();
-                            }
-                        });
-                    }
-                }
-    
-                displayNextLine();
-            }
-    
-            function startAnimation() {
-                var textLines = $("#loading").html().trim().split("<br>");
-                $("#loading").empty().css("visibility", "visible");
-                var originalChars = [];
-    
-                textLines.forEach(function(line, index) {
-                    var trimmedLine = line.trim();
-                    var chars = trimmedLine.split("");
-                    chars.forEach(function(char) {
-                        var charHtml = char === ' ' ? '&nbsp;' : char;
-                        $("#loading").append($("<span class='letter'>" + charHtml + "</span>"));
-                        originalChars.push(char);
-                    });
-                    if (index < textLines.length - 1) {
-                        $("#loading").append($("<br>")); // Correctly append line breaks
-                    }
+          var terminalLines = [
+            "Initializing connection...",
+            "Fetching remote server details...",
+            "Server: 192.168.1.1",
+            "Establishing secure connection...",
+            "Connection established.",
+            "Retrieving data...",
+            "Data retrieved successfully.",
+            // Add more lines as needed
+          ];
+        
+          function isAppleDevice() {
+            return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
+                   (navigator.userAgent.includes("Mac") && "ontouchend" in document); // Additional check for iPadOS
+          }
+        
+          function appendButtons() {
+            var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                              '<button class="glow-button" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
+                              '&nbsp;' +
+                              '<button class="glow-button" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
+                              '&nbsp;' +
+                              '<button class="glow-button" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
+                              '</div>';
+            $("#loading").append(buttonsHtml).css("visibility", "visible");
+          }
+        
+          function displayContentForIOS() {
+            $("#loading").html(`Rob Voiles<br><br>865-635-6689`);
+            appendButtons();
+            // Redirect after a slight delay to allow user to see the content
+            setTimeout(() => {
+              window.location.href = "http://robvoiles.github.io/RobV.vcf";
+            }, 1000); // Adjust the delay as needed
+          }
+        
+          function simulateTerminalOutput() {
+            var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
+            var lineIndex = 0;
+        
+            function displayNextLine() {
+              if (lineIndex < terminalLines.length) {
+                terminalEl.append('<div>' + terminalLines[lineIndex] + '</div>'); // Wrap in div for line-by-line display
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to bottom
+                lineIndex++;
+                setTimeout(displayNextLine, 150); // Adjust timing as needed
+              } else {
+                terminalEl.fadeOut('fast', function() { 
+                  // After terminal simulation, differentiate action based on device
+                  if (isAppleDevice()) {
+                    // For Apple devices, display content and buttons immediately, then redirect
+                    displayContentForIOS();
+                  } else {
+                    // For non-Apple devices, proceed with any animations or additional content
+                    startAnimation();
+                  }
                 });
-    
-                var letter_count = 0;
-                var finished = false;
-    
-                function write() {
-                    $(".letter").each(function() {
-                        if (!$(this).hasClass("glow")) {
-                            var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                            $(this).html(randomChar);
-                        }
-                    });
-                    if (!finished) {
-                        setTimeout(write, 25);
-                    }
-                }
-    
-                function inc() {
-                    if (letter_count < originalChars.length) {
-                        var currentLetter = originalChars[letter_count];
-                        $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
-                        letter_count++;
-                        if (letter_count < originalChars.length) {
-                            setTimeout(inc, 60);
-                        } else {
-                            finished = true;
-                            appendButtons();
-                        }
-                    }
-                }
-    
-                setTimeout(write, 25);
-                setTimeout(inc, 100);
+              }
             }
+        
+            displayNextLine();
+          }
+        
+          function startAnimation() {
+
+        var textLines = $("#loading").html().trim().split("<br>");
+        $("#loading").empty().css("visibility", "visible");
+        var originalChars = [];
     
-            simulateTerminalOutput(); // Kick off the terminal simulation
+        textLines.forEach(function(line, index) {
+          var trimmedLine = line.trim();
+          var chars = trimmedLine.split("");
+          chars.forEach(function(char) {
+            var charHtml = char === ' ' ? '&nbsp;' : char;
+            $("#loading").append($("<span class='letter'>" + charHtml + "</span>"));
+            originalChars.push(char);
+          });
+          if (index < textLines.length - 1) {
+            $("#loading").append($("<br>")); // Correctly append line breaks
+          }
         });
+    
+        var letter_count = 0;
+        var finished = false;
+    
+        function write() {
+          $(".letter").each(function() {
+            if (!$(this).hasClass("glow")) {
+              var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+              $(this).html(randomChar);
+            }
+          });
+          if (!finished) {
+            setTimeout(write, 25);
+          }
+        }
+    
+        function inc() {
+          if (letter_count < originalChars.length) {
+            var currentLetter = originalChars[letter_count];
+            $(".letter").eq(letter_count).html(currentLetter === ' ' ? '&nbsp;' : currentLetter).addClass("glow");
+            letter_count++;
+            if (letter_count < originalChars.length) {
+              setTimeout(inc, 60);
+            } else {
+              finished = true;
+              appendButtons();
+            }
+          }
+        }
+    
+        setTimeout(write, 25);
+        setTimeout(inc, 100);
+      }
+    
+      function appendButtons() {
+        var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                          '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Email Me</span><span class="cybr-btn__tag"></span>Email Me</button>' +
+                          '&nbsp;' +
+                          '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me</button>' +
+                          '&nbsp;' +
+                          '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts</button>' +
+                          '</div>';
+        $("#loading").append(buttonsHtml);
+        triggerGlitchEffect();
+      }
+    
+      function triggerGlitchEffect() {
+        $('.cybr-btn').addClass('glitch-active');
+        setTimeout(() => {
+          $('.cybr-btn').removeClass('glitch-active');
+          setTimeout(() => $('.cybr-btn').addClass('glitch-active'), 50);
+          setTimeout(() => $('.cybr-btn').removeClass('glitch-active'), 400);
+        }, 1050);
+      }
+    
+      simulateTerminalOutput(); // Kick off the terminal simulation
+    });
     </script>
-    
-    
     
     
 </body>
