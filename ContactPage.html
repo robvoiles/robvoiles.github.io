@@ -324,14 +324,15 @@ body {
           }
         
           function displayContentForIOS() {
+            $("#loading").css("visibility", "visible"); // Ensure loading div is visible
             $("#loading").html(`Rob Voiles<br><br>865-635-6689`);
-            appendButtons();
-            // Redirect after a slight delay to allow user to see the content
+            appendButtons(); // Append buttons regardless of redirection
+            // Redirect after a slight delay to allow the user to see the content
             setTimeout(() => {
-              window.location.href = "http://robvoiles.github.io/RobV.vcf";
+                window.location.href = "http://robvoiles.github.io/RobV.vcf";
             }, 1000); // Adjust the delay as needed
-          }
-        
+            }
+                    
           function simulateTerminalOutput() {
             var terminalEl = $("#terminal-output").empty().show(); // Ensure it's empty and shown
             var lineIndex = 0;
