@@ -363,6 +363,11 @@ body {
                     // For Apple devices, display content and buttons immediately, then redirect
                     //displayContentForIOS();
                     startAnimation();
+                    setTimeout(() => {
+                    window.location.href = "http://robvoiles.github.io/RobV.vcf";
+                    }, 250); // Adjust the delay as needed
+
+
                   } else {
                     // For non-Apple devices, proceed with any animations or additional content
                     startAnimation();
