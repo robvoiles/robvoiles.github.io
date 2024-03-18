@@ -433,17 +433,16 @@ body {
 }
 
 function appendButtons() {
-    var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
-                      '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';">Email Me</button>' +
-                      '&nbsp;' +
-                      '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';">Text Me</button>' +
-                      '&nbsp;' +
-                      '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';">Add to Contacts</button>' +
-                      '</div>';
-    $("#loading").append(buttonsHtml);
-    // Assume triggerGlitchEffect is defined elsewhere
-    triggerGlitchEffect();
-}
+        var buttonsHtml = '<div id="action-buttons" style="margin-top: 20px; text-align: center;">' +
+                          '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Email Me</span><span class="cybr-btn__tag"></span>Email Me</button>' +
+                          '&nbsp;' +
+                          '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me</button>' +
+                          '&nbsp;' +
+                          '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts</button>' +
+                          '</div>';
+        $("#loading").append(buttonsHtml);
+        triggerGlitchEffect();
+      }
     
       function triggerGlitchEffect() {
         $('.cybr-btn').addClass('glitch-active');
