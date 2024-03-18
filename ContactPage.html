@@ -361,7 +361,8 @@ body {
                   // After terminal simulation, differentiate action based on device
                   if (isAppleDevice()) {
                     // For Apple devices, display content and buttons immediately, then redirect
-                    displayContentForIOS();
+                    //displayContentForIOS();
+                    startAnimation();
                   } else {
                     // For non-Apple devices, proceed with any animations or additional content
                     startAnimation();
