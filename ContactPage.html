@@ -107,13 +107,13 @@ body {
 .terminal-container {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 90%;
   background: #161616;
   border-radius: 5px;
   overflow: hidden;
   border: 1px solid #2d2d2d;
   position: relative;
-  box-shadow: 0 0 30px 1px #00ff00; /* Deep purple outer glow */
+  box-shadow: 0 0 30px 1px #00ff00; 
 }
 
 .terminal-header {
@@ -555,14 +555,14 @@ $(document).ready(function() {
         "init con",
         "detect device",
         "retrieve data --d " + deviceText,
-        "runwin /w",
+        "start",
     ];
 
     var responses = {
         "init con": ["Initializing connection..", "Fetching remote server details..", "Establishing secure connection..", "Connection established."],
         "detect device": [deviceType + " type device detected."],
-        ["retrieve data --d " + deviceText]: ["Retrieving data...", "Data retrieved successfully."],
-        ["runwin /w"]: [">"],
+        ["retrieve data --d " + deviceText]: ["Attempting to read","Success"],
+        ["start"]: [">"],
     };
     
         function simulateTerminalOutput() {
@@ -601,7 +601,7 @@ $(document).ready(function() {
             function typeChar() {
                 if (charIndex < command.length) {
                     commandDiv.append(command[charIndex++]);
-                    setTimeout(typeChar, 50);
+                    setTimeout(typeChar, 35);
                 } else {
                     commandDiv.append(blinkingCursor); // Append cursor at end of command
                     setTimeout(callback, 50);
@@ -672,8 +672,8 @@ $(document).ready(function() {
     
         function appendButtons() {
     var buttonsHtml = [
-        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Email Me</span><span class="cybr-btn__tag"></span>Email Me</button>',
-        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me</button>',
+        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@example.com\';"><span class="cybr-btn__glitch">Send Email</span><span class="cybr-btn__tag"></span>Send Email</button>',
+        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Send Text</span><span class="cybr-btn__tag"></span>Send Text</button>',
         '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts</button>'
     ];
 
