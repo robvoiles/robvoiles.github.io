@@ -688,6 +688,10 @@ $(document).ready(function() {
                 // Trigger the glitch effect after the last button is displayed
                 if (index === buttonsHtml.length - 1) {
                     triggerGlitchEffect();
+                    setTimeout(function() {
+                        changeButtonTextRandomly();
+                        setInterval(changeButtonTextRandomly, 5000); // Repeat every 5 seconds
+                    }, 3000); // Initial delay of 3 seconds before starting the loop
                 }
             });
         }, 100 * index); // Staggered fade-in for aesthetic effect
@@ -695,6 +699,63 @@ $(document).ready(function() {
 }
 
 
+function changeButtonTextRandomly() {
+    var buttons = $(".cybr-btn");
+    // Set the text for each button and lock their width and height
+    buttons.each(function(index) {
+        switch (index) {
+            case 0:
+                $(this).text("Send Email");
+                break;
+            case 1:
+                $(this).text("Send Text");
+                break;
+            case 2:
+                $(this).text("Add to Contacts");
+                break;
+        }
+        // Measure the current width and height, then set it as fixed dimensions to prevent resizing
+        var buttonWidth = $(this).outerWidth();
+        var buttonHeight = $(this).outerHeight();
+        $(this).css({
+            'width': buttonWidth + 'px',
+            'height': buttonHeight + 'px',
+            'overflow': 'hidden'  // Ensure that overflow text does not disrupt the layout
+        });
+    });
+
+    // Determine which language to use
+    var languages = ["Japanese", "Russian"];
+    var selectedLanguage = languages[Math.floor(Math.random() * languages.length)];
+
+    var japaneseTexts = ["メールを送る", "テキストを送る", "連絡先に追加"]; // Japanese translations
+    var russianTexts = ["Отправить письмо", "Отправить текст", "Добавить в контакты"]; // Russian translations
+    var newTexts = selectedLanguage === "Japanese" ? japaneseTexts : russianTexts;
+
+    var randomIndex = Math.floor(Math.random() * buttons.length);
+    var newText = newTexts[randomIndex]; // Pick the translation for the randomly selected button
+
+    var button = buttons.eq(randomIndex);
+    var originalText = button.text(); // Store the original text to revert to it later
+    var index = 0;
+
+    var intervalId = setInterval(function() {
+        let displayedText;
+        if (index < newText.length) {
+            displayedText = newText.substring(0, index + 1);
+        } else {
+            displayedText = newText;
+        }
+
+        button.text(displayedText);
+
+        index++;
+        if (index > newText.length) {
+            clearInterval(intervalId);
+            button.text(originalText); // Immediately revert the text back to the original
+        }
+    }, 30); // Delay in ms between updates
+}
 function triggerGlitchEffect() {
     $('.cybr-btn').addClass('glitch-active');
     setTimeout(() => {
@@ -722,5 +783,8 @@ function triggerGlitchEffect() {
     }
     </script>
     
+</body>
+</html>
+          
 </body>
 </html>
