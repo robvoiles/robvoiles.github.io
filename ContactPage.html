@@ -601,7 +601,7 @@ $(document).ready(function() {
             function typeChar() {
                 if (charIndex < command.length) {
                     commandDiv.append(command[charIndex++]);
-                    setTimeout(typeChar, 15);
+                    setTimeout(typeChar, 10);
                 } else {
                     commandDiv.append(blinkingCursor); // Append cursor at end of command
                     setTimeout(callback, 50);
