@@ -559,9 +559,9 @@ $(document).ready(function() {
     ];
 
     var responses = {
-        "init con": ["Initializing connection..", "Fetching remote server details..", "Establishing secure connection..", "Connection established."],
+        "init con": ["Fetching remote server details..", "Establishing secure connection..", "Connection established."],
         "detect device": [deviceType + " type device detected."],
-        ["retrieve data --d " + deviceText]: ["Attempting to read","Success"],
+        ["retrieve data --d " + deviceText]: ["Attempting to read"],
         ["start"]: [">"],
     };
     
@@ -601,7 +601,7 @@ $(document).ready(function() {
             function typeChar() {
                 if (charIndex < command.length) {
                     commandDiv.append(command[charIndex++]);
-                    setTimeout(typeChar, 35);
+                    setTimeout(typeChar, 15);
                 } else {
                     commandDiv.append(blinkingCursor); // Append cursor at end of command
                     setTimeout(callback, 50);
