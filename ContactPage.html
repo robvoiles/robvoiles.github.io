@@ -689,10 +689,10 @@ $(document).ready(function() {
     
     function appendButtons() {
       var buttonsHtml = [
-        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Send Email</span><span class="cybr-btn__tag"></span>Send Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',
         '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Send Text</span><span class="cybr-btn__tag"></span>Send Text<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
-        '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',
-        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>'
+        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
+        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Send Email</span><span class="cybr-btn__tag"></span>Send Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
+        '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add to Contacts</span><span class="cybr-btn__tag"></span>Add to Contacts<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',        
     ];
 
     // Append buttons to a new container directly in the body
@@ -729,7 +729,7 @@ function changeButtonTextRandomly() {
 
     var languages = ["Japanese", "Russian"];
     var selectedLanguage = languages[Math.floor(Math.random() * languages.length)];
-    var newTexts = selectedLanguage === "Japanese" ? ["メールを送る", "テキストを送る", "連絡先に追加"] : ["Отправить письмо", "Отправить текст", "Добавить в контакты"];
+    var newTexts = selectedLanguage === "Japanese" ? ["テキストを送る","Snapchat","メールを送る", "連絡先に追加", ] : ["Отправить текст","Snapchat","Отправить письмо", "Добавить в контакты", ];
 
     var randomButtonIndex = Math.floor(Math.random() * buttons.length);
     var button = buttons.eq(randomButtonIndex);
