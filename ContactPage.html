@@ -707,58 +707,12 @@ $(document).ready(function() {
                 if (index === buttonsHtml.length - 1) {
                     triggerGlitchEffect();
                     setTimeout(function() {
-                        changeButtonTextRandomly();
-                        setInterval(changeButtonTextRandomly, 5000); // Repeat every 5 seconds
                     }, 3000); // Initial delay of 3 seconds before starting the loop
                 }
             });
         }, 100 * index); // Staggered fade-in for aesthetic effect
     });
 }
-
-
-function changeButtonTextRandomly() {
-    var buttons = $(".cybr-btn");
-
-    // Set fixed dimensions to prevent resizing
-    buttons.each(function() {
-        var buttonWidth = $(this).outerWidth();
-        var buttonHeight = $(this).outerHeight();
-        $(this).css('width', buttonWidth + 'px', 'height', buttonHeight + 'px');
-    });
-
-    var languages = ["Japanese", "Russian"];
-    var selectedLanguage = languages[Math.floor(Math.random() * languages.length)];
-    var newTexts = selectedLanguage === "Japanese" ? ["テキストを送る","Snapchat","メールを送る", "連絡先に追加", ] : ["Отправить текст","Snapchat","Отправить письмо", "Добавить в контакты", ];
-
-    var randomButtonIndex = Math.floor(Math.random() * buttons.length);
-    var button = buttons.eq(randomButtonIndex);
-    var glitchSpan = button.find('.cybr-btn__glitch');
-
-    // Ensure glitch span is visible and animation is paused
-    glitchSpan.css({
-        'display': 'block',
-        'animation': 'none'
-    });
-
-    var originalText = glitchSpan.text();
-
-    var index = 0;
-    var intervalId = setInterval(function() {
-        if (index < newTexts[randomButtonIndex].length) {
-            glitchSpan.text(newTexts[randomButtonIndex].substring(0, index + 1));
-            index++;
-        } else {
-            clearInterval(intervalId);
-            glitchSpan.text(originalText);
-            glitchSpan.css({
-                'display': '',
-                'animation': ''
-            }); // Reset styles after update
-        }
-    }, 50);
-}
-
 
 
 
