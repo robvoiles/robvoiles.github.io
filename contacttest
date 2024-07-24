@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Details</title>
+<style>
+/* Ensures body is a flex container that centers its children vertically and horizontally */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Cyber', Consolas, Courier, monospace;
+  font-size: 18px;
+  color: #0F0;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+  background: #1b1919; /* Dark background for contrast */
+  background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 100% 5px; /* Adjusted line height for visibility */
+  overflow: hidden;
+  position: relative; /* Needed for absolutely positioned elements inside */
+}
+
+
+#background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: auto;
+  height: 100vh; /* Ensure it spans the height of the viewport */
+  z-index: -1; /* Ensure it is behind all other elements */
+  object-fit: cover;
+  opacity: 1; /* Initial opacity */
+  transition: opacity 4.5s; /* Transition effect for opacity */
+}
+#loading {
+  text-align: center;
+  display: inline-block;
+  visibility: hidden;
+  background: #352e2e4f;
+  font-size: calc(18px + 2vw); 
+  font-family: 'Cyber', Consolas, Courier, monospace;
+}
+
+.loading-header {
+  background: #2d2d2d;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  position: relative;
+  z-index: 2;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 100%; /* Ensure the header takes the full width */
+}
+
+#flash-text {
+  font-family: 'Cyber', Consolas, Courier, monospace;
+  font-size: 20px;
+  color: rgb(0, 221, 0);
+  text-align: center;
+  visibility: hidden; /* Start hidden */
+  width: 100%; /* Take full width of the header */
+  background: transparent; /* Ensure the background is transparent */
+  border-radius: 0; /* Make sure no border radius is applied */
+}
+
+.neon-accent {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: calc(100% - 20px);
+  height: 3px;
+  background: linear-gradient(to right, #00ff00, #009900); /* Updated to green */
+  border-radius: 2px;
+}
+
+/* Reveal animation for terminal output */
+/* Blinking cursor effect */
+
+.terminal-output > div {
+  animation: reveal 0.3s ease-out forwards;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.blinking-cursor {
+  display: inline-block;
+  font-weight: bold;
+  color: #f0f0f0;
+  margin-left: 5px;
+  animation: blink 1s step-start infinite;
+}
+
+.static-cursor {
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+.terminal-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  background: #352e2ee1;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid #2d2d2d;
+  position: relative;
+  box-shadow: 0 0 2px 1px #00ff00; 
+}
+
+.terminal-header {
+  display: flex;
+  justify-content: space-between; /* Adjusted for visibility */
+  align-items: center;
+  background: #2d2d2d;
+  padding: 10px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.terminal-header span {
+  display: block; /* Ensure these are block elements */
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 0 5px;
+  background: #ff305b; /* Ensure visibility */
+}
+
+.terminal-header span.close {
+  background: #ff305b;
+}
+
+.terminal-header span.minimize {
+  background: #ffb700;
+}
+
+.terminal-header span.maximize {
+  background: #29ff2f;
+}
+
+.terminal-output {
+  background: #352e2e63; /* Darker background for content */
+  color: #f0f0f0; /* Lighter text for readability */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.blinking-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* This was missing in your snippet, causing potential CSS parsing issues */
+.glow-button {
+  background: #2727268c;
+  border: none;
+  color: #0F0;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  text-shadow: 0px 0px 10px #0F0;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.5s ease; /* Smooth transition for opacity */
+}
+
+.glow-button:hover {
+  background: #333;
+  box-shadow: 0 0 10px #0F0, 0 0 20px #0F0;
+}
+
+.glow-button {
+  background: #222;
+  border: none;
+  color: #0F0; 
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  text-shadow: 0px 0px 10px #0F0; 
+}
+
+.glow-button:hover {
+  background: #333;
+  box-shadow: 0 0 10px #0F0, 0 0 20px #0F0;
+}
+
+.letter, .glow-button {
+  white-space: nowrap; /* Prevents content from wrapping */
+}
+
+/* Additional responsive adjustments if needed */
+@media (max-width: 480px) {
+  body {
+    font-size: calc(14px + 2vw); /* Adjusts base font size on smaller screens */
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  .letter:last-child::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    border-left: 2px solid #0F0;
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@font-face {
+  font-family: Cyber;
+  src: url("https://assets.codepen.io/605876/Blender-Pro-Bold.otf");
+  font-display: swap;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.cybr-btn {
+  --primary: #211f1f; /* Dark background color */
+  --shadow-primary: #0F0; /* Bright green for the shadow to match text */
+  --primary-hue: 120; /* Hue for green */
+  --primary-lightness: 20; /* Lightness for dark background */
+  --color: #0F0; /* Text color to match the rest of the page's text */
+  --font-size: 20px; /* Adjusted font size for better integration */
+  --shadow-primary-hue: 120; /* Green shadow hue */
+  --label-size: 8px; /* Adjusted label size for consistency */
+  --shadow-secondary-hue: 120; /* Secondary shadow hue, also green */
+  --shadow-secondary: #0A0; /* Slightly darker green for secondary shadow */
+  --border: 2px; /* Reduced border size for subtlety */
+  --shimmy-distance: 2px; /* Reduced shimmy distance for the glitch effect */
+  line-height: 60px; /* Adjusted line height for vertical alignment */
+  --clip: polygon(0 0, 100% 0, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 70%);
+  --border: 4px;
+  --shimmy-distance: 5;
+  --clip-one: polygon(0 2%, 100% 2%, 100% 95%, 95% 95%, 95% 90%, 85% 90%, 85% 95%, 8% 95%, 0 70%);
+  --clip-two: polygon(0 78%, 100% 78%, 100% 100%, 95% 100%, 95% 90%, 85% 90%, 85% 100%, 8% 100%, 0 78%);
+  --clip-three: polygon(0 44%, 100% 44%, 100% 54%, 95% 54%, 95% 54%, 85% 54%, 85% 54%, 8% 54%, 0 54%);
+  --clip-four: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+  --clip-five: polygon(0 0, 100% 0, 100% 0, 95% 0, 95% 0, 85% 0, 85% 0, 8% 0, 0 0);
+  --clip-six: polygon(0 40%, 100% 40%, 100% 85%, 95% 85%, 95% 85%, 85% 85%, 85% 85%, 8% 85%, 0 70%);
+  --clip-seven: polygon(0 63%, 100% 63%, 100% 80%, 95% 80%, 95% 80%, 85% 80%, 85% 80%, 8% 80%, 0 70%);
+  font-family: 'Cyber', sans-serif;
+  color: var(--color);
+  cursor: pointer;
+  background: transparent;
+  text-transform: uppercase;
+  font-size: var(--font-size);
+  outline: transparent;
+  letter-spacing: 2px;
+  position: relative;
+  border: 0;
+  transition: background 0.1s;
+}
+
+.cybr-btn:hover {
+  --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.8%));
+}
+
+.cybr-btn:active {
+  --primary: hsl(var(--primary-hue), 85%, calc(var(--primary-lightness, 50) * 0.6%));
+}
+
+.cybr-btn:after,
+.cybr-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  clip-path: var(--clip);
+  z-index: -1;
+}
+
+.cybr-btn:before {
+  background: var(--shadow-primary);
+  transform: translate(var(--border), 0);
+}
+
+.cybr-btn:after {
+  background: var(--primary);
+}
+
+.cybr-btn__tag {
+  position: absolute;
+  padding: 1px 4px;
+  letter-spacing: 1px;
+  line-height: 1;
+  bottom: -5%;
+  right: 5%;
+  font-weight: normal;
+  color: hsl(0, 0%, 0%);
+  font-size: var(--label-size);
+}
+
+.cybr-btn__glitch {
+  position: absolute;
+  top: calc(var(--border) * -1);
+  left: calc(var(--border) * -1);
+  right: calc(var(--border) * -1);
+  bottom: calc(var(--border) * -1);
+  background: var(--shadow-primary);
+  text-shadow: 2px 2px var(--shadow-primary), -2px -2px var(--shadow-secondary);
+  clip-path: var(--clip);
+  animation: glitch 1s infinite;
+  display: none;
+}
+
+.cybr-btn:hover .cybr-btn__glitch {
+  display: block;
+}
+
+.cybr-btn.glitch-active .cybr-btn__glitch {
+  display: block;
+}
+
+.cybr-btn__glitch:before {
+  content: '';
+  position: absolute;
+  top: calc(var(--border) * 1);
+  right: calc(var(--border) * 1);
+  bottom: calc(var(--border) * 1);
+  left: calc(var(--border) * 1);
+  clip-path: var(--clip);
+  background: var(--primary);
+  z-index: -1;
+}
+
+@keyframes glitch {
+  0% {
+    clip-path: var(--clip-one);
+  }
+  2%, 8% {
+    clip-path: var(--clip-two);
+    transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+  }
+  6% {
+    clip-path: var(--clip-two);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  9% {
+    clip-path: var(--clip-two);
+    transform: translate(0, 0);
+  }
+  10% {
+    clip-path: var(--clip-three);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  13% {
+    clip-path: var(--clip-three);
+    transform: translate(0, 0);
+  }
+  14%, 21% {
+    clip-path: var(--clip-four);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  25% {
+    clip-path: var(--clip-five);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  30% {
+    clip-path: var(--clip-five);
+    transform: translate(calc(var(--shimmy-distance) * -1%), 0);
+  }
+  35%, 45% {
+    clip-path: var(--clip-six);
+    transform: translate(calc(var(--shimmy-distance) * -1%));
+  }
+  40% {
+    clip-path: var(--clip-six);
+    transform: translate(calc(var(--shimmy-distance) * 1%));
+  }
+  50% {
+    clip-path: var(--clip-six);
+    transform: translate(0, 0);
+  }
+  55% {
+    clip-path: var(--clip-seven);
+    transform: translate(calc(var(--shimmy-distance) * 1%), 0);
+  }
+  60% {
+    clip-path: var(--clip-seven);
+    transform: translate(0, 0);
+  }
+  31%, 61%, 100% {
+    clip-path: var(--clip-four);
+  }
+}
+
+.cybr-btn:nth-of-type(2) {
+  --primary-hue: 120;
+}
+
+#button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Ensure buttons are dynamically sized based on the width of the loading container */
+.cybr-btn {
+  flex: 1; /* Each button takes up equal space */
+  margin: 0 5px; /* Add some margin between buttons for spacing */
+}
+</style>
+
+</head>
+<body>
+  <video id="background-video" autoplay muted>
+      <source src="terminal (1).mp4" type="video/mp4">
+      Your browser does not support the video tag.
+  </video>
+  <div class="terminal-container">
+      <div class="terminal-header">
+          <span id="flash-text" style="visibility: hidden">Implant Read Success</span>          
+          <!-- Terminal header content -->
+      </div>
+      <div id="terminal-output" class="terminal-output"></div>
+  </div>
+  
+  <div class="terminal-container" id="loading-container" style="display: none;">
+      <div class="loading-header"></div>
+      <div id="loading">
+          Rob Voiles
+          <br><br>
+          865-635-6689
+      </div>
+  </div>
+  
+  <div id="button-container" style="text-align: center; margin-top: 20px;"></div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <script>
+    function triggerTerminalGlitchEffect() {
+        $('.terminal-container').addClass('glitch-active');
+        setTimeout(() => {
+            $('.terminal-container').removeClass('glitch-active');
+        }, 1200);
+    }
+
+    $(document).ready(function() {
+        var video = document.getElementById('background-video');
+
+        video.addEventListener('loadeddata', function() {
+            // Video is loaded, now display elements and start scripts
+            $("body").css("visibility", "visible");
+
+            function adjustButtonWidths() {
+                var loadingContainerWidth = $("#loading-container").width();
+                $(".cybr-btn").css("width", loadingContainerWidth / 3); // Divide the width equally among the buttons
+            }
+
+            // Call the function on document ready and window resize
+            adjustButtonWidths();
+            $(window).resize(adjustButtonWidths);       
+            var terminalEl = $("#terminal-output");  
+            var blinkingCursor = $('<span class="blinking-cursor">_</span>'); // Create the cursor element just once
+
+            console.log("Document ready and script starting");
+            var flashText = $('#flash-text');
+            flashText.css('visibility', 'visible'); // Make visible initially
+            function flash() {
+                if (flashText.css('visibility') === 'visible') {
+                    flashText.css('visibility', 'hidden');
+                } else {
+                    flashText.css('visibility', 'visible');
+                }
+            }
+            var flashingInterval = setInterval(flash, 350); // Flash every 500 ms
+            setTimeout(function() {
+                clearInterval(flashingInterval);
+                flashText.css('visibility', 'hidden'); // Optionally hide the text at the end
+            }, 1800); // Stops flashing after 5000 milliseconds (5 seconds)
+            
+            function isAppleDevice() {
+                return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
+                    (navigator.userAgent.includes("Mac") && "ontouchend" in document);
+            }
+
+            var deviceType = isAppleDevice() ? "iOS" : "Non-iOS";
+
+            var deviceText = isAppleDevice() ? "iphone --!v" : "android? --!v";
+
+            function simulateTerminalOutput() {
+                console.log("Starting terminal simulation");
+                terminalEl.empty().show();
+                processCommand(0);
+
+                // Add battery-related responses if battery information is available
+                if (batteryLevel !== null && isCharging !== null) {
+                    responses["retrieve data --d " + deviceText].push("Battery level: " + batteryLevel.toFixed(2) + "%");
+                    responses["retrieve data --d " + deviceText].push("Charging status: " + (isCharging ? "Charging" : "Not charging"));
+                }
+
+                // Add connection type-related responses if connection type is available
+                if (connectionType !== null) {
+                    responses["retrieve data --d " + deviceText].push("Connection type: " + connectionType);
+                }
+            }
+
+            var commands = [
+                "init con",
+                "detect device",
+                "retrieve data --d " + deviceText,
+                "start",
+            ];
+
+            var responses = {
+                "init con": ["Fetching remote server details..", "Establishing secure connection..", "Connection established."],
+                "detect device": [deviceType + " type device detected."],
+                ["retrieve data --d " + deviceText]: ["Attempting to read"],
+                ["start"]: [">"],
+            };
+
+            function processCommand(index) {
+                if (index < commands.length) {
+                    typeCommand(commands[index], function() {
+                        displayResponses(responses[commands[index]], function() {
+                            processCommand(index + 1);
+                        });
+                    });
+                } else {
+                    console.log("Terminal commands completed, finalizing");
+                    finalizeTerminal();
+                }
+            }
+
+            function finalizeTerminal() {
+                console.log("Finalizing terminal and fading out");
+                $('.terminal-container').not('#loading-container').fadeOut('slow', function() {
+                    console.log("Terminal faded, starting animations");
+                    $('#loading-container').fadeIn('slow'); // Fade in the loading container
+                    startAnimation(); // Ensure this function is called
+                    triggerTerminalGlitchEffect(); // Trigger glitch effect on terminal container
+                });
+                blinkingCursor.removeClass('blinking-cursor').addClass('static-cursor');
+            }
+
+            function typeCommand(command, callback) {
+                var commandDiv = $('<div>').text('$ ');
+                terminalEl.append(commandDiv);
+                var charIndex = 0;
+
+                function typeChar() {
+                    if (charIndex < command.length) {
+                        commandDiv.append(command[charIndex++]);
+                        setTimeout(typeChar, 10);
+                    } else {
+                        commandDiv.append(blinkingCursor); // Append cursor at end of command
+                        setTimeout(callback, 50);
+                    }
+                }
+                typeChar();
+            }
+
+            function displayResponses(responseArray, callback) {
+                var responseIndex = 0;
+
+                function showResponse() {
+                    if (responseIndex < responseArray.length) {
+                        var responseDiv = $('<div>').text(responseArray[responseIndex]);
+                        terminalEl.append(responseDiv);
+                        responseIndex++;
+                        blinkingCursor.detach().appendTo(responseDiv);
+                        setTimeout(showResponse, 100 + Math.random() * 200);
+                    } else {
+                        callback();
+                    }
+                }
+                showResponse();
+            }
+
+            simulateTerminalOutput();
+            
+            function startAnimation() {
+                console.log("Starting main animation");
+                var loadingDiv = $("#loading");
+                loadingDiv.css("visibility", "visible");
+                loadingDiv.empty().css("visibility", "visible");
+                var originalText = "Rob Voiles\n\n865-635-6689";
+                var textLines = originalText.split("\n");
+                var originalChars = [];
+
+                textLines.forEach(function(line, index) {
+                    var trimmedLine = line.trim();
+                    var chars = trimmedLine.split("");
+                    originalChars = originalChars.concat(chars);
+
+                    chars.forEach(function(char) {
+                        var span = $('<span>').addClass('letter');
+                        span.text(char);
+                        loadingDiv.append(span);
+                    });
+
+                    if (index < textLines.length - 1) {
+                        loadingDiv.append($('<br>'));
+                    }
+                });
+
+                setTimeout(write, 25);
+                setTimeout(inc, 100);
+
+                // Flashing text effect
+                var letter_count = 0;
+                var finished = false;
+
+                function write() {
+                    $(".letter").each(function() {
+                        if (!$(this).hasClass("glow")) {
+                            var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                            $(this).text(randomChar);
+                        }
+                    });
+                    if (!finished) {
+                        setTimeout(write, 25);
+                    }
+                }
+
+                function appendButtons() {
+                    var buttonsHtml = [
+                        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
+                        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
+                        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Email</span><span class="cybr-btn__tag"></span>Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
+                        '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add Contact</span><span class="cybr-btn__tag"></span>Add Contact<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',        
+                    ];
+
+                    // Append buttons to a new container directly in the body
+                    var $buttonContainer = $('<div style="text-align: center; margin-top: 20px;"></div>').appendTo('body');
+
+                    buttonsHtml.forEach((buttonHtml, index) => {
+                        var $button = $(buttonHtml).hide(); // Start hidden for fade-in effect
+                        $buttonContainer.append($button);
+                        setTimeout(() => {
+                            $button.fadeIn(350, function() {
+                                // Trigger the glitch effect after the last button is displayed
+                                if (index === buttonsHtml.length - 1) {
+                                    triggerGlitchEffect();
+                                    setTimeout(function() {
+                                        changeButtonTextRandomly();
+                                        setInterval(changeButtonTextRandomly, 5000); // Repeat every 5 seconds
+                                    }, 3000); // Initial delay of 3 seconds before starting the loop
+                                }
+                            });
+                        }, 100 * index); // Staggered fade-in for aesthetic effect
+                    });
+                }
+
+                function changeButtonTextRandomly() {
+                    var buttons = $(".cybr-btn");
+
+                    // Set fixed dimensions to prevent resizing
+                    buttons.each(function() {
+                        var buttonWidth = $(this).outerWidth();
+                        var buttonHeight = $(this).outerHeight();
+                        $(this).css('width', buttonWidth + 'px', 'height', buttonHeight + 'px');
+                    });
+
+                    var languages = ["Japanese", "Russian"];
+                    var selectedLanguage = languages[Math.floor(Math.random() * languages.length)];
+                    var newTexts = selectedLanguage === "Japanese" ? ["テキストを送る","Snapchat","メールを送る", "連絡先に追加", ] : ["Отправить текст","Snapchat","Отправить письмо", "Добавить в контакты", ];
+
+                    var randomButtonIndex = Math.floor(Math.random() * buttons.length);
+                    var button = buttons.eq(randomButtonIndex);
+                    var glitchSpan = button.find('.cybr-btn__glitch');
+
+                    // Ensure glitch span is visible and animation is paused
+                    glitchSpan.css({
+                        'display': 'block',
+                        'animation': 'none'
+                    });
+
+                    var originalText = glitchSpan.text();
+
+                    var index = 0;
+                    var intervalId = setInterval(function() {
+                        if (index < newTexts[randomButtonIndex].length) {
+                            glitchSpan.text(newTexts[randomButtonIndex].substring(0, index + 1));
+                            index++;
+                        } else {
+                            clearInterval(intervalId);
+                            glitchSpan.text(originalText);
+                            glitchSpan.css({
+                                'display': '',
+                                'animation': ''
+                            }); // Reset styles after update
+                        }
+                    }, 50);
+                }
+
+                function triggerGlitchEffect() {
+                    $('.cybr-btn').addClass('glitch-active');
+                    setTimeout(() => {
+                        $('.cybr-btn').removeClass('glitch-active');
+                    }, 1200);
+                }
+
+                function inc() {
+                    if (letter_count < originalChars.length) {
+                        var currentLetter = originalChars[letter_count];
+                        $(".letter").eq(letter_count).text(currentLetter).addClass("glow");
+                        letter_count++;
+                        if (letter_count < originalChars.length) {
+                            setTimeout(inc, 120);
+                        } else {
+                            finished = true;
+                            appendButtons(); // Make sure appendButtons is defined or implemented
+                            $("#background-video").css("opacity", "0");
+                        }
+                    }
+                }
+
+                setTimeout(write, 25);
+                setTimeout(inc, 100);
+            }
+        });
+
+        // Initially hide the body content until the video is loaded
+        $("body").css("visibility", "hidden");
+    });
+</script>
+
+</body>
+</html>
