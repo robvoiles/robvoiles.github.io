@@ -35,7 +35,8 @@
     opacity: 1;
     transition: opacity 4.5s;
   }
-  
+    
+
   #loading {
     text-align: center;
     display: inline-block;
@@ -67,6 +68,8 @@
     width: 100%;
     background: transparent;
     border-radius: 0;
+
+    
   }
   
   .neon-accent {
@@ -389,6 +392,16 @@
     flex: 1;
     margin: 0 5px;
   }
+
+  #hello {
+    visibility: hidden;
+    font-size: 32px;
+    margin: 4px 2px;
+    text-shadow: 0px 0px 10px #0F0;
+    opacity: 0;
+    transition: opacity 4.5s;
+  }
+
   </style>
 
 </head>
@@ -405,8 +418,12 @@
       <div id="terminal-output" class="terminal-output"></div>
   </div>
   
+  <div id="hello">
+    Hello, I'm
+  </div>
+
   <div class="terminal-container" id="loading-container" style="display: none;">
-      <div class="loading-header"></div>
+     <!-- <div class="loading-header"></div> -->
       <div id="loading">
           Rob Voiles
           <br><br>
@@ -433,6 +450,8 @@
             // Video is loaded, now display elements and start scripts
             $("body").css("visibility", "visible");
 
+
+            
             function adjustButtonWidths() {
                 var loadingContainerWidth = $("#loading-container").width();
                 $(".cybr-btn").css("width", loadingContainerWidth / 3); // Divide the width equally among the buttons
@@ -606,9 +625,9 @@
 
                 function appendButtons() {
                     var buttonsHtml = [
-                        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Open Text</span><span class="cybr-btn__tag"></span>Open Text<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
-                        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Open Snapchat</span><span class="cybr-btn__tag"></span>Open Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
-                        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Open Email</span><span class="cybr-btn__tag"></span>Open Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
+                        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
+                        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
+                        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Email</span><span class="cybr-btn__tag"></span>Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
                         '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add Contact</span><span class="cybr-btn__tag"></span>Add Contact<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',        
                     ];
 
@@ -619,17 +638,19 @@
                         var $button = $(buttonHtml).hide(); // Start hidden for fade-in effect
                         $buttonContainer.append($button);
                         setTimeout(() => {
-                            $button.fadeIn(350, function() {
+                            $button.fadeIn(100, function() {
                                 // Trigger the glitch effect after the last button is displayed
                                 if (index === buttonsHtml.length - 1) {
                                     triggerGlitchEffect();
-                                    
                                 }
                             });
                         }, 100 * index); // Staggered fade-in for aesthetic effect
                     });
+
+                    
                 }
 
+                
                 function changeButtonTextRandomly() {
                     var buttons = $(".cybr-btn");
 
@@ -679,6 +700,18 @@
                     }, 1200);
                 }
 
+                function flashGlitchEffect() {
+                    $('.cybr-btn').addClass('glitch-active');
+                    setTimeout(() => {
+                        $('.cybr-btn').removeClass('glitch-active');
+                    }, 200);
+                }
+
+                function showHello() {
+                    $("#hello").css("visibility", "visible");
+                    $("#hello").css("opacity", "1");
+                }
+
                 function inc() {
                     if (letter_count < originalChars.length) {
                         var currentLetter = originalChars[letter_count];
@@ -690,6 +723,8 @@
                             finished = true;
                             appendButtons(); // Make sure appendButtons is defined or implemented
                             $("#background-video").css("opacity", "0");
+                            setTimeout(showHello, 1200);
+                            setTimeout(flashGlitchEffect,3000);
                         }
                     }
                 }
