@@ -606,9 +606,9 @@
 
                 function appendButtons() {
                     var buttonsHtml = [
-                        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
-                        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
-                        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Email</span><span class="cybr-btn__tag"></span>Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
+                        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Open Text</span><span class="cybr-btn__tag"></span>Open Text<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
+                        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Open Snapchat</span><span class="cybr-btn__tag"></span>Open Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
+                        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Open Email</span><span class="cybr-btn__tag"></span>Open Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
                         '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add Contact</span><span class="cybr-btn__tag"></span>Add Contact<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',        
                     ];
 
@@ -623,10 +623,7 @@
                                 // Trigger the glitch effect after the last button is displayed
                                 if (index === buttonsHtml.length - 1) {
                                     triggerGlitchEffect();
-                                    setTimeout(function() {
-                                        changeButtonTextRandomly();
-                                        setInterval(changeButtonTextRandomly, 5000); // Repeat every 5 seconds
-                                    }, 3000); // Initial delay of 3 seconds before starting the loop
+                                    
                                 }
                             });
                         }, 100 * index); // Staggered fade-in for aesthetic effect
