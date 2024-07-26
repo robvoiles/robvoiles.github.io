@@ -25,10 +25,6 @@
     position: relative;
   }
   
-
-
-
-
   #loading {
     text-align: center;
     display: inline-block;
@@ -60,8 +56,6 @@
     width: 100%;
     background: transparent;
     border-radius: 0;
-
-    
   }
   
   .neon-accent {
@@ -106,6 +100,8 @@
     border: 1px solid #2d2d2d;
     position: relative;
     box-shadow: 0 0 2px 1px #00ff00; 
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 300px; /* Fixed height */
   }
   
   .terminal-header {
@@ -393,36 +389,9 @@
     opacity: 0;
     transition: opacity 4.5s;
   }
-
-
-
-
-
-
-
-
-
-
 </style>
 
 </head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <body>
 
     <div class="terminal-container">
@@ -435,7 +404,7 @@
     
     <div id="hello">
         Hi, I'm
-      </div>
+    </div>
 
     <div class="terminal-container" id="loading-container" style="display: none;">
       <div class="loading-header">
@@ -452,43 +421,11 @@
     
     <div id="button-container" style="text-align: center; margin-top: 20px;"></div>
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <script>
-
 $(document).ready(function() {
-
-
-
-  
     function adjustButtonWidths() {
         var loadingContainerWidth = $("#loading-container").width();
         $(".cybr-btn").css("width", loadingContainerWidth / 3); // Divide the width equally among the buttons
@@ -501,158 +438,161 @@ $(document).ready(function() {
     var blinkingCursor = $('<span class="blinking-cursor">_</span>'); // Create the cursor element just once
 
     console.log("Document ready and script starting");
-var flashText = $('#flash-text');
-flashText.css('visibility', 'visible'); // Make visible initially
-function flash() {
-    if (flashText.css('visibility') === 'visible') {
-        flashText.css('visibility', 'hidden');
-    } else {
-        flashText.css('visibility', 'visible');
+    var flashText = $('#flash-text');
+    flashText.css('visibility', 'visible'); // Make visible initially
+    function flash() {
+        if (flashText.css('visibility') === 'visible') {
+            flashText.css('visibility', 'hidden');
+        } else {
+            flashText.css('visibility', 'visible');
+        }
     }
-}
-var flashingInterval = setInterval(flash, 350); // Flash every 500 ms
-setTimeout(function() {
-    clearInterval(flashingInterval);
-    flashText.css('visibility', 'hidden'); // Optionally hide the text at the end
-}, 1800); // Stops flashing after 5000 milliseconds (5 seconds)
+    var flashingInterval = setInterval(flash, 350); // Flash every 500 ms
+    setTimeout(function() {
+        clearInterval(flashingInterval);
+        flashText.css('visibility', 'hidden'); // Optionally hide the text at the end
+    }, 1800); // Stops flashing after 5000 milliseconds (5 seconds)
 
-function isAppleDevice() {
-    return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
-           (navigator.userAgent.includes("Mac") && "ontouchend" in document);
-}
-
-var deviceType = isAppleDevice() ? "iOS" : "Non-iOS";
-
-var deviceText = isAppleDevice() ? "iphone --!v" : "android? --!v";
-
-function simulateTerminalOutput() {
-    console.log("Starting terminal simulation");
-    terminalEl.empty().show();
-    processCommand(0);
-
-    // Add battery-related responses if battery information is available
-    if (batteryLevel !== null && isCharging !== null) {
-        responses["retrieve data --d " + deviceText].push("Battery level: " + batteryLevel.toFixed(2) + "%");
-        responses["retrieve data --d " + deviceText].push("Charging status: " + (isCharging ? "Charging" : "Not charging"));
+    function isAppleDevice() {
+        return /Mac|iPod|iPhone|iPad/.test(navigator.platform) ||
+            (navigator.userAgent.includes("Mac") && "ontouchend" in document);
     }
 
-    // Add connection type-related responses if connection type is available
-    if (connectionType !== null) {
-        responses["retrieve data --d " + deviceText].push("Connection type: " + connectionType);
+    var deviceType = isAppleDevice() ? "iOS" : "Non-iOS";
+
+    var deviceText = isAppleDevice() ? "iphone --!v" : "android? --!v";
+
+    function simulateTerminalOutput() {
+        console.log("Starting terminal simulation");
+        terminalEl.empty().show();
+        processCommand(0);
+
+        // Add battery-related responses if battery information is available
+        if (batteryLevel !== null && isCharging !== null) {
+            responses["retrieve data --d " + deviceText].push("Battery level: " + batteryLevel.toFixed(2) + "%");
+            responses["retrieve data --d " + deviceText].push("Charging status: " + (isCharging ? "Charging" : "Not charging"));
+        }
+
+        // Add connection type-related responses if connection type is available
+        if (connectionType !== null) {
+            responses["retrieve data --d " + deviceText].push("Connection type: " + connectionType);
+        }
     }
-}
 
-var commands = [
-    "init con",
-    "detect device",
+    var commands = [
+        "init con",
+        "detect device",
+    ];
 
-];
+    var responses = {
+        "init con": [
+            "Fetching remote server details...",
+            "Establishing secure connection...",
+            "Connection established."
+        ],
+        "detect device": [
+            deviceType + " type device detected."
+        ],
+        "start": [
+            "Starting system processes...",
+        ],
+        "additional": [
+            "Updating package lists...",
+            "Reading package lists... Done",
+            "Building dependency tree... Done",
+            "Reading state information... Done",
+            "The following packages will be upgraded:",
+            "  libssl1.1 openssl",
+            "2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.",
+            "After this operation, 1024 B of additional disk space will be used.",
+            "Fetched 2651 kB in 1s (2753 kB/s)",
+            "debconf: delaying package configuration, since apt-utils is not installed",
+            "(Reading database ... 51234 files and directories currently installed.)",
+            "Preparing to unpack .../libssl1.1_1.1.1f-1ubuntu2.8_amd64.deb ...",
+            "Unpacking libssl1.1:amd64 (1.1.1f-1ubuntu2.8) over (1.1.1f-1ubuntu2.7) ...",
+            "Setting up libssl1.1:amd64 (1.1.1f-1ubuntu2.8) ...",
+            "Processing triggers for libc-bin (2.31-0ubuntu9.9) ..."
+        ]
+    };
 
-var responses = {
-    "init con": [
-        "Fetching remote server details...",
-        "Establishing secure connection...",
-        "Connection established."
-    ],
-    "detect device": [
-        deviceType + " type device detected."
-    ],
-    "start": [
-        "Starting system processes...",
-    ],
-    "additional": [
-        "Updating package lists...",
-        "Reading package lists... Done",
-        "Building dependency tree... Done",
-        "Reading state information... Done",
-        "The following packages will be upgraded:",
-        "  libssl1.1 openssl",
-        "2 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.",
-        "After this operation, 1024 B of additional disk space will be used.",
-        "Fetched 2651 kB in 1s (2753 kB/s)",
-        "debconf: delaying package configuration, since apt-utils is not installed",
-        "(Reading database ... 51234 files and directories currently installed.)",
-        "Preparing to unpack .../libssl1.1_1.1.1f-1ubuntu2.8_amd64.deb ...",
-        "Unpacking libssl1.1:amd64 (1.1.1f-1ubuntu2.8) over (1.1.1f-1ubuntu2.7) ...",
-        "Setting up libssl1.1:amd64 (1.1.1f-1ubuntu2.8) ...",
-        "Processing triggers for libc-bin (2.31-0ubuntu9.9) ..."
-    ]
-};
+    function simulateTerminalOutput() {
+        console.log("Starting terminal simulation");
+        terminalEl.empty().show();
+        processCommand(0);
+    }
 
-function simulateTerminalOutput() {
-    console.log("Starting terminal simulation");
-    terminalEl.empty().show();
-    processCommand(0);
-}
-
-function processCommand(index) {
-    if (index < commands.length) {
-        typeCommand(commands[index], function() {
-            displayResponses(responses[commands[index]], function() {
-                if (index === commands.length - 1) {
-                    displayResponses(responses["additional"], function() {
-                        finalizeTerminal();
-                    });
-                } else {
-                    processCommand(index + 1);
-                }
+    function processCommand(index) {
+        if (index < commands.length) {
+            typeCommand(commands[index], function() {
+                displayResponses(responses[commands[index]], function() {
+                    if (index === commands.length - 1) {
+                        displayResponses(responses["additional"], function() {
+                            finalizeTerminal();
+                        });
+                    } else {
+                        processCommand(index + 1);
+                    }
+                });
             });
+        } else {
+            console.log("Terminal commands completed, finalizing");
+            finalizeTerminal();
+        }
+    }
+
+    function finalizeTerminal() {
+        console.log("Finalizing terminal and fading out");
+        $('.terminal-container').not('#loading-container').fadeOut('slow', function() {
+            console.log("Terminal faded, starting animations");
+            $('#loading-container').fadeIn('slow'); // Fade in the loading container
+            startAnimation(); // Ensure this function is called
         });
-    } else {
-        console.log("Terminal commands completed, finalizing");
-        finalizeTerminal();
+        blinkingCursor.removeClass('blinking-cursor').addClass('static-cursor');
     }
-}
 
-function finalizeTerminal() {
-    console.log("Finalizing terminal and fading out");
-    $('.terminal-container').not('#loading-container').fadeOut('slow', function() {
-        console.log("Terminal faded, starting animations");
-        $('#loading-container').fadeIn('slow'); // Fade in the loading container
-        startAnimation(); // Ensure this function is called
-    });
-    blinkingCursor.removeClass('blinking-cursor').addClass('static-cursor');
-}
+    function typeCommand(command, callback) {
+        var commandDiv = $('<div>').text('$ ');
+        terminalEl.append(commandDiv);
+        var charIndex = 0;
 
-function typeCommand(command, callback) {
-    var commandDiv = $('<div>').text('$ ');
-    terminalEl.append(commandDiv);
-    var charIndex = 0;
-
-    function typeChar() {
-        if (charIndex < command.length) {
-            commandDiv.append(command[charIndex++]);
-            setTimeout(typeChar, 10);
-        } else {
-            commandDiv.append(blinkingCursor); // Append cursor at end of command
-            setTimeout(callback, 50);
+        function typeChar() {
+            if (charIndex < command.length) {
+                commandDiv.append(command[charIndex++]);
+                setTimeout(typeChar, 10);
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to the bottom
+            } else {
+                commandDiv.append(blinkingCursor); // Append cursor at end of command
+                setTimeout(callback, 50);
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to the bottom
+            }
         }
+        typeChar();
     }
-    typeChar();
-}
 
-function displayResponses(responseArray, callback) {
-    var responseIndex = 0;
+    function displayResponses(responseArray, callback) {
+        var responseIndex = 0;
 
-    function showResponse() {
-        if (responseIndex < responseArray.length) {
-            var responseDiv = $('<div>').text(responseArray[responseIndex]);
-            terminalEl.append(responseDiv);
-            responseIndex++;
-            blinkingCursor.detach().appendTo(responseDiv);
-            setTimeout(showResponse, 50 + Math.random() * 60);
-        } else {
-            callback();
+        function showResponse() {
+            if (responseIndex < responseArray.length) {
+                var responseDiv = $('<div>').text(responseArray[responseIndex]);
+                terminalEl.append(responseDiv);
+                responseIndex++;
+                blinkingCursor.detach().appendTo(responseDiv);
+                setTimeout(showResponse, 50 + Math.random() * 60);
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to the bottom
+            } else {
+                callback();
+                terminalEl.scrollTop(terminalEl[0].scrollHeight); // Scroll to the bottom
+            }
         }
+        showResponse();
     }
-    showResponse();
-}
 
-simulateTerminalOutput();
+    simulateTerminalOutput();
 });
 
-    function startAnimation() {
-        console.log("Starting main animation");
+function startAnimation() {
+    console.log("Starting main animation");
     var loadingDiv = $("#loading");
     loadingDiv.css("visibility", "visible");
     loadingDiv.empty().css("visibility", "visible");
@@ -681,102 +621,87 @@ simulateTerminalOutput();
 
     // Flashing text effect
 
-        var letter_count = 0;
-        var finished = false;
-    
-        function write() {
-            $(".letter").each(function() {
-                if (!$(this).hasClass("glow")) {
-                    var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
-                    $(this).text(randomChar);
-                }
-            });
-            if (!finished) {
-                setTimeout(write, 25);
+    var letter_count = 0;
+    var finished = false;
+
+    function write() {
+        $(".letter").each(function() {
+            if (!$(this).hasClass("glow")) {
+                var randomChar = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+                $(this).text(randomChar);
+            }
+        });
+        if (!finished) {
+            setTimeout(write, 25);
+        }
+    }
+
+    function appendButtons() {
+        var buttonsHtml = [
+            '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
+            '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
+            '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Email</span><span class="cybr-btn__tag"></span>Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
+            '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add Contact</span><span class="cybr-btn__tag"></span>Add Contact<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',        
+        ];
+
+        // Append buttons to a new container directly in the body
+        var $buttonContainer = $('<div style="text-align: center; margin-top: 20px;"></div>').appendTo('body');
+
+        buttonsHtml.forEach((buttonHtml, index) => {
+            var $button = $(buttonHtml).hide(); // Start hidden for fade-in effect
+            $buttonContainer.append($button);
+            setTimeout(() => {
+                $button.fadeIn(150, function() {
+                    // Trigger the glitch effect after the last button is displayed
+                    if (index === buttonsHtml.length - 1) {
+                        triggerGlitchEffect();
+                        setTimeout(function() {
+                        }, 3000); // Initial delay of 3 seconds before starting the loop
+                    }
+                });
+            }, 100 * index); // Staggered fade-in for aesthetic effect
+        });
+    }
+
+    function showHello() {
+        $("#hello").css("visibility", "visible");
+        $("#hello").css("opacity", "1");
+    }
+
+    function triggerGlitchEffect() {
+        $('.cybr-btn').addClass('glitch-active');
+        setTimeout(() => {
+            $('.cybr-btn').removeClass('glitch-active');
+        }, 1200);
+    }
+
+    function flashGlitchEffect() {
+        $('.cybr-btn').addClass('glitch-active');
+        setTimeout(() => {
+            $('.cybr-btn').removeClass('glitch-active');
+        }, 200);
+    }
+
+    function inc() {
+        if (letter_count < originalChars.length) {
+            var currentLetter = originalChars[letter_count];
+            $(".letter").eq(letter_count).text(currentLetter).addClass("glow");
+            letter_count++;
+            if (letter_count < originalChars.length) {
+                setTimeout(inc, 120);
+            } else {
+                finished = true;
+                appendButtons(); // Make sure appendButtons is defined or implemented
+                setTimeout(showHello, 1200);
+                setTimeout(flashGlitchEffect, 3000);
             }
         }
-    
-    function appendButtons() {
-      var buttonsHtml = [
-        '<button class="cybr-btn" onclick="location.href=\'sms:+18656356689\';"><span class="cybr-btn__glitch">Text Me</span><span class="cybr-btn__tag"></span>Text Me<i class="fas fa-sms" style="margin-left: 8px;"></i></button>',
-        '<button class="cybr-btn" onclick="location.href=\'https://www.snapchat.com/add/robb-v?share_id=EiX5BJz2DNA&locale=en-US\';"><span class="cybr-btn__glitch">Snapchat</span><span class="cybr-btn__tag"></span>Snapchat<i class="fab fa-snapchat-ghost" style="margin-left: 8px;"></i></button>',
-        '<button class="cybr-btn" onclick="location.href=\'mailto:robvoiles@gmail.com\';"><span class="cybr-btn__glitch">Email</span><span class="cybr-btn__tag"></span>Email<i class="fas fa-envelope" style="margin-left: 8px;"></i></button>',        
-        '<button class="cybr-btn" onclick="location.href=\'RobV.vcf\';"><span class="cybr-btn__glitch">Add Contact</span><span class="cybr-btn__tag"></span>Add Contact<i class="fas fa-address-book" style="margin-left: 8px;"></i></button>',        
-    ];
-
-    // Append buttons to a new container directly in the body
-    var $buttonContainer = $('<div style="text-align: center; margin-top: 20px;"></div>').appendTo('body');
-
-    buttonsHtml.forEach((buttonHtml, index) => {
-        var $button = $(buttonHtml).hide(); // Start hidden for fade-in effect
-        $buttonContainer.append($button);
-        setTimeout(() => {
-            $button.fadeIn(150, function() {
-                // Trigger the glitch effect after the last button is displayed
-                if (index === buttonsHtml.length - 1) {
-                    triggerGlitchEffect();
-                    setTimeout(function() {
-                    }, 3000); // Initial delay of 3 seconds before starting the loop
-                }
-            });
-        }, 100 * index); // Staggered fade-in for aesthetic effect
-    });
-}
-
-
-function showHello() {
-                    $("#hello").css("visibility", "visible");
-                    $("#hello").css("opacity", "1");
-                }
-
-
-
-
-                function triggerGlitchEffect() {
-                    $('.cybr-btn').addClass('glitch-active');
-                    setTimeout(() => {
-                        $('.cybr-btn').removeClass('glitch-active');
-                    }, 1200);
-                }
-
-                function flashGlitchEffect() {
-                    $('.cybr-btn').addClass('glitch-active');
-                    setTimeout(() => {
-                        $('.cybr-btn').removeClass('glitch-active');
-                    }, 200);
-                }
-
-                function showHello() {
-                    $("#hello").css("visibility", "visible");
-                    $("#hello").css("opacity", "1");
-                }
-
-
-
-
-                function inc() {
-                    if (letter_count < originalChars.length) {
-                        var currentLetter = originalChars[letter_count];
-                        $(".letter").eq(letter_count).text(currentLetter).addClass("glow");
-                        letter_count++;
-                        if (letter_count < originalChars.length) {
-                            setTimeout(inc, 120);
-                        } else {
-                            finished = true;
-                            appendButtons(); // Make sure appendButtons is defined or implemented
-        setTimeout(showHello, 1200);
-                            setTimeout(flashGlitchEffect,3000);
-                        }
-                    }
-                }
-    
-        setTimeout(write, 25);
-        setTimeout(inc, 100);
     }
-    </script>
+
+    setTimeout(write, 25);
+    setTimeout(inc, 100);
+}
+</script>
     
-</body>
-</html>
-          
 </body>
 </html>
