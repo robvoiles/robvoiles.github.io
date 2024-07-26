@@ -99,9 +99,7 @@
     overflow: hidden;
     border: 1px solid #2d2d2d;
     position: relative;
-    box-shadow: 0 0 2px 1px #00ff00; 
-    overflow-y: auto; /* Enable vertical scrolling */
-    height: 300px; /* Fixed height */
+    box-shadow: 0 0 2px 1px #00ff00;
   }
   
   .terminal-header {
@@ -140,6 +138,7 @@
     color: #f0f0f0;
     padding: 20px;
     overflow-y: auto;
+    flex-grow: 1; /* Allow the terminal output to grow and fill the container */
   }
   
   .blinking-cursor {
